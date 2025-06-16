@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description"
+    content="Soluctions S.A - Transformação digital inteligente para empresas que querem dominar o mercado digital" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#050510" />
+  <!-- Cor da barra de status em navegadores mobile -->
+  <title>Soluctions | Transformação Digital Inteligente</title>
+
+  <!-- Preload fontes essenciais para melhorar performance -->
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@400;600&display=swap"
+    as="style" />
+
+  <!-- Fontawesome CDN - Carregando apenas o necessário -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Fontes Google -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@400;600&display=swap"
+    rel="stylesheet" />
+
+  <!-- Tailwind CSS com preflight para reset consistente -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
+  <!-- CSS Customizado -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+
+  <!-- GSAP para animações avançadas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" defer></script>
+
+  <!-- Preconectar com domínios externos para melhorar performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+</head>
+
+<body>
+  <!-- Preloader -->
+  <div class="loader flex items-center justify-center fixed inset-0 z-50 bg-gray-900">
+    <div class="loader-inner flex flex-col items-center">
+      <div
+        class="loader-logo text-5xl flex items-center justify-center w-20 h-20 rounded-md bg-gradient-to-r from-blue-500 to-purple-600 text-white mb-4 font-bold">
+        S
+      </div>
+      <div
+        class="loader-text text-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 font-bold mb-4">
+        Soluctions S.A
+      </div>
+      <div class="loader-progress w-48 h-1 rounded-full bg-gray-800 overflow-hidden">
+        <div
+          class="loader-progress-fill h-full w-0 bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-2000">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Efeitos visuais -->
+  <div class="cursor hidden md:block"></div>
+  <div class="cursor-dot hidden md:block"></div>
+  <div class="noise opacity-5"></div>
+  <div class="scanline"></div>
+
+  <!-- Indicador de Scroll -->
+  <div class="scroll-indicator fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600 z-50 w-0"></div>
+
+  <!-- Menu Mobile -->
+  <div class="mobile-nav-overlay fixed inset-0 bg-black bg-opacity-70 backdrop-blur-md z-40 hidden"></div>
+  <div
+    class="mobile-nav fixed top-0 right-0 h-full w-4/5 max-w-sm bg-gray-900 z-50 transform translate-x-full transition-transform duration-300">
+    <div
+      class="mobile-nav-close absolute top-4 right-4 h-10 w-10 flex items-center justify-center text-2xl text-white border border-blue-500 rounded-full cursor-pointer hover:bg-blue-500 hover:text-gray-900 transition-all">
+      ×
+    </div>
+    <div class="p-6">
+      <div class="mb-6 text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+        Soluctions
+      </div>
+      <ul>
+        <li class="mb-4">
+          <a href="#hero" class="text-lg font-medium hover:text-blue-400 transition-colors flex items-center"><span
+              class="w-1 h-1 bg-blue-500 rounded-full mr-2"></span>Início</a>
+        </li>
+        <li class="mb-4">
+          <a href="#services" class="text-lg font-medium hover:text-blue-400 transition-colors flex items-center"><span
+              class="w-1 h-1 bg-blue-500 rounded-full mr-2"></span>Serviços</a>
+        </li>
+        <li class="mb-4">
+          <a href="#cases" class="text-lg font-medium hover:text-blue-400 transition-colors flex items-center"><span
+              class="w-1 h-1 bg-blue-500 rounded-full mr-2"></span>Cases</a>
+        </li>
+        <li class="mb-4">
+          <a href="#team" class="text-lg font-medium hover:text-blue-400 transition-colors flex items-center"><span
+              class="w-1 h-1 bg-blue-500 rounded-full mr-2"></span>Equipe</a>
+        </li>
+        <li class="mb-4">
+          <a href="#pricing" class="text-lg font-medium hover:text-blue-400 transition-colors flex items-center"><span
+              class="w-1 h-1 bg-blue-500 rounded-full mr-2"></span>Pacotes</a>
+        </li>
+        <li class="mb-4">
+          <a href="#contact" class="text-lg font-medium hover:text-blue-400 transition-colors flex items-center"><span
+              class="w-1 h-1 bg-blue-500 rounded-full mr-2"></span>Contato</a>
+        </li>
+      </ul>
+      <div class="mt-8">
+        <a href="#contact"
+          class="block py-3 px-6 text-center rounded-md border border-blue-500 text-white hover:bg-blue-500 hover:text-gray-900 transition-colors duration-300">Fale
+          Conosco</a>
+      </div>
+      <div class="mt-6 flex justify-center space-x-4">
+        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors"><i
+            class="fab fa-linkedin text-xl"></i></a>
+        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors"><i
+            class="fab fa-instagram text-xl"></i></a>
+        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors"><i
+            class="fab fa-facebook text-xl"></i></a>
+        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors"><i
+            class="fab fa-twitter text-xl"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header
+    class="fixed w-full top-0 z-40 transition-all duration-300 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-lg">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <a href="#" class="cyberpunk-logo relative">
+          <span class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600"
+            data-text="Soluctions">Soluctions</span>
+          <div class="logo-glitch"></div>
+        </a>
+        <nav class="hidden lg:block">
+          <ul class="flex space-x-8">
+            <li><a href="#hero" class="cyber-nav-link">Início</a></li>
+            <li><a href="#services" class="cyber-nav-link">Serviços</a></li>
+            <li><a href="#cases" class="cyber-nav-link">Cases</a></li>
+            <li><a href="#team" class="cyber-nav-link">Equipe</a></li>
+            <li><a href="#pricing" class="cyber-nav-link">Pacotes</a></li>
+            <li><a href="#contact" class="cyber-nav-link">Contato</a></li>
+          </ul>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <a href="#contact" class="hidden sm:block glitch-button">
+            <span class="glitch-button-text">Fale Conosco</span>
+          </a>
+          <button class="mobile-menu-btn lg:hidden text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center pt-24 pb-20 overflow-hidden">
+      <div class="cyber-grid absolute inset-0 z-0"></div>
+      <div class="blob absolute top-0 left-0 transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
+      <div class="blob absolute bottom-0 right-0 transform translate-x-1/2 translate-y-1/2 z-0"></div>
+      <div id="particles-js" class="absolute inset-0 z-0"></div>
+
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center">
+          <div class="lg:w-1/2 mb-12 lg:mb-0">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+              Transformando Presenças Físicas em
+              <span class="glitch-text inline-block relative" data-text="Digitais">Digitais</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-xl">
+              Sua empresa já conquistou o mercado físico. Agora é hora de
+              dominar o digital com soluções completas: desde anúncios
+              inteligentes até chatbots com IA.
+            </p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+              <a href="#contact" class="neon-button primary">
+                <span class="neon-button-text">Iniciar Jornada Digital</span>
+                <span class="neon-button-glow"></span>
+              </a>
+              <a href="#services" class="neon-button secondary">
+                <span class="neon-button-text">Nossos Serviços</span>
+                <span class="neon-button-glow"></span>
+              </a>
+            </div>
+            <div class="mt-10 flex items-center space-x-4">
+              <div class="flex -space-x-2">
+                <img src="https://randomuser.me/api/portraits/women/32.jpg"
+                  class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" />
+                <img src="https://randomuser.me/api/portraits/men/54.jpg"
+                  class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" />
+                <img src="https://randomuser.me/api/portraits/women/68.jpg"
+                  class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" />
+                <img src="https://randomuser.me/api/portraits/men/45.jpg"
+                  class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" />
+                <div
+                  class="w-10 h-10 rounded-full border-2 border-blue-500 bg-blue-600 flex items-center justify-center text-white text-xs font-bold">
+                  +200
+                </div>
+              </div>
+              <div class="text-sm text-gray-400">
+                Empresas transformadas digitalmente
+              </div>
+            </div>
+          </div>
+          <div class="lg:w-1/2 relative">
+            <!-- Imagem hero com efeito cyberpunk -->
+            <div class="cyber-card-container relative mx-auto max-w-lg">
+              <div
+                class="cyber-card-border absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl z-0">
+              </div>
+              <div class="cyber-card-glitch absolute inset-0 rounded-xl z-0"></div>
+              <div class="cyber-card-content relative z-10 p-1 rounded-xl overflow-hidden shadow-neon-blue">
+                <img src="https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.jpg"
+                  alt="Digital Marketing" class="w-full h-auto rounded-lg hover-lift" />
+              </div>
+
+              <!-- Stat cards -->
+              <div class="cyber-stats-wrapper">
+                <div
+                  class="cyber-stats-card absolute -bottom-5 -left-5 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-md border border-blue-500 p-4 rounded-lg shadow-neon-blue z-20">
+                  <div class="flex items-center space-x-3">
+                    <div class="h-10 w-10 rounded-full bg-blue-900 flex items-center justify-center">
+                      <i class="fas fa-chart-line text-blue-400"></i>
+                    </div>
+                    <div>
+                      <div class="text-sm font-semibold text-gray-400">
+                        Crescimento Médio
+                      </div>
+                      <div class="text-xl font-bold text-green-400">
+                        +150%
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="cyber-stats-card absolute -top-5 -right-5 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-md border border-blue-500 p-4 rounded-lg shadow-neon-blue z-20">
+                  <div class="flex items-center space-x-3">
+                    <div class="h-10 w-10 rounded-full bg-indigo-900 flex items-center justify-center">
+                      <i class="fas fa-users text-indigo-400"></i>
+                    </div>
+                    <div>
+                      <div class="text-sm font-semibold text-gray-400">
+                        Alcance Digital
+                      </div>
+                      <div class="text-xl font-bold text-blue-400">
+                        Milhões
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature cards -->
+        <div class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="cyber-feature-card">
+            <div class="cyber-feature-icon">
+              <i class="fas fa-certificate"></i>
+            </div>
+            <h3>Parceiros Certificados</h3>
+            <p>
+              Google Premier e Meta Business Partner, com equipe certificada.
+            </p>
+          </div>
+          <div class="cyber-feature-card">
+            <div class="cyber-feature-icon">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h3>IA Proprietária</h3>
+            <p>
+              Tecnologia exclusiva de IA para análise preditiva de campanhas.
+            </p>
+          </div>
+          <div class="cyber-feature-card">
+            <div class="cyber-feature-icon">
+              <i class="fas fa-chart-pie"></i>
+            </div>
+            <h3>ROI Superior</h3>
+            <p>Taxa média de conversão 35% acima do mercado.</p>
+          </div>
+          <div class="cyber-feature-card">
+            <div class="cyber-feature-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <h3>Suporte Dedicado</h3>
+            <p>
+              Atendimento personalizado e relatórios transparentes em tempo
+              real.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="cyber-services section py-32 relative overflow-hidden">
+      <div class="cyber-grid absolute inset-0 z-0 opacity-10"></div>
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="cyber-glitch-title relative inline-block text-3xl md:text-4xl font-bold mb-4"
+            data-text="Nossos Serviços">
+            Nossos Serviços
+          </h2>
+          <p class="text-lg text-gray-400">
+            Combinamos ferramentas avançadas e IA com estratégias personalizadas para transformar sua presença online.
+          </p>
+        </div>
+
+        <!-- Carrossel Mobile (será criado dinamicamente) -->
+        <!-- Container vazio que será preenchido pelo JavaScript -->
+
+        <!-- Grid Desktop -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Service 1 -->
+          <div class="cyber-service-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="cyber-service-icon blue">
+              <i class="fas fa-ad"></i>
+            </div>
+            <h3>Gestão de Anúncios</h3>
+            <p>
+              Campanhas segmentadas no Google, Meta, LinkedIn e TikTok que alcançam seu público ideal. Maximizamos ROI
+              com ajustes em tempo real e análises preditivas.
+            </p>
+            <div class="cyber-service-tags">
+              <span class="cyber-tag">Google Ads</span>
+              <span class="cyber-tag">Meta Ads</span>
+              <span class="cyber-tag">LinkedIn</span>
+              <span class="cyber-tag ai">Machine Learning</span>
+            </div>
+            <a href="#contact" class="cyber-service-link">
+              <span>Saiba mais</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <!-- Service 2 -->
+          <div class="cyber-service-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="cyber-service-icon purple">
+              <i class="fas fa-code"></i>
+            </div>
+            <h3>Landing Pages + Hospedagem</h3>
+            <p>
+              Desenvolvemos páginas de alta conversão, otimizadas para SEO e mobile. Incluímos domínio personalizado,
+              integração com CRM e chatbots, além de suporte técnico.
+            </p>
+            <div class="cyber-service-tags">
+              <span class="cyber-tag">UX/UI</span>
+              <span class="cyber-tag">SEO</span>
+              <span class="cyber-tag">Responsivo</span>
+              <span class="cyber-tag ai">Integrações</span>
+            </div>
+            <a href="#contact" class="cyber-service-link">
+              <span>Saiba mais</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <!-- Service 3 -->
+          <div class="cyber-service-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="cyber-service-icon green">
+              <i class="fas fa-robot"></i>
+            </div>
+            <h3>Social Media com IA</h3>
+            <p>
+              Posts personalizados, chatbots 24/7 e análise de engajamento. Automatizamos interações para manter sua
+              marca sempre relevante, com relatórios semanais e insights inteligentes.
+            </p>
+            <div class="cyber-service-tags">
+              <span class="cyber-tag">Redes Sociais</span>
+              <span class="cyber-tag">Automação</span>
+              <span class="cyber-tag ai">Chatbots</span>
+              <span class="cyber-tag analytics">Analytics</span>
+            </div>
+            <a href="#contact" class="cyber-service-link">
+              <span>Saiba mais</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <!-- Service 4 -->
+          <div class="cyber-service-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="cyber-service-icon yellow">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <h3>Consultoria em Presença Digital</h3>
+            <p>
+              Diagnóstico completo + plano estratégico para escalar sua visibilidade online. Avaliamos sua posição atual
+              e desenvolvemos um roadmap personalizado para crescimento digital.
+            </p>
+            <div class="cyber-service-tags">
+              <span class="cyber-tag">Auditoria</span>
+              <span class="cyber-tag">Benchmark</span>
+              <span class="cyber-tag">Planejamento</span>
+              <span class="cyber-tag analytics">KPIs</span>
+            </div>
+            <a href="#contact" class="cyber-service-link">
+              <span>Saiba mais</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <!-- Service 5 -->
+          <div class="cyber-service-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="cyber-service-icon red">
+              <i class="fas fa-comments"></i>
+            </div>
+            <h3>Chatbots com IA</h3>
+            <p>
+              Desenvolvimento de assistentes virtuais inteligentes com reconhecimento de linguagem natural e integração
+              com seus sistemas. Redução de custos e melhoria na experiência do cliente.
+            </p>
+            <div class="cyber-service-tags">
+              <span class="cyber-tag ai">NLP</span>
+              <span class="cyber-tag ai">Machine Learning</span>
+              <span class="cyber-tag">API</span>
+              <span class="cyber-tag">Integrações</span>
+            </div>
+            <a href="#contact" class="cyber-service-link">
+              <span>Saiba mais</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <!-- Service 6 -->
+          <div class="cyber-service-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="cyber-service-icon indigo">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Analytics e BI</h3>
+            <p>
+              Implementação de sistemas de Business Intelligence para acompanhamento de métricas em tempo real.
+              Dashboards personalizados e insights acionáveis para otimização contínua.
+            </p>
+            <div class="cyber-service-tags">
+              <span class="cyber-tag analytics">Dashboards</span>
+              <span class="cyber-tag analytics">Data Viz</span>
+              <span class="cyber-tag ai">Preditivo</span>
+              <span class="cyber-tag">Relatórios</span>
+            </div>
+            <a href="#contact" class="cyber-service-link">
+              <span>Saiba mais</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technology Stack -->
+      <div class="mt-20 max-w-4xl mx-auto">
+        <div class="text-center mb-10">
+          <h3 class="text-2xl font-bold mb-2">Nossa Stack Tecnológica</h3>
+          <p class="text-gray-400">
+            Utilizamos tecnologias de ponta para entregar resultados
+            excepcionais
+          </p>
+        </div>
+
+        <!-- Tech logos slider -->
+        <div class="cyber-tech-slider">
+          <div class="cyber-tech-track">
+            <!-- Repetição dos logos para efeito infinito -->
+            <div class="cyber-tech-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" />
+              <span>Google Ads</span>
+            </div>
+            <div class="cyber-tech-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Meta" />
+              <span>Meta Business</span>
+            </div>
+            <div class="cyber-tech-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
+                alt="LinkedIn" />
+              <span>LinkedIn Ads</span>
+            </div>
+            <div class="cyber-tech-item">
+              <i class="fab fa-tiktok"></i>
+              <span>TikTok Ads</span>
+            </div>
+            <div class="cyber-tech-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+              <span>Python & AI</span>
+            </div>
+            <div class="cyber-tech-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
+              <span>React & Frontend</span>
+            </div>
+            <div class="cyber-tech-item">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS" />
+              <span>Cloud & DevOps</span>
+            </div>
+            <div class="cyber-tech-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg"
+                alt="WordPress" />
+              <span>CMS & Blogs</span>
+            </div>
+
+            <!-- Repetição (cópia) para animação infinita -->
+            <div class="cyber-tech-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" />
+              <span>Google Ads</span>
+            </div>
+            <div class="cyber-tech-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Meta" />
+              <span>Meta Business</span>
+            </div>
+            <div class="cyber-tech-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
+                alt="LinkedIn" />
+              <span>LinkedIn Ads</span>
+            </div>
+            <div class="cyber-tech-item">
+              <i class="fab fa-tiktok"></i>
+              <span>TikTok Ads</span>
+            </div>
+            <div class="cyber-tech-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+              <span>Python & AI</span>
+            </div>
+            <div class="cyber-tech-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
+              <span>React & Frontend</span>
+            </div>
+            <div class="cyber-tech-item">
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg"
+                alt="AWS" />
+              <span>Cloud & DevOps</span>
+            </div>
+            <div class="cyber-tech-item">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg"
+                alt="WordPress" />
+              <span>CMS & Blogs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="cases" class="py-20 relative overflow-hidden">
+      <div class="blob absolute -top-40 -left-40 opacity-20"></div>
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="cyber-glitch-title relative inline-block text-3xl md:text-4xl font-bold mb-4"
+            data-text="Cases de Sucesso">
+            Cases de Sucesso
+          </h2>
+          <p class="text-lg text-gray-400">
+            Conheça alguns dos projetos transformadores que realizamos para
+            nossos clientes
+          </p>
+        </div>
+
+        <!-- Case Study 1 -->
+        <div class="cyber-case-card" data-aos="fade-right">
+          <div class="cyber-case-media">
+            <img src="https://i.ibb.co/HLVPCwgM/Flux-Dev-Uma-fbrica-moderna-e-tecnolgica-Indstria-40-com-mquin-1-1.jpg" alt="Indústria"
+              class="cyber-case-image" />
+            <div class="cyber-case-overlay"></div>
+          </div>
+          <div class="cyber-case-content">
+            <div class="cyber-case-header">
+              <div class="cyber-case-icon">
+                <i class="fab fa-linkedin"></i>
+              </div>
+              <div>
+                <h3 class="cyber-case-title">Indústria 4.0</h3>
+                <div class="cyber-case-subtitle">
+                  LinkedIn ADS & Lead Generation
+                </div>
+              </div>
+            </div>
+            <div class="cyber-case-timeline">
+              <div class="cyber-timeline-item">
+                <h4>Desafio</h4>
+                <p>
+                  Indústria metalúrgica com dificuldade em alcançar tomadores
+                  de decisão e gerar leads B2B qualificados.
+                </p>
+              </div>
+              <div class="cyber-timeline-item">
+                <h4>Solução</h4>
+                <p>
+                  Implementamos segmentação avançada por cargo e setor no
+                  LinkedIn ADS, com landing pages específicas para cada
+                  persona.
+                </p>
+              </div>
+              <div class="cyber-timeline-item">
+                <h4>Resultado</h4>
+                <p>
+                  Aumento de 150% em leads qualificados, redução de 40% no
+                  custo por lead e ciclo de vendas 25% menor.
+                </p>
+              </div>
+            </div>
+            <div class="cyber-case-tags">
+              <span class="cyber-tag">LinkedIn Ads</span>
+              <span class="cyber-tag">B2B</span>
+              <span class="cyber-tag ai">Segmentação</span>
+              <span class="cyber-tag analytics">Automação</span>
+            </div>
+            <a href="#" class="cyber-case-link">
+              <span>Ver caso completo</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Case Study 2 -->
+        <div class="cyber-case-card reverse" data-aos="fade-left">
+          <div class="cyber-case-media">
+            <img src="https://cdn.pixabay.com/photo/2017/12/26/09/15/woman-3040029_960_720.jpg" alt="Varejo Premium"
+              class="cyber-case-image" />
+            <div class="cyber-case-overlay"></div>
+          </div>
+          <div class="cyber-case-content">
+            <div class="cyber-case-header">
+              <div class="cyber-case-icon purple">
+                <i class="fab fa-instagram"></i>
+              </div>
+              <div>
+                <h3 class="cyber-case-title">Varejo Premium</h3>
+                <div class="cyber-case-subtitle">
+                  Meta Campaigns & E-commerce
+                </div>
+              </div>
+            </div>
+            <div class="cyber-case-timeline">
+              <div class="cyber-timeline-item">
+                <h4>Desafio</h4>
+                <p>
+                  Marca de moda premium com lojas físicas buscando ampliar
+                  vendas online e conectar a experiência omnichannel.
+                </p>
+              </div>
+              <div class="cyber-timeline-item">
+                <h4>Solução</h4>
+                <p>
+                  Desenvolvemos estratégia integrando Instagram Shopping,
+                  Facebook Ads e remarketing personalizado por histórico de
+                  navegação.
+                </p>
+              </div>
+              <div class="cyber-timeline-item">
+                <h4>Resultado</h4>
+                <p>
+                  Crescimento de 300% em vendas online, aumento de 70% no
+                  valor médio do pedido e 45% em vendas nas lojas físicas.
+                </p>
+              </div>
+            </div>
+            <div class="cyber-case-tags">
+              <span class="cyber-tag">Instagram</span>
+              <span class="cyber-tag">Facebook Ads</span>
+              <span class="cyber-tag ai">Personalização</span>
+              <span class="cyber-tag analytics">Omnichannel</span>
+            </div>
+            <a href="#" class="cyber-case-link">
+              <span>Ver caso completo</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Case Study 3 -->
+        <div class="cyber-case-card" data-aos="fade-right">
+          <div class="cyber-case-media">
+            <img src="https://i.ibb.co/sYtRcBf/Flux-Dev-A-digital-composition-with-a-futuristic-and-minimalis-0.jpg" alt="Startup Tech"
+              class="cyber-case-image" />
+            <div class="cyber-case-overlay"></div>
+          </div>
+          <div class="cyber-case-content">
+            <div class="cyber-case-header">
+              <div class="cyber-case-icon green">
+                <i class="fas fa-robot"></i>
+              </div>
+              <div>
+                <h3 class="cyber-case-title">Startup Tech</h3>
+                <div class="cyber-case-subtitle">
+                  Chatbot com IA & Automação
+                </div>
+              </div>
+            </div>
+            <div class="cyber-case-timeline">
+              <div class="cyber-timeline-item">
+                <h4>Desafio</h4>
+                <p>
+                  Startup de SaaS com crescimento acelerado enfrentando
+                  dificuldades para escalar o suporte ao cliente.
+                </p>
+              </div>
+              <div class="cyber-timeline-item">
+                <h4>Solução</h4>
+                <p>
+                  Implementação de chatbot com IA para atendimento 24/7,
+                  integrado com CRM e sistema de tickets para gestão
+                  automática.
+                </p>
+              </div>
+              <div class="cyber-timeline-item">
+                <h4>Resultado</h4>
+                <p>
+                  Redução de 40% nos custos de atendimento, resolução imediata
+                  de 65% dos casos e aumento de 28% no NPS.
+                </p>
+              </div>
+            </div>
+            <div class="cyber-case-tags">
+              <span class="cyber-tag ai">Chatbot</span>
+              <span class="cyber-tag ai">NLP</span>
+              <span class="cyber-tag">CRM</span>
+              <span class="cyber-tag">Integração</span>
+            </div>
+            <a href="#" class="cyber-case-link">
+              <span>Ver caso completo</span>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="cyber-metric-card" data-aos="zoom-in" data-aos-delay="100">
+            <div class="cyber-metric-value">
+              <span class="counter" data-target="150">0</span><span>%</span>
+            </div>
+            <div class="cyber-metric-label">
+              Aumento médio em leads qualificados
+            </div>
+            <div class="cyber-metric-glow"></div>
+          </div>
+          <div class="cyber-metric-card" data-aos="zoom-in" data-aos-delay="200">
+            <div class="cyber-metric-value">
+              <span class="counter" data-target="300">0</span><span>%</span>
+            </div>
+            <div class="cyber-metric-label">Crescimento em vendas online</div>
+            <div class="cyber-metric-glow"></div>
+          </div>
+          <div class="cyber-metric-card" data-aos="zoom-in" data-aos-delay="300">
+            <div class="cyber-metric-value">
+              <span class="counter" data-target="40">0</span><span>%</span>
+            </div>
+            <div class="cyber-metric-label">
+              Redução em custos operacionais
+            </div>
+            <div class="cyber-metric-glow"></div>
+          </div>
+          <div class="cyber-metric-card" data-aos="zoom-in" data-aos-delay="400">
+            <div class="cyber-metric-value"><span class="counter" data-target="8">0</span><span>x</span></div>
+            <div class="cyber-metric-label">ROI médio das campanhas</div>
+            <div class="cyber-metric-glow"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-20 bg-gray-900 relative overflow-hidden">
+      <div class="cyber-grid absolute inset-0 z-0 opacity-5"></div>
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="cyber-glitch-title relative inline-block text-3xl md:text-4xl font-bold mb-4"
+            data-text="Nossa Equipe">
+            Nossa Equipe
+          </h2>
+          <p class="text-lg text-gray-400">
+            Conheça os especialistas por trás das estratégias e tecnologias
+            que transformam negócios
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <!-- Team Member 1 -->
+          <div class="cyber-team-card" data-aos="fade-right">
+            <div class="cyber-team-photo">
+              <img src="https://i.ibb.co/84dCk4mz/Design-sem-nome.png" alt="Matheus Ferraz Rezende" />
+              <div class="cyber-team-overlay">
+                <h3>Matheus Ferraz Rezende</h3>
+                <p>CEO & Diretor de Tecnologia</p>
+              </div>
+            </div>
+            <div class="cyber-team-info">
+              <p class="cyber-team-bio">
+                Com 10+ anos em transformação digital, lidero a criação de
+                plataformas intuitivas que unem design imersivo e
+                funcionalidades escaláveis. Responsável pelo algoritmo de
+                personalização de posts da Soluctions.
+              </p>
+              <div class="cyber-team-specialties">
+                <span class="cyber-tag">Full-Stack</span>
+                <span class="cyber-tag ai">IA</span>
+                <span class="cyber-tag">UX/UI</span>
+              </div>
+              <div class="cyber-team-footer">
+                <div class="cyber-team-social">
+                  <a href="#" class="cyber-social-link"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#" class="cyber-social-link"><i class="fab fa-github"></i></a>
+                  <a href="#" class="cyber-social-link"><i class="fab fa-twitter"></i></a>
+                </div>
+                <div class="cyber-team-certification">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
+                    alt="Google" />
+                  <span>Google Premier Partner</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Team Member 2 -->
+          <div class="cyber-team-card" data-aos="fade-left">
+            <div class="cyber-team-photo">
+              <img src="https://i.ibb.co/rKyh3Tbc/Design-sem-nome-9.png" alt="Wellington B. de Carvalho" />
+              <div class="cyber-team-overlay">
+                <h3>Wellington B. de Carvalho</h3>
+                <p>CEO & Diretor de Estratégias Digitais</p>
+              </div>
+            </div>
+            <div class="cyber-team-info">
+              <p class="cyber-team-bio">
+                Especialista em campanhas data-driven, já gerenciei orçamentos
+                de mais de R$ 2M em ADS, com taxa média de conversão 35% acima
+                do mercado. Criador da metodologia 'Smart Funnel'.
+              </p>
+              <div class="cyber-team-specialties">
+                <span class="cyber-tag">ADS</span>
+                <span class="cyber-tag ai">Data-Driven</span>
+                <span class="cyber-tag">TikTok</span>
+              </div>
+              <div class="cyber-team-footer">
+                <div class="cyber-team-social">
+                  <a href="#" class="cyber-social-link"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#" class="cyber-social-link"><i class="fab fa-instagram"></i></a>
+                  <a href="#" class="cyber-social-link"><i class="fab fa-twitter"></i></a>
+                </div>
+                <div class="cyber-team-certification">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg"
+                    alt="Meta" />
+                  <span>Meta Business Partner</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12" data-aos="fade-up">
+          
+          <div class="cyber-team-mini">
+            <img src="https://i.ibb.co/HfGzXDhw/Design-sem-nome-10.png" alt="Rafael Santos" />
+            <div class="cyber-team-mini-info">
+              <h4>João Victor Barbosa</h4>
+              <p>Especialista em CRM</p>
+            </div>
+          </div>
+          <div class="cyber-team-mini">
+            <img src="https://i.ibb.co/h1Mtjhxd/Design-sem-nome-11.png" alt="Caio Vinícius" />
+            <div class="cyber-team-mini-info">
+              <h4>Wanderson Barbosa</h4>
+              <p>Desenvolvedor IA</p>
+            </div>
+          </div>
+          <div class="cyber-team-mini">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Juliana Torres" />
+            <div class="cyber-team-mini-info">
+              <h4>Juliana Torres</h4>
+              <p>Estrategista Digital</p>
+            </div>
+          </div>
+          <div class="cyber-team-mini">
+            <img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Ana Carolina" />
+            <div class="cyber-team-mini-info">
+              <h4>Ana Caroline</h4>
+              <p>Social Media Manager</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="mt-20 text-center" data-aos="fade-up">
+          <h3 class="text-2xl font-bold mb-6">Certificações e Parcerias</h3>
+          <div class="cyber-partners">
+            <div class="cyber-partner">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" />
+            </div>
+            <div class="cyber-partner">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Meta" />
+            </div>
+            <div class="cyber-partner">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
+                alt="LinkedIn" />
+            </div>
+            <div class="cyber-partner">
+              <i class="fab fa-tiktok"></i>
+            </div>
+            <div class="cyber-partner">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 relative overflow-hidden">
+      <div class="blob absolute -top-40 -right-40 opacity-30"></div>
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="cyber-glitch-title relative inline-block text-3xl md:text-4xl font-bold mb-4" data-text="Pacotes">
+            Pacotes
+          </h2>
+          <p class="text-lg text-gray-400">
+            Escolha o plano ideal para transformar sua presença digital
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Pricing Card 1 -->
+          <div class="cyber-pricing-card" data-aos="zoom-in" data-aos-delay="100">
+            <div class="cyber-pricing-header">
+              <div class="cyber-pricing-icon">
+                <i class="fas fa-certificate"></i>
+              </div>
+              <div>
+                <h3 class="cyber-pricing-title">Pacote Prata</h3>
+                <p class="cyber-pricing-subtitle">Para quem está começando</p>
+              </div>
+            </div>
+            <div class="cyber-pricing-price">
+              <span class="cyber-pricing-currency">R$</span>
+              <span class="cyber-pricing-amount">1.999</span>
+              <span class="cyber-pricing-period">/mês</span>
+            </div>
+            <p class="cyber-pricing-description">
+              Ideal para empresas que estão iniciando sua jornada digital e
+              buscam uma presença online eficiente.
+            </p>
+            <ul class="cyber-pricing-features">
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Gestão de 2 redes sociais</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>1 campanha de ADS</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Relatórios mensais</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Suporte por e-mail</span>
+              </li>
+            </ul>
+            <a href="#contact" class="cyber-pricing-button secondary">
+              <span>Contratar Agora</span>
+            </a>
+          </div>
+
+          <!-- Pricing Card 2 (Popular) -->
+          <div class="cyber-pricing-card popular" data-aos="zoom-in" data-aos-delay="200">
+            <div class="cyber-pricing-badge">Mais escolhido</div>
+            <div class="cyber-pricing-header">
+              <div class="cyber-pricing-icon gradient">
+                <i class="fas fa-crown"></i>
+              </div>
+              <div>
+                <h3 class="cyber-pricing-title">Pacote Ouro</h3>
+                <p class="cyber-pricing-subtitle">Crescimento acelerado</p>
+              </div>
+            </div>
+            <div class="cyber-pricing-price popular">
+              <span class="cyber-pricing-currency">R$</span>
+              <span class="cyber-pricing-amount">3.499</span>
+              <span class="cyber-pricing-period">/mês</span>
+            </div>
+            <p class="cyber-pricing-description">
+              Para negócios que desejam ampliar sua presença online com
+              estratégias avançadas e suporte dedicado.
+            </p>
+            <ul class="cyber-pricing-features">
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Gestão de 4 redes sociais</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>3 campanhas de ADS</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Chatbot básico</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Suporte prioritário</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Relatórios semanais</span>
+              </li>
+            </ul>
+            <a href="#contact" class="cyber-pricing-button primary">
+              <span>Contratar Agora</span>
+            </a>
+          </div>
+
+          <!-- Pricing Card 3 -->
+          <div class="cyber-pricing-card" data-aos="zoom-in" data-aos-delay="300">
+            <div class="cyber-pricing-header">
+              <div class="cyber-pricing-icon purple">
+                <i class="fas fa-gem"></i>
+              </div>
+              <div>
+                <h3 class="cyber-pricing-title">Pacote Platina</h3>
+                <p class="cyber-pricing-subtitle">Solução completa</p>
+              </div>
+            </div>
+            <div class="cyber-pricing-price purple">
+              <span class="cyber-pricing-currency">R$</span>
+              <span class="cyber-pricing-amount">5.999</span>
+              <span class="cyber-pricing-period">/mês</span>
+            </div>
+            <p class="cyber-pricing-description">
+              Solução completa para empresas que buscam dominar o mercado
+              digital com IA e tecnologia avançada.
+            </p>
+            <ul class="cyber-pricing-features">
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Gestão de todas redes sociais</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Campanhas ilimitadas</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>IA para personalização de conteúdo</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Landing Page + hospedagem grátis</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Acesso à plataforma exclusiva de IA</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Gerente de conta dedicado</span>
+              </li>
+            </ul>
+            <a href="#contact" class="cyber-pricing-button purple">
+              <span>Contratar Agora</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- FAQ Section -->
+      <div class="mt-20 max-w-3xl mx-auto cyber-faq-container" data-aos="fade-up">
+        <h3 class="text-2xl font-bold mb-6 text-center">
+          Perguntas Frequentes
+        </h3>
+
+        <div class="cyber-faq">
+          <div class="cyber-faq-item">
+            <button class="cyber-faq-question">
+              <h4>Quanto tempo leva para ver resultados?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="cyber-faq-answer">
+              <p>
+                Resultados iniciais podem ser observados em 2-4 semanas,
+                dependendo do serviço. Campanhas de ADS tendem a mostrar
+                métricas mais rapidamente, enquanto estratégias de SEO e
+                conteúdo requerem um prazo maior para consolidação.
+              </p>
+            </div>
+          </div>
+
+          <div class="cyber-faq-item">
+            <button class="cyber-faq-question">
+              <h4>Existe fidelidade nos pacotes?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="cyber-faq-answer">
+              <p>
+                Não exigimos contratos de fidelidade, mas recomendamos um
+                período mínimo de 3 meses para que as estratégias possam ser
+                implementadas e otimizadas adequadamente.
+              </p>
+            </div>
+          </div>
+
+          <div class="cyber-faq-item">
+            <button class="cyber-faq-question">
+              <h4>Como funciona o relatório de resultados?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="cyber-faq-answer">
+              <p>
+                Fornecemos dashboards em tempo real e relatórios periódicos
+                (semanais ou mensais, dependendo do pacote). Todos os
+                relatórios incluem métricas-chave, análises comparativas e
+                recomendações para otimização contínua.
+              </p>
+            </div>
+          </div>
+
+          <div class="cyber-faq-item">
+            <button class="cyber-faq-question">
+              <h4>É possível personalizar os pacotes?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="cyber-faq-answer">
+              <p>
+                Sim, oferecemos flexibilidade para adaptar nossos pacotes às
+                necessidades específicas do seu negócio. Entre em contato
+                para uma consultoria personalizada.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-900 relative overflow-hidden">
+      <div class="cyber-grid absolute inset-0 z-0 opacity-5"></div>
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="cyber-glitch-title relative inline-block text-3xl md:text-4xl font-bold mb-4"
+            data-text="Fale Conosco">
+            Fale Conosco
+          </h2>
+          <p class="text-lg text-gray-400">
+            Estamos prontos para transformar sua presença digital
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <div class="cyber-contact-form-container" data-aos="fade-right">
+            <form class="cyber-contact-form">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="cyber-form-group">
+                  <label for="name">Nome</label>
+                  <input type="text" id="name" class="cyber-input" required />
+                </div>
+                <div class="cyber-form-group">
+                  <label for="email">E-mail</label>
+                  <input type="email" id="email" class="cyber-input" required />
+                </div>
+              </div>
+              <div class="cyber-form-group mb-6">
+                <label for="phone">Telefone</label>
+                <input type="tel" id="phone" class="cyber-input" />
+              </div>
+              <div class="cyber-form-group mb-6">
+                <label for="company">Empresa</label>
+                <input type="text" id="company" class="cyber-input" />
+              </div>
+              <div class="cyber-form-group mb-6">
+                <label for="service">Interesse</label>
+                <select id="service" class="cyber-select">
+                  <option value="" selected disabled>
+                    Selecione um serviço
+                  </option>
+                  <option value="ads">Gestão de Anúncios</option>
+                  <option value="landing">Landing Pages</option>
+                  <option value="social">Social Media com IA</option>
+                  <option value="chatbot">Chatbots com IA</option>
+                  <option value="consultoria">
+                    Consultoria em Presença Digital
+                  </option>
+                  <option value="analytics">Analytics e BI</option>
+                </select>
+              </div>
+              <div class="cyber-form-group mb-6">
+                <label for="message">Mensagem</label>
+                <textarea id="message" rows="4" class="cyber-textarea"></textarea>
+              </div>
+              <button type="submit" class="cyber-submit-button">
+                <span>Enviar Mensagem</span>
+                <i class="fas fa-paper-plane ml-2"></i>
+              </button>
+            </form>
+          </div>
+
+          <div data-aos="fade-left">
+            <div class="cyber-contact-info-container mb-8">
+              <h3 class="text-2xl font-bold mb-6">Nossos Escritórios</h3>
+
+              <div class="space-y-6">
+                <!-- Office 1 -->
+                <div class="cyber-contact-info-item">
+                  <div class="cyber-contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                  <div>
+                    <h4>Zurich</h4>
+                    <p>Bahnhofstrasse 1, 8001 Zürich, Suíça</p>
+                    <p>+41 12 345 6789</p>
+                    <p>contato@soluctions.com</p>
+                  </div>
+                </div>
+
+                <!-- Office 2 -->
+                <div class="cyber-contact-info-item">
+                  <div class="cyber-contact-icon purple">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                  <div>
+                    <h4>Malta</h4>
+                    <p>Triq il-Kbira, Valletta VLT 1010, Malta</p>
+                    <p>+356 1234 5678</p>
+                    <p>suporte@soluctions.com</p>
+                  </div>
+                </div>
+
+                <!-- Office 3 -->
+                <div class="cyber-contact-info-item">
+                  <div class="cyber-contact-icon green">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                  <div>
+                    <h4>Manchester</h4>
+                    <p>1 Spinningfields, Manchester M3 3EB, Reino Unido</p>
+                    <p>+44 161 123 4567</p>
+                    <p>comercial@soluctions.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cyber-social-container">
+              <h3 class="text-xl font-bold mb-4">Siga-nos</h3>
+              <div class="cyber-social-links">
+                <a href="#" class="cyber-social-link-lg">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="cyber-social-link-lg">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="cyber-social-link-lg">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="cyber-social-link-lg">
+                  <i class="fab fa-youtube"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cyber-cta py-20 text-white relative overflow-hidden">
+      <div class="cyber-cta-overlay absolute inset-0"></div>
+      <div class="blob absolute top-0 left-0 transform -translate-x-1/2 -translate-y-1/2 opacity-30"></div>
+      <div class="blob absolute bottom-0 right-0 transform translate-x-1/2 translate-y-1/2 opacity-30"></div>
+
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 glitch-text-alt"
+            data-text="Pronto para transformar sua presença digital?">
+            Pronto para transformar sua presença digital?
+          </h2>
+          <p class="text-lg mb-8 text-white opacity-90">
+            Sua empresa já conquistou o mercado físico. Agora é hora de
+            dominar o digital com a Soluctions!
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <a href="#contact" class="cyber-button-alt light">
+              <span>Fale com um Especialista</span>
+            </a>
+            <a href="#pricing" class="cyber-button-alt outline">
+              <span>Ver Pacotes</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chatbot - Redesigned -->
+    <div id="chatbot-container" class="fixed bottom-5 right-5 z-50">
+      <div id="chatbot-button" class="cyber-chatbot-button">
+        <i class="fas fa-comment-alt"></i>
+      </div>
+      <div id="chatbot-box" class="cyber-chatbot-box hidden">
+        <div class="cyber-chatbot-header">
+          <div class="flex items-center">
+            <div class="cyber-chatbot-icon mr-3">
+              <i class="fas fa-robot"></i>
+            </div>
+            <h3 class="cyber-chatbot-title">Assistente Soluctions</h3>
+          </div>
+          <div class="flex space-x-2">
+            <button id="chatbot-minimize" class="cyber-chatbot-control">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button id="chatbot-close" class="cyber-chatbot-control">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div id="chatbot-messages" class="cyber-chatbot-messages"></div>
+        <div class="cyber-chatbot-footer">
+          <div class="cyber-chatbot-input-container">
+            <input id="chatbot-input" type="text" placeholder="Digite sua mensagem..." class="cyber-chatbot-input" />
+            <button id="chatbot-send" class="cyber-chatbot-send">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="cyber-footer py-12">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div>
+          <h3 class="cyber-footer-logo">Soluctions</h3>
+          <p class="cyber-footer-text mb-4">
+            Transformando presenças físicas em digitais com soluções
+            tecnológicas avançadas e estratégias personalizadas.
+          </p>
+          <div class="cyber-footer-social">
+            <a href="#" aria-label="LinkedIn">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" aria-label="Facebook">
+              <i class="fab fa-facebook"></i>
+            </a>
+            <a href="#" aria-label="YouTube">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="cyber-footer-heading">Links Rápidos</h4>
+          <ul class="cyber-footer-links">
+            <li><a href="#hero">Início</a></li>
+            <li><a href="#services">Serviços</a></li>
+            <li><a href="#cases">Cases</a></li>
+            <li><a href="#team">Equipe</a></li>
+            <li><a href="#pricing">Pacotes</a></li>
+            <li><a href="#contact">Contato</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="cyber-footer-heading">Serviços</h4>
+          <ul class="cyber-footer-links">
+            <li><a href="#services">Gestão de Anúncios</a></li>
+            <li><a href="#services">Landing Pages</a></li>
+            <li><a href="#services">Social Media com IA</a></li>
+            <li><a href="#services">Chatbots com IA</a></li>
+            <li><a href="#services">Consultoria Digital</a></li>
+            <li><a href="#services">Analytics e BI</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="cyber-footer-heading">Legal</h4>
+          <ul class="cyber-footer-links">
+            <li><a href="#">Política de Privacidade</a></li>
+            <li><a href="#">Termos de Uso</a></li>
+            <li><a href="#">Política de Cookies</a></li>
+            <li><a href="#">LGPD</a></li>
+            <li><a href="#">Trabalhe Conosco</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cyber-footer-divider"></div>
+
+      <div class="cyber-footer-bottom">
+        <p class="cyber-footer-copyright">
+          © 2025 Soluctions S.A. Todos os direitos reservados.
+        </p>
+        <div class="cyber-footer-legal">
+          <a href="#">Política de Privacidade</a>
+          <a href="#">Termos de Uso</a>
+          <a href="#">Contato</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" defer></script>
+
+  <!-- AOS (Animate on Scroll) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+  <!-- Main JS -->
+  <script src="js/main.js" defer></script>
+  <script src="js/mobile-optimizations.js" defer></script>
+  <script src="js/services-mobile.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" defer></script>
+</body>
+
+</html>
