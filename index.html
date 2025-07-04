@@ -8,39 +8,100 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#050510" />
-  <!-- Cor da barra de status em navegadores mobile -->
-  <title>Soluctions | Transformação Digital Inteligente</title>
 
-  <!-- Preload fontes essenciais para melhorar performance -->
-  <link rel="preload"
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@400;600&display=swap"
-    as="style" />
+  <!-- PWA Manifest para instalação -->
+  <link rel="manifest" href="/manifest.json">
 
-  <!-- Fontawesome CDN - Carregando apenas o necessário -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Performance optimizations -->
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="//cdn.pixabay.com">
 
-  <!-- Fontes Google -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@400;600&display=swap"
-    rel="stylesheet" />
+  <!-- Preload critical resources -->
+  <link rel="preload" href="css/main.css" as="style">
+  <link rel="preload" href="js/combined.min.js" as="script">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
+    crossorigin>
 
-  <!-- Tailwind CSS com preflight para reset consistente -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Critical CSS para above-the-fold -->
+  <style>
+    :root {
+      --color-bg-primary: #050510;
+      --color-neon-blue: #00f3ff;
+      --color-neon-purple: #bc13fe;
+      --color-text-primary: rgba(255, 255, 255, 0.9);
+    }
 
-  <!-- CSS Customizado -->
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/mobile.css" />
+    * {
+      box-sizing: border-box;
+    }
 
-  <!-- GSAP para animações avançadas -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" defer></script>
+    body {
+      margin: 0;
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
 
-  <!-- Preconectar com domínios externos para melhorar performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: #1f2937;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+
+  body {
+  margin: 0;
+  background: var(--color-bg-primary);
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden
+  }
+
+  .loader {
+  background: #111827;
+  z-index: 9999
+  }
+
+  header {
+  backdrop-filter: blur(16px)
+  }
+
+  .container {
+  max-width: 1200px
+  }
+  </style>
+
+  <!-- CSS não crítico com preload -->
+  <link rel="preload" href="css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="css/mobile.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+
+  <!-- Fallback para JS desabilitado -->
+  <noscript>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  </noscript>
+
+  <!-- Resource Hints Avançados -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.pixabay.com">
+  <link rel="dns-prefetch" href="https://i.ibb.co">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://upload.wikimedia.org">
+
+  <!-- Preload recursos críticos -->
+  <link rel="preload" href="js/combined.min.js" as="script">
+  <link rel="modulepreload" href="js/main.js">
 </head>
 
 <body>
@@ -196,14 +257,22 @@
             </div>
             <div class="mt-10 flex items-center space-x-4">
               <div class="flex -space-x-2">
-                <img src="https://randomuser.me/api/portraits/women/32.jpg"
-                  class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" />
-                <img src="https://randomuser.me/api/portraits/men/54.jpg"
-                  class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" />
-                <img src="https://randomuser.me/api/portraits/women/68.jpg"
-                  class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" />
-                <img src="https://randomuser.me/api/portraits/men/45.jpg"
-                  class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" />
+                <div
+                  class="w-10 h-10 rounded-full border-2 border-blue-500 bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
+                  W
+                </div>
+                <div
+                  class="w-10 h-10 rounded-full border-2 border-blue-500 bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold">
+                  M
+                </div>
+                <div
+                  class="w-10 h-10 rounded-full border-2 border-blue-500 bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center text-white text-xs font-bold">
+                  G
+                </div>
+                <div
+                  class="w-10 h-10 rounded-full border-2 border-blue-500 bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xs font-bold">
+                  J
+                </div>
                 <div
                   class="w-10 h-10 rounded-full border-2 border-blue-500 bg-blue-600 flex items-center justify-center text-white text-xs font-bold">
                   +200
@@ -223,7 +292,7 @@
               <div class="cyber-card-glitch absolute inset-0 rounded-xl z-0"></div>
               <div class="cyber-card-content relative z-10 p-1 rounded-xl overflow-hidden shadow-neon-blue">
                 <img src="https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.jpg"
-                  alt="Digital Marketing" class="w-full h-auto rounded-lg hover-lift" />
+                  alt="Digital Marketing" class="w-full h-auto rounded-lg hover-lift" loading="eager" />
               </div>
 
               <!-- Stat cards -->
@@ -473,18 +542,20 @@
         <!-- Tech logos slider -->
         <div class="cyber-tech-slider">
           <div class="cyber-tech-track">
-            <!-- Repetição dos logos para efeito infinito -->
+            <!-- Items do slider -->
             <div class="cyber-tech-item">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google"
+                loading="lazy" />
               <span>Google Ads</span>
             </div>
             <div class="cyber-tech-item">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Meta" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Meta"
+                loading="lazy" />
               <span>Meta Business</span>
             </div>
             <div class="cyber-tech-item">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
-                alt="LinkedIn" />
+                alt="LinkedIn" loading="lazy" />
               <span>LinkedIn Ads</span>
             </div>
             <div class="cyber-tech-item">
@@ -492,58 +563,23 @@
               <span>TikTok Ads</span>
             </div>
             <div class="cyber-tech-item">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"
+                loading="lazy" />
               <span>Python & AI</span>
             </div>
             <div class="cyber-tech-item">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"
+                loading="lazy" />
               <span>React & Frontend</span>
             </div>
             <div class="cyber-tech-item">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS"
+                loading="lazy" />
               <span>Cloud & DevOps</span>
             </div>
             <div class="cyber-tech-item">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg"
-                alt="WordPress" />
-              <span>CMS & Blogs</span>
-            </div>
-
-            <!-- Repetição (cópia) para animação infinita -->
-            <div class="cyber-tech-item">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" />
-              <span>Google Ads</span>
-            </div>
-            <div class="cyber-tech-item">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Meta" />
-              <span>Meta Business</span>
-            </div>
-            <div class="cyber-tech-item">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
-                alt="LinkedIn" />
-              <span>LinkedIn Ads</span>
-            </div>
-            <div class="cyber-tech-item">
-              <i class="fab fa-tiktok"></i>
-              <span>TikTok Ads</span>
-            </div>
-            <div class="cyber-tech-item">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
-              <span>Python & AI</span>
-            </div>
-            <div class="cyber-tech-item">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
-              <span>React & Frontend</span>
-            </div>
-            <div class="cyber-tech-item">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg"
-                alt="AWS" />
-              <span>Cloud & DevOps</span>
-            </div>
-            <div class="cyber-tech-item">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg"
-                alt="WordPress" />
+                alt="WordPress" loading="lazy" />
               <span>CMS & Blogs</span>
             </div>
           </div>
@@ -570,8 +606,8 @@
         <!-- Case Study 1 -->
         <div class="cyber-case-card" data-aos="fade-right">
           <div class="cyber-case-media">
-            <img src="https://i.ibb.co/HLVPCwgM/Flux-Dev-Uma-fbrica-moderna-e-tecnolgica-Indstria-40-com-mquin-1-1.jpg" alt="Indústria"
-              class="cyber-case-image" />
+            <img src="https://i.ibb.co/HLVPCwgM/Flux-Dev-Uma-fbrica-moderna-e-tecnolgica-Indstria-40-com-mquin-1-1.jpg"
+              alt="Indústria" class="cyber-case-image" loading="lazy" />
             <div class="cyber-case-overlay"></div>
           </div>
           <div class="cyber-case-content">
@@ -627,7 +663,7 @@
         <div class="cyber-case-card reverse" data-aos="fade-left">
           <div class="cyber-case-media">
             <img src="https://cdn.pixabay.com/photo/2017/12/26/09/15/woman-3040029_960_720.jpg" alt="Varejo Premium"
-              class="cyber-case-image" />
+              class="cyber-case-image" loading="lazy" />
             <div class="cyber-case-overlay"></div>
           </div>
           <div class="cyber-case-content">
@@ -682,8 +718,8 @@
         <!-- Case Study 3 -->
         <div class="cyber-case-card" data-aos="fade-right">
           <div class="cyber-case-media">
-            <img src="https://i.ibb.co/sYtRcBf/Flux-Dev-A-digital-composition-with-a-futuristic-and-minimalis-0.jpg" alt="Startup Tech"
-              class="cyber-case-image" />
+            <img src="https://i.ibb.co/sYtRcBf/Flux-Dev-A-digital-composition-with-a-futuristic-and-minimalis-0.jpg"
+              alt="Startup Tech" class="cyber-case-image" loading="lazy" />
             <div class="cyber-case-overlay"></div>
           </div>
           <div class="cyber-case-content">
@@ -786,108 +822,172 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <!-- Team Member 1 -->
-          <div class="cyber-team-card" data-aos="fade-right">
-            <div class="cyber-team-photo">
-              <img src="https://i.ibb.co/84dCk4mz/Design-sem-nome.png" alt="Matheus Ferraz Rezende" />
-              <div class="cyber-team-overlay">
-                <h3>Matheus Ferraz Rezende</h3>
-                <p>CEO & Diretor de Tecnologia</p>
+        <!-- Professional Team Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Wellington -->
+          <div class="cyber-team-professional" data-aos="fade-up" data-aos-delay="100">
+            <div class="team-icon-container">
+              <div class="team-icon">
+                <i class="fas fa-chart-line"></i>
               </div>
+              <div class="team-status-indicator"></div>
             </div>
-            <div class="cyber-team-info">
-              <p class="cyber-team-bio">
-                Com 10+ anos em transformação digital, lidero a criação de
-                plataformas intuitivas que unem design imersivo e
-                funcionalidades escaláveis. Responsável pelo algoritmo de
-                personalização de posts da Soluctions.
-              </p>
-              <div class="cyber-team-specialties">
-                <span class="cyber-tag">Full-Stack</span>
-                <span class="cyber-tag ai">IA</span>
-                <span class="cyber-tag">UX/UI</span>
+            <div class="team-content">
+              <h3 class="team-name">Wellington B. de Carvalho</h3>
+              <p class="team-role">CEO & Diretor de Estratégias Digitais</p>
+              <div class="team-metrics">
+                <div class="metric">
+                  <span class="metric-number">+R$2M</span>
+                  <span class="metric-label">Gerenciados em ADS</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-number">35%</span>
+                  <span class="metric-label">Acima do mercado</span>
+                </div>
               </div>
-              <div class="cyber-team-footer">
-                <div class="cyber-team-social">
-                  <a href="#" class="cyber-social-link"><i class="fab fa-linkedin-in"></i></a>
-                  <a href="#" class="cyber-social-link"><i class="fab fa-github"></i></a>
-                  <a href="#" class="cyber-social-link"><i class="fab fa-twitter"></i></a>
-                </div>
-                <div class="cyber-team-certification">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
-                    alt="Google" />
-                  <span>Google Premier Partner</span>
-                </div>
+              <div class="team-specialties">
+                <span class="specialty-tag primary">ADS</span>
+                <span class="specialty-tag ai">Data-Driven</span>
+                <span class="specialty-tag">TikTok Ads</span>
+              </div>
+              <div class="team-certification">
+                <i class="fab fa-meta"></i>
+                <span>Meta Business Partner</span>
               </div>
             </div>
           </div>
 
-          <!-- Team Member 2 -->
-          <div class="cyber-team-card" data-aos="fade-left">
-            <div class="cyber-team-photo">
-              <img src="https://i.ibb.co/rKyh3Tbc/Design-sem-nome-9.png" alt="Wellington B. de Carvalho" />
-              <div class="cyber-team-overlay">
-                <h3>Wellington B. de Carvalho</h3>
-                <p>CEO & Diretor de Estratégias Digitais</p>
+          <!-- Matheus -->
+          <div class="cyber-team-professional" data-aos="fade-up" data-aos-delay="200">
+            <div class="team-icon-container">
+              <div class="team-icon">
+                <i class="fas fa-code"></i>
+              </div>
+              <div class="team-status-indicator"></div>
+            </div>
+            <div class="team-content">
+              <h3 class="team-name">Matheus Ferraz Rezende</h3>
+              <p class="team-role">CTO & Diretor de Tecnologia</p>
+              <div class="team-metrics">
+                <div class="metric">
+                  <span class="metric-number">10+</span>
+                  <span class="metric-label">Anos de experiência</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-number">50+</span>
+                  <span class="metric-label">Projetos entregues</span>
+                </div>
+              </div>
+              <div class="team-specialties">
+                <span class="specialty-tag primary">Full-Stack</span>
+                <span class="specialty-tag ai">IA</span>
+                <span class="specialty-tag">UX/UI</span>
+              </div>
+              <div class="team-certification">
+                <i class="fab fa-google"></i>
+                <span>Google Premier Partner</span>
               </div>
             </div>
-            <div class="cyber-team-info">
-              <p class="cyber-team-bio">
-                Especialista em campanhas data-driven, já gerenciei orçamentos
-                de mais de R$ 2M em ADS, com taxa média de conversão 35% acima
-                do mercado. Criador da metodologia 'Smart Funnel'.
-              </p>
-              <div class="cyber-team-specialties">
-                <span class="cyber-tag">ADS</span>
-                <span class="cyber-tag ai">Data-Driven</span>
-                <span class="cyber-tag">TikTok</span>
+          </div>
+
+          <!-- Gian -->
+          <div class="cyber-team-professional" data-aos="fade-up" data-aos-delay="300">
+            <div class="team-icon-container">
+              <div class="team-icon">
+                <i class="fas fa-brain"></i>
               </div>
-              <div class="cyber-team-footer">
-                <div class="cyber-team-social">
-                  <a href="#" class="cyber-social-link"><i class="fab fa-linkedin-in"></i></a>
-                  <a href="#" class="cyber-social-link"><i class="fab fa-instagram"></i></a>
-                  <a href="#" class="cyber-social-link"><i class="fab fa-twitter"></i></a>
+              <div class="team-status-indicator"></div>
+            </div>
+            <div class="team-content">
+              <h3 class="team-name">Gian Carlos Santos</h3>
+              <p class="team-role">Especialista em IA & Machine Learning</p>
+              <div class="team-metrics">
+                <div class="metric">
+                  <span class="metric-number">25+</span>
+                  <span class="metric-label">Algoritmos criados</span>
                 </div>
-                <div class="cyber-team-certification">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg"
-                    alt="Meta" />
-                  <span>Meta Business Partner</span>
+                <div class="metric">
+                  <span class="metric-number">99.7%</span>
+                  <span class="metric-label">Precisão média</span>
                 </div>
+              </div>
+              <div class="team-specialties">
+                <span class="specialty-tag ai">Machine Learning</span>
+                <span class="specialty-tag primary">Python</span>
+                <span class="specialty-tag">Neural Networks</span>
+              </div>
+              <div class="team-certification">
+                <i class="fab fa-aws"></i>
+                <span>AWS Certified</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- João -->
+          <div class="cyber-team-professional" data-aos="fade-up" data-aos-delay="400">
+            <div class="team-icon-container">
+              <div class="team-icon">
+                <i class="fas fa-users-cog"></i>
+              </div>
+              <div class="team-status-indicator"></div>
+            </div>
+            <div class="team-content">
+              <h3 class="team-name">João Victor Barbosa</h3>
+              <p class="team-role">Especialista em CRM & Automação</p>
+              <div class="team-metrics">
+                <div class="metric">
+                  <span class="metric-number">1000+</span>
+                  <span class="metric-label">Leads qualificados</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-number">40%</span>
+                  <span class="metric-label">Aumento em conversão</span>
+                </div>
+              </div>
+              <div class="team-specialties">
+                <span class="specialty-tag primary">CRM</span>
+                <span class="specialty-tag">Automação</span>
+                <span class="specialty-tag">Sales Funnel</span>
+              </div>
+              <div class="team-certification">
+                <i class="fab fa-salesforce"></i>
+                <span>Salesforce Certified</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Team Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12" data-aos="fade-up">
-          
-          <div class="cyber-team-mini">
-            <img src="https://i.ibb.co/HfGzXDhw/Design-sem-nome-10.png" alt="Rafael Santos" />
-            <div class="cyber-team-mini-info">
-              <h4>João Victor Barbosa</h4>
-              <p>Especialista em CRM</p>
+        <!-- Supporting Team -->
+        <div class="mt-16">
+          <h3 class="text-xl font-semibold text-center mb-8 text-gray-300">Equipe de Apoio Especializada</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="cyber-support-card" data-aos="fade-right">
+              <div class="support-icon">
+                <i class="fas fa-palette"></i>
+              </div>
+              <div class="support-content">
+                <h4>Design & Criação</h4>
+                <p>Especialistas em design visual, motion graphics e criação de conteúdo para redes sociais.</p>
+                <div class="support-tags">
+                  <span>Design Gráfico</span>
+                  <span>Motion Graphics</span>
+                  <span>Branding</span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="cyber-team-mini">
-            <img src="https://i.ibb.co/h1Mtjhxd/Design-sem-nome-11.png" alt="Caio Vinícius" />
-            <div class="cyber-team-mini-info">
-              <h4>Wanderson Barbosa</h4>
-              <p>Desenvolvedor IA</p>
-            </div>
-          </div>
-          <div class="cyber-team-mini">
-            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Juliana Torres" />
-            <div class="cyber-team-mini-info">
-              <h4>Juliana Torres</h4>
-              <p>Estrategista Digital</p>
-            </div>
-          </div>
-          <div class="cyber-team-mini">
-            <img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Ana Carolina" />
-            <div class="cyber-team-mini-info">
-              <h4>Ana Caroline</h4>
-              <p>Social Media Manager</p>
+            <div class="cyber-support-card" data-aos="fade-left">
+              <div class="support-icon">
+                <i class="fas fa-chart-bar"></i>
+              </div>
+              <div class="support-content">
+                <h4>Analytics & Dados</h4>
+                <p>Analistas especializados em interpretação de dados e otimização baseada em métricas.</p>
+                <div class="support-tags">
+                  <span>Google Analytics</span>
+                  <span>Data Science</span>
+                  <span>Relatórios</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -897,20 +997,23 @@
           <h3 class="text-2xl font-bold mb-6">Certificações e Parcerias</h3>
           <div class="cyber-partners">
             <div class="cyber-partner">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google"
+                loading="lazy" />
             </div>
             <div class="cyber-partner">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Meta" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Meta"
+                loading="lazy" />
             </div>
             <div class="cyber-partner">
               <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg"
-                alt="LinkedIn" />
+                alt="LinkedIn" loading="lazy" />
             </div>
             <div class="cyber-partner">
               <i class="fab fa-tiktok"></i>
             </div>
             <div class="cyber-partner">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS"
+                loading="lazy" />
             </div>
           </div>
         </div>
@@ -918,156 +1021,157 @@
     </section>
 
     <!-- Pricing Section -->
-     <section id="pricing" class="py-20 relative overflow-hidden">
-        <div class="blob absolute -top-40 -right-40 opacity-30"></div>
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="cyber-glitch-title relative inline-block text-3xl md:text-4xl font-bold mb-4" data-text="Soluções">
-                    Soluções
-                </h2>
-                <p class="text-lg text-gray-400">
-                    Escolha o objetivo que sua empresa quer conquistar
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Solution Card 1 -->
-                <div class="cyber-pricing-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="cyber-pricing-header">
-                        <div class="cyber-pricing-icon">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <div>
-                            <h3 class="cyber-pricing-title">Conquistar Presença Digital</h3>
-                            <p class="cyber-pricing-subtitle">Sair do zero e ser encontrado</p>
-                        </div>
-                    </div>
-                    <div class="cyber-pricing-price">
-                        <div class="cyber-pricing-consultation">Sob Consulta</div>
-                        <div class="cyber-pricing-consult-text">Valores personalizados</div>
-                    </div>
-                    <p class="cyber-pricing-description">
-                        Para empresas que querem marcar presença online, ser encontradas pelos clientes e começar a vender na internet.
-                    </p>
-                    <ul class="cyber-pricing-features">
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Presença profissional nas principais redes</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Campanhas para atrair primeiros clientes</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Relatórios de performance mensal</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Suporte estratégico contínuo</span>
-                        </li>
-                    </ul>
-                    <a href="#contact" class="cyber-pricing-button secondary">
-                        <span>Quero Conquistar</span>
-                    </a>
-                </div>
-
-                <!-- Solution Card 2 (Popular) -->
-                <div class="cyber-pricing-card popular" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="cyber-pricing-badge">Mais escolhido</div>
-                    <div class="cyber-pricing-header">
-                        <div class="cyber-pricing-icon gradient">
-                            <i class="fas fa-crown"></i>
-                        </div>
-                        <div>
-                            <h3 class="cyber-pricing-title">Dominar o Mercado Local</h3>
-                            <p class="cyber-pricing-subtitle">Ser referência na sua região</p>
-                        </div>
-                    </div>
-                    <div class="cyber-pricing-price popular">
-                        <div class="cyber-pricing-consultation">Sob Consulta</div>
-                        <div class="cyber-pricing-consult-text">Valores personalizados</div>
-                    </div>
-                    <p class="cyber-pricing-description">
-                        Para negócios que querem se tornar a primeira opção dos clientes na sua região e multiplicar vendas.
-                    </p>
-                    <ul class="cyber-pricing-features">
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Estratégia omnichannel completa</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Campanhas multicanal de alta conversão</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Automação inteligente de vendas</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Suporte prioritário e consultoria</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Relatórios estratégicos semanais</span>
-                        </li>
-                    </ul>
-                    <a href="#contact" class="cyber-pricing-button primary">
-                        <span>Quero Dominar</span>
-                    </a>
-                </div>
-
-                <!-- Solution Card 3 -->
-                <div class="cyber-pricing-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="cyber-pricing-header">
-                        <div class="cyber-pricing-icon purple">
-                            <i class="fas fa-globe-americas"></i>
-                        </div>
-                        <div>
-                            <h3 class="cyber-pricing-title">Viralizar e Escalar</h3>
-                            <p class="cyber-pricing-subtitle">Crescimento exponencial</p>
-                        </div>
-                    </div>
-                    <div class="cyber-pricing-price purple">
-                        <div class="cyber-pricing-consultation">Sob Consulta</div>
-                        <div class="cyber-pricing-consult-text">Valores personalizados</div>
-                    </div>
-                    <p class="cyber-pricing-description">
-                        Para empresas prontas para viralizar, escalar nacionalmente e se tornar referência no mercado digital.
-                    </p>
-                    <ul class="cyber-pricing-features">
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Ecossistema digital completo</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Estratégias virais ilimitadas</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>IA para personalização em massa</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Plataforma digital exclusiva</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Acesso total à nossa tecnologia IA</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check"></i>
-                            <span>Time dedicado + gerente exclusivo</span>
-                        </li>
-                    </ul>
-                    <a href="#contact" class="cyber-pricing-button purple">
-                        <span>Quero Viralizar</span>
-                    </a>
-                </div>
-            </div>
+    <section id="pricing" class="py-20 relative overflow-hidden">
+      <div class="blob absolute -top-40 -right-40 opacity-30"></div>
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="cyber-glitch-title relative inline-block text-3xl md:text-4xl font-bold mb-4" data-text="Soluções">
+            Soluções
+          </h2>
+          <p class="text-lg text-gray-400">
+            Escolha o objetivo que sua empresa quer conquistar
+          </p>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Solution Card 1 -->
+          <div class="cyber-pricing-card" data-aos="zoom-in" data-aos-delay="100">
+            <div class="cyber-pricing-header">
+              <div class="cyber-pricing-icon">
+                <i class="fas fa-rocket"></i>
+              </div>
+              <div>
+                <h3 class="cyber-pricing-title">Conquistar Presença Digital</h3>
+                <p class="cyber-pricing-subtitle">Sair do zero e ser encontrado</p>
+              </div>
+            </div>
+            <div class="cyber-pricing-price">
+              <div class="cyber-pricing-consultation">Sob Consulta</div>
+              <div class="cyber-pricing-consult-text">Valores personalizados</div>
+            </div>
+            <p class="cyber-pricing-description">
+              Para empresas que querem marcar presença online, ser encontradas pelos clientes e começar a vender na
+              internet.
+            </p>
+            <ul class="cyber-pricing-features">
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Presença profissional nas principais redes</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Campanhas para atrair primeiros clientes</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Relatórios de performance mensal</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Suporte estratégico contínuo</span>
+              </li>
+            </ul>
+            <a href="#contact" class="cyber-pricing-button secondary">
+              <span>Quero Conquistar</span>
+            </a>
+          </div>
+
+          <!-- Solution Card 2 (Popular) -->
+          <div class="cyber-pricing-card popular" data-aos="zoom-in" data-aos-delay="200">
+            <div class="cyber-pricing-badge">Mais escolhido</div>
+            <div class="cyber-pricing-header">
+              <div class="cyber-pricing-icon gradient">
+                <i class="fas fa-crown"></i>
+              </div>
+              <div>
+                <h3 class="cyber-pricing-title">Dominar o Mercado Local</h3>
+                <p class="cyber-pricing-subtitle">Ser referência na sua região</p>
+              </div>
+            </div>
+            <div class="cyber-pricing-price popular">
+              <div class="cyber-pricing-consultation">Sob Consulta</div>
+              <div class="cyber-pricing-consult-text">Valores personalizados</div>
+            </div>
+            <p class="cyber-pricing-description">
+              Para negócios que querem se tornar a primeira opção dos clientes na sua região e multiplicar vendas.
+            </p>
+            <ul class="cyber-pricing-features">
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Estratégia omnichannel completa</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Campanhas multicanal de alta conversão</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Automação inteligente de vendas</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Suporte prioritário e consultoria</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Relatórios estratégicos semanais</span>
+              </li>
+            </ul>
+            <a href="#contact" class="cyber-pricing-button primary">
+              <span>Quero Dominar</span>
+            </a>
+          </div>
+
+          <!-- Solution Card 3 -->
+          <div class="cyber-pricing-card" data-aos="zoom-in" data-aos-delay="300">
+            <div class="cyber-pricing-header">
+              <div class="cyber-pricing-icon purple">
+                <i class="fas fa-globe-americas"></i>
+              </div>
+              <div>
+                <h3 class="cyber-pricing-title">Viralizar e Escalar</h3>
+                <p class="cyber-pricing-subtitle">Crescimento exponencial</p>
+              </div>
+            </div>
+            <div class="cyber-pricing-price purple">
+              <div class="cyber-pricing-consultation">Sob Consulta</div>
+              <div class="cyber-pricing-consult-text">Valores personalizados</div>
+            </div>
+            <p class="cyber-pricing-description">
+              Para empresas prontas para viralizar, escalar nacionalmente e se tornar referência no mercado digital.
+            </p>
+            <ul class="cyber-pricing-features">
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Ecossistema digital completo</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Estratégias virais ilimitadas</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>IA para personalização em massa</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Plataforma digital exclusiva</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Acesso total à nossa tecnologia IA</span>
+              </li>
+              <li>
+                <i class="fas fa-check"></i>
+                <span>Time dedicado + gerente exclusivo</span>
+              </li>
+            </ul>
+            <a href="#contact" class="cyber-pricing-button purple">
+              <span>Quero Viralizar</span>
+            </a>
+          </div>
+        </div>
+      </div>
       <!-- FAQ Section -->
       <div class="mt-20 max-w-3xl mx-auto cyber-faq-container" data-aos="fade-up">
         <h3 class="text-2xl font-bold mb-6 text-center">
@@ -1406,18 +1510,21 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Scripts otimizados -->
+  <script>
+    // Registrar Service Worker para cache inteligente
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => console.log('✅ Service Worker registrado'))
+          .catch(error => console.log('❌ Falha no Service Worker'));
+      });
+    }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" defer></script>
-
-  <!-- AOS (Animate on Scroll) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-
-  <!-- Main JS -->
-  <script src="js/main.js" defer></script>
-  <script src="js/mobile-optimizations.js" defer></script>
-  <script src="js/services-mobile.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" defer></script>
+  <script src="js/combined.min.js" defer></script>
 </body>
 
 </html>
