@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description"
+    content="Soluctions S.A - Transformação digital inteligente para empresas que querem dominar o mercado digital" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="theme-color" content="#050510" />
+  <title>Soluctions | Transformação Digital Inteligente</title>
+
+  <!-- Preconnect para domínios externos - PRIORIDADE MÁXIMA -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://randomuser.me" />
+  <link rel="preconnect" href="https://cdn.pixabay.com" />
+
+  <!-- CSS CRÍTICO INLINE - para renderização imediata -->
+  <style>
+    /* Critical CSS para first paint otimizado */
+    :root {
+      --color-bg-primary: #050510;
+      --color-bg-secondary: #0a0a18;
+      --color-neon-blue: #00f3ff;
+      --color-neon-purple: #bc13fe;
+      --color-text-primary: rgba(255, 255, 255, 0.9);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Preloader crítico */
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: var(--color-bg-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Header crítico */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      background: rgba(5, 5, 16, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+    }
+
+    /* Hero section crítico */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+    }
+
+    /* Utilities essenciais */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .items-center {
+      align-items: center;
+    }
+
+    .justify-center {
+      justify-content: center;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .md\\:block {
+        display: block;
+      }
+
+      .md\\:hidden {
+        display: none;
+      }
+    }
+  </style>
+
+  <!-- Preload de recursos essenciais -->
+  <link rel="preload" href="css/main-critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="css/main-critical.css">
+  </noscript>
+
+  <!-- Preload de fontes com font-display: swap -->
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@400;600&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@400;600&display=swap">
+  </noscript>
+
+  <!-- JavaScript essencial defer -->
+  <script src="js/critical.js" defer></script>
+</head>
+
+<body>
+  <!-- Preloader otimizado -->
+  <div class="loader" id="preloader">
+    <div class="loader-inner flex flex-col items-center">
+      <div class="loader-logo">S</div>
+      <div class="loader-text">Soluctions S.A</div>
+      <div class="loader-progress">
+        <div class="loader-progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header otimizado -->
+  <header class="header">
+    <div class="container">
+      <nav class="flex items-center justify-between py-4">
+        <div class="logo">
+          <h1>Soluctions</h1>
+        </div>
+
+        <!-- Menu desktop -->
+        <ul class="hidden md:flex space-x-8">
+          <li><a href="#hero">Início</a></li>
+          <li><a href="#services">Serviços</a></li>
+          <li><a href="#cases">Cases</a></li>
+          <li><a href="#contact">Contato</a></li>
+        </ul>
+
+        <!-- Mobile menu button -->
+        <button class="md:hidden mobile-menu-btn" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div class="container">
+      <div class="hero-content text-center">
+        <h1>Transformação Digital Inteligente</h1>
+        <p>Soluções inovadoras para empresas que querem dominar o mercado digital</p>
+        <button class="cta-button">Começar Agora</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CSS não crítico carregado de forma diferida -->
+  <link rel="stylesheet" href="css/main.css" media="print" onload="this.media='all'; this.onload=null;">
+  <link rel="stylesheet" href="css/mobile.css" media="print" onload="this.media='all'; this.onload=null;">
+
+  <!-- FontAwesome carregado de forma diferida -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print"
+    onload="this.media='all'; this.onload=null;">
+
+  <!-- Tailwind CSS diferido -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" media="print"
+    onload="this.media='all'; this.onload=null;">
+
+  <!-- JavaScript não crítico carregado de forma diferida -->
+  <script>
+    // Carregamento dinâmico de scripts não críticos
+    window.addEventListener('load', function () {
+      const scripts = [
+        'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js',
+        'js/main.js',
+        'js/mobile.optimizations.js',
+        'js/services-mobile.js'
+      ];
+
+      scripts.forEach((src, index) => {
+        setTimeout(() => {
+          const script = document.createElement('script');
+          script.src = src;
+          script.async = true;
+          document.head.appendChild(script);
+        }, index * 100); // Escalonar carregamento
+      });
+    });
+  </script>
+
+  <!-- Resto do conteúdo será carregado via JavaScript para evitar blocking -->
+  <div id="dynamic-content"></div>
+
+</body>
+
+</html>
