@@ -1,52 +1,77 @@
 /**
- * Soluctions S.A - Cyberpunk Modern Landing Page
- * JavaScript Principal com suporte aos recursos avançados
+ * Soluctions S.A - JavaScript Consolidado
+ * Todas as funcionalidades em um único arquivo
+ *
+ * CONSOLIDAÇÃO COMPLETA:
+ * ✅ critical.js - Funcionalidades críticas (preloader, menu mobile, scroll suave)
+ * ✅ main.js - Funcionalidades principais (animações, contadores, chatbot, partículas)
+ * ✅ mobile.optimizations.js - Otimizações para dispositivos móveis
+ * ✅ optimized-images.js - Sistema de lazy loading e otimização de imagens
+ * ✅ services-mobile.js - Carrossel de serviços para mobile
+ * ✅ team-interactions.js - Interações da seção de equipe
+ *
+ * FUNCIONALIDADES INCLUÍDAS:
+ * - Preloader animado
+ * - Menu mobile responsivo
+ * - Scroll suave e indicador de progresso
+ * - Animações de contadores
+ * - Sistema de partículas (particles.js)
+ * - Chatbot interativo
+ * - Lazy loading de imagens com suporte WebP/AVIF
+ * - Otimizações específicas para mobile
+ * - Carrossel de serviços para dispositivos móveis
+ * - Interações avançadas da equipe
+ * - FAQ interativo
+ * - Cursor personalizado
+ * - Scroll observer para animações
+ * - Performance tracking
+ *
+ * COMPATIBILIDADE:
+ * - Todos os navegadores modernos
+ * - Fallbacks para navegadores antigos
+ * - Otimizado para performance em mobile
+ *
+ * DEPENDÊNCIAS EXTERNAS:
+ * - AOS (Animate on Scroll)
+ * - GSAP (GreenSock Animation Platform) - opcional
+ * - Particles.js - opcional
  */
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Aplicar classe para evitar FOUC (Flash of Unstyl      // Alternar estado atual
-  if (isOpen) {
-    console.log("FAQ: Fechando pergunta");
-    question.classList.remove("active");
-    answer.style.maxHeight = null;
-    console.log("FAQ: Max-height definido como null");
-  } else {
-    console.log("FAQ: Abrindo pergunta");
-    question.classList.add("active");
-    answer.style.maxHeight = answer.scrollHeight + "px";
-    console.log("FAQ: Altura definida para:", answer.scrollHeight + "px");
-    console.log(
-      "FAQ: Max-height atual do elemento:",
-      window.getComputedStyle(answer).maxHeight
-    );
+// ========================================
+// VARIÁVEIS GLOBAIS
+// ========================================
+let isPageLoaded = false;
+let supportsWebP = null;
+let supportsAVIF = null;
 
-    // Forçar um refresh do estilo
-    setTimeout(() => {
-      console.log(
-        "FAQ: Max-height após timeout:",
-        window.getComputedStyle(answer).maxHeight
-      );
-    }, 100);
-  }
+// Prevent FOUC
+document.documentElement.classList.add("fouc-ready");
+
+// Verificação de dispositivo móvel
+const isMobile = () => window.innerWidth <= 768;
+
+// ========================================
+// INICIALIZAÇÃO PRINCIPAL
+// ========================================
+
+document.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("fouc-ready");
 
-  // Iniciar preloader
+  // Inicializações principais
   initPreloader();
-
-  // Configurar observador para animações
   initScrollObserver();
-
-  // Iniciar interações UI
   initUIInteractions();
-
-  // Iniciar efeitos visuais
   initVisualEffects();
-
-  // Iniciar contadores
   initCounters();
-
-  // Configurar chatbot
   initChatbot();
+  initImageOptimizations();
+  initTeamInteractions();
+
+  // Inicializações específicas para mobile
+  if (isMobile()) {
+    initMobileOptimizations();
+    initServicesCarousel();
+  }
 
   // Inicializar AOS (Animate on Scroll)
   if (typeof AOS !== "undefined") {
@@ -60,38 +85,75 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-/**
- * Inicializa o preloader animado
- */
+// Executar também se DOM já estiver pronto
+if (document.readyState !== "loading") {
+  const event = new Event("DOMContentLoaded");
+  document.dispatchEvent(event);
+}
+
+// ========================================
+// PRELOADER
+// ========================================
+
 function initPreloader() {
-  const loader = document.querySelector(".loader");
-  const loaderFill = document.querySelector(".loader-progress-fill");
+  console.log("Iniciando preloader...");
 
-  if (!loader || !loaderFill) return;
+  const loader =
+    document.getElementById("preloader") || document.querySelector(".loader");
+  const progressFill = document.querySelector(".loader-progress-fill");
 
-  // Animar preenchimento do loader
-  setTimeout(() => {
-    loaderFill.style.width = "60%";
-  }, 100);
+  if (!loader) {
+    console.warn("Preloader não encontrado!");
+    return;
+  }
 
-  setTimeout(() => {
-    loaderFill.style.width = "100%";
-  }, 1000);
-
-  // Ocultar loader após carregamento
-  window.addEventListener("load", () => {
+  // Animar progresso
+  if (progressFill) {
     setTimeout(() => {
+      progressFill.style.width = "60%";
+    }, 100);
+
+    setTimeout(() => {
+      progressFill.style.width = "100%";
+    }, 1000);
+  }
+
+  // Função para esconder o preloader
+  const hidePreloader = () => {
+    console.log("Escondendo preloader...");
+    loader.style.opacity = "0";
+    loader.style.transition = "opacity 0.3s ease";
+
+    setTimeout(() => {
+      loader.style.display = "none";
       loader.classList.add("hidden");
+      document.body.style.overflow = "visible";
+      isPageLoaded = true;
+      console.log("Preloader removido!");
+
+      // Disparar evento
+      document.dispatchEvent(new CustomEvent("pageReady"));
 
       // Inicializar partículas apenas após o loader ser ocultado
       initParticles();
-    }, 1500);
+    }, 300);
+  };
+
+  // Ocultar loader após carregamento
+  window.addEventListener("load", () => {
+    setTimeout(hidePreloader, 1500);
   });
+
+  // Fallback para esconder rapidamente em desenvolvimento
+  if (window.location.hostname === "localhost") {
+    setTimeout(hidePreloader, 1000);
+  }
 }
 
-/**
- * Observador para animações de scroll
- */
+// ========================================
+// SCROLL OBSERVER E ANIMAÇÕES
+// ========================================
+
 function initScrollObserver() {
   // Observer para animações reveal
   const revealObserver = new IntersectionObserver(
@@ -100,7 +162,7 @@ function initScrollObserver() {
         if (entry.isIntersecting) {
           entry.target.classList.add("active");
 
-          // Ativar TODOS os contadores dentro do elemento visível
+          // Ativar contadores dentro do elemento visível
           const counters = entry.target.querySelectorAll(
             ".counter:not(.counted)"
           );
@@ -119,7 +181,7 @@ function initScrollObserver() {
     }
   );
 
-  // Observar todos os elementos com classe 'reveal' e os containers de métrica
+  // Observar elementos com animações
   document
     .querySelectorAll(".reveal, .cyber-metric-card")
     .forEach((element) => {
@@ -130,20 +192,18 @@ function initScrollObserver() {
   window.addEventListener("scroll", updateScrollIndicator);
 }
 
-/**
- * Atualiza o indicador de scroll
- */
 function updateScrollIndicator() {
-  const scrollIndicator = document.querySelector(".scroll-indicator");
-  if (!scrollIndicator) return;
-
   const scrollHeight = document.documentElement.scrollHeight;
   const scrollTop =
     document.documentElement.scrollTop || document.body.scrollTop;
   const clientHeight = document.documentElement.clientHeight;
 
-  const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
-  scrollIndicator.style.transform = `scaleX(${scrollPercentage / 100})`;
+  // Atualizar indicador de scroll
+  const scrollIndicator = document.querySelector(".scroll-indicator");
+  if (scrollIndicator) {
+    const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
+    scrollIndicator.style.transform = `scaleX(${scrollPercentage / 100})`;
+  }
 
   // Atualizar header ao rolar
   const header = document.querySelector("header");
@@ -154,60 +214,119 @@ function updateScrollIndicator() {
       header.classList.remove("scrolled");
     }
   }
+
+  // Atualizar link de navegação ativo
+  updateActiveNavLink();
 }
 
-/**
- * Inicializa as interações da UI
- */
+function updateActiveNavLink() {
+  const sections = document.querySelectorAll("section[id]");
+  let currentSection = "";
+
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.offsetHeight;
+    const scrollPosition = window.scrollY;
+    const headerHeight = document.querySelector("header")?.offsetHeight || 0;
+
+    if (
+      scrollPosition >= sectionTop - headerHeight - 100 &&
+      scrollPosition < sectionTop + sectionHeight - headerHeight - 100
+    ) {
+      currentSection = section.getAttribute("id");
+    }
+  });
+
+  const navLinks = document.querySelectorAll(".cyber-nav-link, .mobile-nav a");
+  navLinks.forEach((link) => {
+    link.classList.remove("active-link");
+    if (link.getAttribute("href") === `#${currentSection}`) {
+      link.classList.add("active-link");
+    }
+  });
+}
+
+// ========================================
+// UI INTERACTIONS
+// ========================================
+
 function initUIInteractions() {
-  // Menu mobile
+  // ========================================
+  // MOBILE MENU
+  // ========================================
   const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
   const mobileNavOverlay = document.querySelector(".mobile-nav-overlay");
   const mobileNav = document.querySelector(".mobile-nav");
   const mobileNavClose = document.querySelector(".mobile-nav-close");
 
   if (mobileMenuBtn && mobileNav) {
-    mobileMenuBtn.addEventListener("click", () => {
-      mobileNav.classList.add("active");
-      mobileNav.style.transform = "translateX(0)";
-      document.body.style.overflow = "hidden";
-      if (mobileNavOverlay) mobileNavOverlay.classList.add("active");
+    const toggleMenu = (show) => {
+      if (show) {
+        mobileNav.classList.add("active");
+        mobileNav.style.transform = "translateX(0)";
+        document.body.style.overflow = "hidden";
+        if (mobileNavOverlay) {
+          mobileNavOverlay.classList.add("active");
+          mobileNavOverlay.style.display = "block";
+        }
+      } else {
+        mobileNav.classList.remove("active");
+        mobileNav.style.transform = "translateX(100%)";
+        document.body.style.overflow = "";
+        if (mobileNavOverlay) {
+          mobileNavOverlay.classList.remove("active");
+          mobileNavOverlay.style.display = "none";
+        }
+      }
+    };
+
+    mobileMenuBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggleMenu(true);
+    });
+
+    if (mobileNavClose) {
+      mobileNavClose.addEventListener("click", () => toggleMenu(false));
+    }
+
+    if (mobileNavOverlay) {
+      mobileNavOverlay.addEventListener("click", () => toggleMenu(false));
+    }
+
+    // Fechar com ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") toggleMenu(false);
     });
   }
 
-  if (mobileNavClose && mobileNav) {
-    mobileNavClose.addEventListener("click", closeMenu);
+  // ========================================
+  // SMOOTH SCROLL
+  // ========================================
+
+  // Usar CSS scroll-behavior quando possível
+  if ("scrollBehavior" in document.documentElement.style) {
+    document.documentElement.style.scrollBehavior = "smooth";
   }
 
-  if (mobileNavOverlay && mobileNav) {
-    mobileNavOverlay.addEventListener("click", closeMenu);
-  }
-
-  function closeMenu() {
-    mobileNav.classList.remove("active");
-    mobileNav.style.transform = "translateX(100%)";
-    document.body.style.overflow = "";
-    if (mobileNavOverlay) mobileNavOverlay.classList.remove("active");
-  }
-
-  // Links de navegação
+  // Links de navegação com scroll suave
   const navLinks = document.querySelectorAll('a[href^="#"]');
   navLinks.forEach((link) => {
-    // Adicionar evento de clique para rolagem suave
     link.addEventListener("click", function (e) {
-      e.preventDefault();
-
       const targetId = this.getAttribute("href");
+
       if (targetId === "#") return;
+
+      e.preventDefault();
 
       // Fechar menu mobile se estiver aberto
       if (mobileNav && mobileNav.classList.contains("active")) {
-        closeMenu();
+        if (mobileNavClose) mobileNavClose.click();
       }
 
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
-        const headerHeight = document.querySelector("header").offsetHeight;
+        const header = document.querySelector("header");
+        const headerHeight = header ? header.offsetHeight : 0;
         const targetPosition = targetElement.offsetTop - headerHeight;
 
         window.scrollTo({
@@ -221,7 +340,9 @@ function initUIInteractions() {
     });
   });
 
-  // Inicializar FAQs
+  // ========================================
+  // FAQ INTERACTIONS
+  // ========================================
   const faqQuestions = document.querySelectorAll(".cyber-faq-question");
   console.log("FAQ: Encontrados", faqQuestions.length, "elementos FAQ");
 
@@ -242,7 +363,9 @@ function initUIInteractions() {
       faqQuestions.forEach((q) => {
         if (q !== question) {
           q.classList.remove("active");
-          q.nextElementSibling.style.maxHeight = null;
+          if (q.nextElementSibling) {
+            q.nextElementSibling.style.maxHeight = null;
+          }
         }
       });
 
@@ -250,54 +373,23 @@ function initUIInteractions() {
       if (isOpen) {
         console.log("FAQ: Fechando pergunta");
         question.classList.remove("active");
-        answer.style.maxHeight = null;
+        if (answer) answer.style.maxHeight = null;
       } else {
         console.log("FAQ: Abrindo pergunta");
         question.classList.add("active");
-        answer.style.maxHeight = answer.scrollHeight + "px";
-        console.log("FAQ: Altura definida para:", answer.scrollHeight + "px");
+        if (answer) {
+          answer.style.maxHeight = answer.scrollHeight + "px";
+          console.log("FAQ: Altura definida para:", answer.scrollHeight + "px");
+        }
       }
     });
   });
-
-  // Destacar link de navegação ativo
-  updateActiveNavLink();
-  window.addEventListener("scroll", updateActiveNavLink);
 }
 
-/**
- * Atualiza o link de navegação ativo com base na posição de rolagem
- */
-function updateActiveNavLink() {
-  const sections = document.querySelectorAll("section[id]");
-  let currentSection = "";
+// ========================================
+// VISUAL EFFECTS
+// ========================================
 
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.offsetHeight;
-    const scrollPosition = window.scrollY;
-    const headerHeight = document.querySelector("header").offsetHeight;
-
-    if (
-      scrollPosition >= sectionTop - headerHeight - 100 &&
-      scrollPosition < sectionTop + sectionHeight - headerHeight - 100
-    ) {
-      currentSection = section.getAttribute("id");
-    }
-  });
-
-  const navLinks = document.querySelectorAll(".cyber-nav-link, .mobile-nav a");
-  navLinks.forEach((link) => {
-    link.classList.remove("active-link");
-    if (link.getAttribute("href") === `#${currentSection}`) {
-      link.classList.add("active-link");
-    }
-  });
-}
-
-/**
- * Inicializa efeitos visuais
- */
 function initVisualEffects() {
   // Cursor personalizado
   const cursor = document.querySelector(".cursor");
@@ -342,23 +434,33 @@ function initVisualEffects() {
       });
     });
   } else {
-    // Em dispositivos móveis ou se não houver o cursor customizado, ocultá-lo
+    // Em dispositivos móveis, ocultar cursor customizado
     if (cursor) cursor.style.display = "none";
     if (cursorDot) cursorDot.style.display = "none";
   }
 }
 
-/**
- * Inicializa animações de contador
- * @param {HTMLElement} counter - Elemento contador
- */
+// ========================================
+// CONTADORES
+// ========================================
+
+function initCounters() {
+  const counters = document.querySelectorAll(".counter:not(.counted)");
+
+  counters.forEach((counter) => {
+    if (isElementInViewport(counter)) {
+      animateCounter(counter);
+      counter.classList.add("counted");
+    }
+  });
+}
+
 function animateCounter(counter) {
   const target = parseInt(counter.getAttribute("data-target"));
-  if (isNaN(target)) return; // Evita erros se o data-target não for um número
+  if (isNaN(target)) return;
 
-  // Ajuste a duração da animação com base no valor alvo
   const duration = target > 100 ? 2000 : 1500;
-  const frameDuration = 1000 / 60; // 60fps
+  const frameDuration = 1000 / 60;
   const totalFrames = Math.round(duration / frameDuration);
   const easeOutQuad = (t) => t * (2 - t);
 
@@ -375,51 +477,25 @@ function animateCounter(counter) {
     if (frame < totalFrames) {
       requestAnimationFrame(animate);
     } else {
-      counter.textContent = target; // Garantir que o alvo seja atingido
+      counter.textContent = target;
     }
   };
 
   animate();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Aplicar classe para evitar FOUC (Flash of Unstyled Content)
-  document.body.classList.add("fouc-ready");
+function isElementInViewport(el) {
+  const rect = el.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
 
-  // Iniciar preloader
-  initPreloader();
-
-  // Configurar observador para animações
-  initScrollObserver();
-
-  // Iniciar interações UI
-  initUIInteractions();
-
-  // Iniciar efeitos visuais
-  initVisualEffects();
-
-  // Iniciar contadores imediatamente se estiverem visíveis
-  initCounters();
-
-  // Configurar chatbot
-  initChatbot();
-
-  // Verificar contadores novamente quando o scroll ocorrer
-  window.addEventListener("scroll", debounce(initCounters, 100));
-
-  // Inicializar AOS (Animate on Scroll)
-  if (typeof AOS !== "undefined") {
-    AOS.init({
-      duration: 800,
-      easing: "ease-in-out",
-      once: true,
-      mirror: false,
-      offset: 50,
-    });
-  }
-});
-
-// 5. Adicione uma função de debounce para evitar chamadas excessivas durante o scroll
+// Função de debounce para evitar chamadas excessivas
 function debounce(func, wait) {
   let timeout;
   return function () {
@@ -432,50 +508,19 @@ function debounce(func, wait) {
   };
 }
 
-/**
- * Inicializa todos os contadores
- */
-function initCounters() {
-  // Inicializar contadores visíveis na tela
-  const counters = document.querySelectorAll(".counter:not(.counted)");
+// ========================================
+// SISTEMA DE PARTÍCULAS
+// ========================================
 
-  counters.forEach((counter) => {
-    if (isElementInViewport(counter)) {
-      animateCounter(counter);
-      counter.classList.add("counted");
-    }
-  });
-}
-
-/**
- * Verifica se um elemento está visível na viewport
- * @param {HTMLElement} el - Elemento a verificar
- * @returns {boolean} - true se visível
- */
-function isElementInViewport(el) {
-  const rect = el.getBoundingClientRect();
-
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-}
-
-/**
- * Inicializa o sistema de partículas
- */
 function initParticles() {
   if (
     typeof particlesJS !== "undefined" &&
     document.getElementById("particles-js")
   ) {
-    particlesJS("particles-js", {
+    const particleConfig = {
       particles: {
         number: {
-          value: 80,
+          value: isMobile() ? 20 : 80,
           density: {
             enable: true,
             value_area: 800,
@@ -492,7 +537,7 @@ function initParticles() {
           },
         },
         opacity: {
-          value: 0.5,
+          value: isMobile() ? 0.2 : 0.5,
           random: true,
           anim: {
             enable: true,
@@ -502,7 +547,7 @@ function initParticles() {
           },
         },
         size: {
-          value: 3,
+          value: isMobile() ? 1.5 : 3,
           random: true,
           anim: {
             enable: true,
@@ -515,12 +560,12 @@ function initParticles() {
           enable: true,
           distance: 150,
           color: "#00f3ff",
-          opacity: 0.4,
+          opacity: isMobile() ? 0.2 : 0.4,
           width: 1,
         },
         move: {
           enable: true,
-          speed: 1,
+          speed: isMobile() ? 0.3 : 1,
           direction: "none",
           random: true,
           straight: false,
@@ -537,11 +582,11 @@ function initParticles() {
         detect_on: "canvas",
         events: {
           onhover: {
-            enable: true,
+            enable: !isMobile(),
             mode: "grab",
           },
           onclick: {
-            enable: true,
+            enable: !isMobile(),
             mode: "push",
           },
           resize: true,
@@ -553,35 +598,23 @@ function initParticles() {
               opacity: 1,
             },
           },
-          bubble: {
-            distance: 400,
-            size: 40,
-            duration: 2,
-            opacity: 8,
-            speed: 3,
-          },
-          repulse: {
-            distance: 200,
-            duration: 0.4,
-          },
           push: {
             particles_nb: 4,
-          },
-          remove: {
-            particles_nb: 2,
           },
         },
       },
       retina_detect: true,
-    });
+    };
+
+    particlesJS("particles-js", particleConfig);
   }
 }
 
-/**
- * Inicializa chatbot melhorado com animações e UX aprimorada
- */
+// ========================================
+// CHATBOT
+// ========================================
+
 function initChatbot() {
-  // Elementos do chatbot
   const chatbotButton = document.getElementById("chatbot-button");
   const chatbotBox = document.getElementById("chatbot-box");
   const chatbotClose = document.getElementById("chatbot-close");
@@ -608,17 +641,21 @@ function initChatbot() {
     }
   });
 
-  chatbotClose.addEventListener("click", () => {
-    chatbotBox.classList.add("hidden");
-    chatbotBox.classList.remove("active");
-    chatbotButton.classList.remove("hidden");
-  });
+  if (chatbotClose) {
+    chatbotClose.addEventListener("click", () => {
+      chatbotBox.classList.add("hidden");
+      chatbotBox.classList.remove("active");
+      chatbotButton.classList.remove("hidden");
+    });
+  }
 
-  chatbotMinimize.addEventListener("click", () => {
-    chatbotBox.classList.add("hidden");
-    chatbotBox.classList.remove("active");
-    chatbotButton.classList.remove("hidden");
-  });
+  if (chatbotMinimize) {
+    chatbotMinimize.addEventListener("click", () => {
+      chatbotBox.classList.add("hidden");
+      chatbotBox.classList.remove("active");
+      chatbotButton.classList.remove("hidden");
+    });
+  }
 
   // Enviar mensagem
   function sendMessage() {
@@ -639,20 +676,23 @@ function initChatbot() {
     }, 1500);
   }
 
-  chatbotSend.addEventListener("click", sendMessage);
+  if (chatbotSend) {
+    chatbotSend.addEventListener("click", sendMessage);
+  }
 
-  chatbotInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      sendMessage();
-    }
-  });
+  if (chatbotInput) {
+    chatbotInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    });
+  }
 
-  // Processar resposta do chatbot (simulada)
+  // Processar resposta do chatbot
   function processResponse(message) {
     const lowerMessage = message.toLowerCase();
     let response;
 
-    // Respostas simuladas baseadas em palavras-chave
     if (
       lowerMessage.includes("preço") ||
       lowerMessage.includes("valor") ||
@@ -709,11 +749,7 @@ function initChatbot() {
   function addBotMessage(message) {
     const messageElement = document.createElement("div");
     messageElement.classList.add("chatbot-message", "bot");
-
-    // Converter quebras de linha em HTML
-    message = message.replace(/\n/g, "<br>");
-
-    messageElement.innerHTML = message;
+    messageElement.innerHTML = message.replace(/\n/g, "<br>");
     chatbotMessages.appendChild(messageElement);
     scrollToBottom();
   }
@@ -722,17 +758,11 @@ function initChatbot() {
   function addBotMessageWithWhatsapp(message) {
     const messageElement = document.createElement("div");
     messageElement.classList.add("chatbot-message", "bot");
+    messageElement.innerHTML = message.replace(/\n/g, "<br>");
 
-    // Converter quebras de linha em HTML
-    message = message.replace(/\n/g, "<br>");
-
-    // Adicionar conteúdo HTML da mensagem
-    messageElement.innerHTML = message;
-
-    // Adicionar botão WhatsApp
     const whatsappButton = document.createElement("a");
     whatsappButton.classList.add("whatsapp-button");
-    whatsappButton.href = "https://wa.me/5511912345678"; // Número fictício
+    whatsappButton.href = "https://wa.me/5511912345678";
     whatsappButton.target = "_blank";
     whatsappButton.innerHTML =
       '<svg class="whatsapp-icon" height="20" width="20" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg> Falar no WhatsApp';
@@ -771,3 +801,707 @@ function initChatbot() {
     chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
   }
 }
+
+// ========================================
+// OPTIMIZAÇÕES DE IMAGEM
+// ========================================
+
+async function initImageOptimizations() {
+  // Detectar suporte a formatos modernos
+  supportsWebP = await canUseWebP();
+  supportsAVIF = await canUseAVIF();
+
+  console.log("Format Support - WebP:", supportsWebP, "AVIF:", supportsAVIF);
+
+  setupLazyLoading();
+}
+
+function canUseWebP() {
+  return new Promise((resolve) => {
+    const webP = new Image();
+    webP.onload = webP.onerror = () => resolve(webP.height === 2);
+    webP.src =
+      "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA";
+  });
+}
+
+function canUseAVIF() {
+  return new Promise((resolve) => {
+    const avif = new Image();
+    avif.onload = avif.onerror = () => resolve(avif.height === 2);
+    avif.src =
+      "data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgABogQEAwgMg8f8D///8WfhwB8+ErK42A=";
+  });
+}
+
+function setupLazyLoading() {
+  // Verificar suporte nativo
+  if ("loading" in HTMLImageElement.prototype) {
+    return; // Usar atributo loading="lazy" nativo
+  }
+
+  // Fallback para browsers antigos
+  const images = document.querySelectorAll("img[data-src]");
+
+  if ("IntersectionObserver" in window) {
+    const imageObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            loadImage(entry.target);
+            imageObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        rootMargin: "50px",
+        threshold: 0.01,
+      }
+    );
+
+    images.forEach((img) => imageObserver.observe(img));
+  } else {
+    // Fallback sem IntersectionObserver
+    images.forEach((img) => loadImage(img));
+  }
+}
+
+async function loadImage(img) {
+  const originalSrc = img.dataset.src || img.src;
+  const optimizedSrc = getOptimizedSrc(originalSrc);
+
+  // Aplicar blur-up effect
+  if (img.dataset.placeholder) {
+    img.src = img.dataset.placeholder;
+    img.style.filter = "blur(5px)";
+    img.style.transition = "filter 0.3s ease";
+  }
+
+  try {
+    await preloadImage(optimizedSrc);
+    img.src = optimizedSrc;
+    img.style.filter = "none";
+    img.removeAttribute("data-src");
+    img.removeAttribute("data-placeholder");
+    img.classList.add("loaded");
+  } catch (error) {
+    console.warn(
+      "Failed to load optimized image, falling back to original:",
+      error
+    );
+    img.src = originalSrc;
+  }
+}
+
+function getOptimizedSrc(originalSrc) {
+  // Para imagens externas, retornar como está
+  if (
+    originalSrc.startsWith("http") &&
+    !originalSrc.includes("pixabay") &&
+    !originalSrc.includes("unsplash")
+  ) {
+    return originalSrc;
+  }
+
+  // Para imagens que podemos otimizar
+  const baseName = originalSrc.split(".").slice(0, -1).join(".");
+
+  if (supportsAVIF) {
+    return `${baseName}.avif`;
+  } else if (supportsWebP) {
+    return `${baseName}.webp`;
+  }
+
+  return originalSrc;
+}
+
+function preloadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = resolve;
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+// ========================================
+// OTIMIZAÇÕES MOBILE
+// ========================================
+
+function initMobileOptimizations() {
+  enhanceHeroSection();
+  setupInteractiveCards();
+  optimizePerformance();
+}
+
+function enhanceHeroSection() {
+  const cardContainer = document.querySelector(".cyber-card-container");
+  const statsCards = document.querySelectorAll(".cyber-stats-card");
+
+  if (!cardContainer || !statsCards.length) return;
+
+  // Adicionar efeito de perspectiva no container
+  cardContainer.style.perspective = "1000px";
+
+  // Criar wrapper flutuante para os cards
+  let statsWrapper = cardContainer.querySelector(".cyber-stats-wrapper");
+  if (!statsWrapper) {
+    statsWrapper = document.createElement("div");
+    statsWrapper.className = "cyber-stats-wrapper";
+    cardContainer.appendChild(statsWrapper);
+  }
+
+  // Mover cards para o wrapper e aplicar efeitos
+  statsCards.forEach((card, index) => {
+    card.style.transition = "all 0.3s ease";
+
+    const flexContainer = card.querySelector(".flex");
+    if (flexContainer) {
+      flexContainer.style.display = "flex";
+      flexContainer.style.alignItems = "center";
+      flexContainer.style.gap = "0.75rem";
+    }
+
+    statsWrapper.appendChild(card);
+
+    // Adicionar efeito hover/touch
+    card.addEventListener("touchstart", () => {
+      card.style.transform = "scale(1.05)";
+      card.style.zIndex = "30";
+    });
+
+    card.addEventListener("touchend", () => {
+      card.style.transform = "";
+      card.style.zIndex = "";
+    });
+  });
+}
+
+function setupInteractiveCards() {
+  const cards = document.querySelectorAll(".cyber-stats-card");
+
+  cards.forEach((card) => {
+    card.addEventListener("touchstart", () => {
+      card.classList.add("active");
+    });
+
+    card.addEventListener("touchend", () => {
+      card.classList.remove("active");
+    });
+
+    card.style.opacity = "0";
+    card.style.transform = "scale(0.8)";
+
+    setTimeout(() => {
+      card.style.transition = "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
+      card.style.opacity = "1";
+      card.style.transform = "";
+    }, 300);
+  });
+}
+
+function optimizePerformance() {
+  // Aplicar otimizações específicas para mobile
+  if (isMobile()) {
+    const style = document.createElement("style");
+    style.textContent = `
+      @media (max-width: 768px) {
+        .cyber-grid, .blob {
+          animation-play-state: paused;
+        }
+        
+        #particles-js {
+          opacity: 0.3;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+}
+
+// ========================================
+// CARROSSEL DE SERVIÇOS (MOBILE)
+// ========================================
+
+function initServicesCarousel() {
+  const servicesSection = document.querySelector("#services");
+  if (!servicesSection) return;
+
+  // Adicionar container do carrossel se não existir
+  let carouselContainer = servicesSection.querySelector(
+    ".services-mobile-carousel"
+  );
+  if (!carouselContainer) {
+    carouselContainer = document.createElement("div");
+    carouselContainer.className = "services-mobile-carousel";
+
+    const grid = servicesSection.querySelector(".grid");
+    if (grid) {
+      grid.parentNode.insertBefore(carouselContainer, grid);
+    }
+
+    carouselContainer.innerHTML = `
+      <div class="services-carousel-container">
+        <div class="services-carousel-wrapper"></div>
+        <button class="services-carousel-nav prev">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="services-carousel-nav next">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      <div class="services-carousel-dots"></div>
+      <button class="view-all-services">
+        Ver Todos os Serviços
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    `;
+  }
+
+  // Clonar serviços do grid para o carrossel
+  const serviceCards = servicesSection.querySelectorAll(".cyber-service-card");
+  const carouselWrapper = carouselContainer.querySelector(
+    ".services-carousel-wrapper"
+  );
+  const dotsContainer = carouselContainer.querySelector(
+    ".services-carousel-dots"
+  );
+
+  serviceCards.forEach((card, index) => {
+    const slide = document.createElement("div");
+    slide.className = "services-carousel-slide";
+    if (index === 0) slide.classList.add("active");
+
+    const cardClone = card.cloneNode(true);
+    slide.appendChild(cardClone);
+    carouselWrapper.appendChild(slide);
+
+    const dot = document.createElement("button");
+    dot.className = "services-carousel-dot";
+    if (index === 0) dot.classList.add("active");
+    dot.addEventListener("click", () => goToSlide(index));
+    dotsContainer.appendChild(dot);
+  });
+
+  // Variáveis de controle do carrossel
+  let currentSlide = 0;
+
+  function goToSlide(index) {
+    currentSlide = index;
+    updateCarousel();
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % serviceCards.length;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    currentSlide =
+      (currentSlide - 1 + serviceCards.length) % serviceCards.length;
+    updateCarousel();
+  }
+
+  function updateCarousel() {
+    const slides = carouselWrapper.querySelectorAll(".services-carousel-slide");
+    slides.forEach((slide, index) => {
+      slide.classList.toggle("active", index === currentSlide);
+    });
+
+    const dots = dotsContainer.querySelectorAll(".services-carousel-dot");
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("active", index === currentSlide);
+    });
+
+    const offset = -currentSlide * 90;
+    carouselWrapper.style.transform = `translateX(${offset}%)`;
+  }
+
+  // Event listeners
+  const prevButton = carouselContainer.querySelector(
+    ".services-carousel-nav.prev"
+  );
+  const nextButton = carouselContainer.querySelector(
+    ".services-carousel-nav.next"
+  );
+
+  if (prevButton) prevButton.addEventListener("click", prevSlide);
+  if (nextButton) nextButton.addEventListener("click", nextSlide);
+
+  // Touch events para swipe
+  let touchStartX = 0;
+  let isDragging = false;
+
+  carouselWrapper.addEventListener("touchstart", (e) => {
+    touchStartX = e.touches[0].clientX;
+    isDragging = true;
+    carouselWrapper.style.transition = "none";
+  });
+
+  carouselWrapper.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    const currentPosition = e.touches[0].clientX;
+    const diff = currentPosition - touchStartX;
+
+    const slideWidth = carouselWrapper.offsetWidth * 0.9;
+    const offset = -currentSlide * slideWidth;
+    const translate = offset + diff;
+
+    carouselWrapper.style.transform = `translateX(${translate}px)`;
+  });
+
+  carouselWrapper.addEventListener("touchend", (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+
+    const currentPosition = e.changedTouches[0].clientX;
+    const movedBy = currentPosition - touchStartX;
+
+    if (movedBy < -100 && currentSlide < serviceCards.length - 1) {
+      currentSlide++;
+    } else if (movedBy > 100 && currentSlide > 0) {
+      currentSlide--;
+    }
+
+    carouselWrapper.style.transition = "transform 0.3s ease";
+    updateCarousel();
+  });
+}
+
+// ========================================
+// INTERAÇÕES DA EQUIPE
+// ========================================
+
+function initTeamInteractions() {
+  const teamCards = document.querySelectorAll(".cyber-team-card-compact");
+  const matrixNodes = document.querySelectorAll(".cyber-matrix-node");
+  const avatars = document.querySelectorAll(
+    ".cyber-avatar-placeholder, .cyber-avatar-mini"
+  );
+
+  if (
+    teamCards.length === 0 &&
+    matrixNodes.length === 0 &&
+    avatars.length === 0
+  )
+    return;
+
+  setupTeamCardInteractions(teamCards);
+  setupMatrixInteractions(matrixNodes);
+  setupAvatarAnimations(avatars);
+  setupTeamScrollAnimations();
+}
+
+function setupTeamCardInteractions(teamCards) {
+  teamCards.forEach((card, index) => {
+    card.addEventListener("mouseenter", () => {
+      animateTeamCardHover(card, true);
+    });
+
+    card.addEventListener("mouseleave", () => {
+      animateTeamCardHover(card, false);
+    });
+
+    card.addEventListener("click", () => {
+      toggleTeamCardExpansion(card);
+    });
+  });
+}
+
+function animateTeamCardHover(card, isHover) {
+  const avatar = card.querySelector(".cyber-avatar-mini");
+  const roleIndicator = card.querySelector(".cyber-role-indicator");
+  const skills = card.querySelectorAll(".cyber-skill-badge");
+
+  if (isHover) {
+    if (avatar) {
+      avatar.style.transform = "scale(1.1) rotate(5deg)";
+      avatar.style.boxShadow = "0 0 25px rgba(0, 243, 255, 0.8)";
+    }
+
+    if (roleIndicator) {
+      roleIndicator.style.transform = "scale(1.3)";
+      roleIndicator.style.boxShadow = "0 0 15px currentColor";
+    }
+
+    skills.forEach((skill, skillIndex) => {
+      setTimeout(() => {
+        skill.style.transform = "scale(1.1)";
+        skill.style.boxShadow = "0 0 15px rgba(0, 243, 255, 0.5)";
+      }, skillIndex * 100);
+    });
+  } else {
+    if (avatar) {
+      avatar.style.transform = "";
+      avatar.style.boxShadow = "";
+    }
+    if (roleIndicator) {
+      roleIndicator.style.transform = "";
+      roleIndicator.style.boxShadow = "";
+    }
+    skills.forEach((skill) => {
+      skill.style.transform = "";
+      skill.style.boxShadow = "";
+    });
+  }
+}
+
+function setupMatrixInteractions(matrixNodes) {
+  matrixNodes.forEach((node, index) => {
+    node.addEventListener("mouseenter", () => {
+      highlightMatrixNode(node, index);
+    });
+
+    node.addEventListener("mouseleave", () => {
+      resetMatrixNode(node);
+    });
+
+    node.addEventListener("click", () => {
+      console.log("Matrix node clicked:", node.dataset.skill);
+    });
+  });
+}
+
+function highlightMatrixNode(node, index) {
+  const core = node.querySelector(".cyber-node-core");
+  const label = node.querySelector(".cyber-node-label");
+
+  const colors = [
+    "#00f3ff",
+    "#bc13fe",
+    "#ff2a6d",
+    "#00ff88",
+    "#f7df1e",
+    "#ff6b35",
+  ];
+  const color = colors[index % colors.length];
+
+  if (core) {
+    core.style.borderColor = color;
+    core.style.boxShadow = `0 0 30px ${color}`;
+    core.style.transform = "scale(1.2)";
+  }
+
+  if (label) {
+    label.style.color = color;
+    label.style.fontWeight = "600";
+  }
+}
+
+function resetMatrixNode(node) {
+  const core = node.querySelector(".cyber-node-core");
+  const label = node.querySelector(".cyber-node-label");
+
+  if (core) {
+    core.style.borderColor = "";
+    core.style.boxShadow = "";
+    core.style.transform = "";
+  }
+
+  if (label) {
+    label.style.color = "";
+    label.style.fontWeight = "";
+  }
+}
+
+function setupAvatarAnimations(avatars) {
+  avatars.forEach((avatar) => {
+    avatar.addEventListener("mousemove", (e) => {
+      const rect = avatar.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const deltaX = ((e.clientX - centerX) / rect.width) * 10;
+      const deltaY = ((e.clientY - centerY) / rect.height) * 10;
+
+      avatar.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(1.05)`;
+    });
+
+    avatar.addEventListener("mouseleave", () => {
+      avatar.style.transform = "";
+    });
+  });
+}
+
+function setupTeamScrollAnimations() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateTeamSection(entry.target);
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  const teamSection = document.getElementById("team");
+  if (teamSection) {
+    observer.observe(teamSection);
+  }
+}
+
+function animateTeamSection(section) {
+  const teamCards = section.querySelectorAll(".cyber-team-card-compact");
+  const matrixNodes = section.querySelectorAll(".cyber-matrix-node");
+
+  teamCards.forEach((card, index) => {
+    setTimeout(() => {
+      card.style.opacity = "1";
+      card.style.transform = "translateY(0)";
+    }, index * 200);
+  });
+
+  setTimeout(() => {
+    matrixNodes.forEach((node, index) => {
+      setTimeout(() => {
+        node.style.opacity = "1";
+        node.style.transform = "scale(1)";
+      }, index * 100);
+    });
+  }, 800);
+}
+
+function toggleTeamCardExpansion(card) {
+  const isExpanded = card.classList.contains("expanded");
+
+  // Reset todos os cards
+  document.querySelectorAll(".cyber-team-card-compact").forEach((c) => {
+    c.classList.remove("expanded");
+  });
+
+  if (!isExpanded) {
+    card.classList.add("expanded");
+  }
+}
+
+// ========================================
+// EVENT LISTENERS GLOBAIS
+// ========================================
+
+// Resize handler
+window.addEventListener(
+  "resize",
+  debounce(() => {
+    if (isMobile()) {
+      initMobileOptimizations();
+      initServicesCarousel();
+    }
+    initCounters();
+  }, 100)
+);
+
+// Scroll handler
+window.addEventListener(
+  "scroll",
+  debounce(() => {
+    initCounters();
+  }, 100),
+  { passive: true }
+);
+
+// Orientation change handler
+window.addEventListener("orientationchange", () => {
+  setTimeout(() => {
+    if (isMobile()) {
+      initMobileOptimizations();
+    }
+  }, 300);
+});
+
+// Carregar conteúdo não crítico quando a página estiver pronta
+document.addEventListener("pageReady", () => {
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(() => {
+      // Prefetch de recursos importantes
+      const criticalImages = [
+        "https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.jpg",
+      ];
+
+      criticalImages.forEach((src) => {
+        const link = document.createElement("link");
+        link.rel = "prefetch";
+        link.href = src;
+        document.head.appendChild(link);
+      });
+    });
+  }
+});
+
+// Web Vitals tracking (desenvolvimento)
+if (window.location.hostname === "localhost") {
+  if ("PerformanceObserver" in window) {
+    const fcpObserver = new PerformanceObserver((list) => {
+      const fcpEntry = list
+        .getEntries()
+        .find((entry) => entry.name === "first-contentful-paint");
+      if (fcpEntry) {
+        console.log("FCP:", fcpEntry.startTime.toFixed(2), "ms");
+      }
+    });
+    fcpObserver.observe({ entryTypes: ["paint"] });
+
+    const lcpObserver = new PerformanceObserver((list) => {
+      const lcpEntry = list.getEntries()[list.getEntries().length - 1];
+      console.log("LCP:", lcpEntry.startTime.toFixed(2), "ms");
+    });
+    lcpObserver.observe({ entryTypes: ["largest-contentful-paint"] });
+  }
+}
+
+// Garantir inicialização do AOS quando disponível
+function ensureAOSInit() {
+  if (typeof AOS !== "undefined") {
+    console.log("Inicializando AOS...");
+    AOS.init({
+      duration: 800,
+      easing: "ease-in-out",
+      once: true,
+      offset: 100,
+    });
+  } else {
+    setTimeout(ensureAOSInit, 100);
+  }
+}
+
+// Tentar inicializar AOS quando disponível
+document.addEventListener("DOMContentLoaded", ensureAOSInit);
+window.addEventListener("load", ensureAOSInit);
+
+// CSS adicional para animações
+const additionalStyles = `
+@keyframes fadeInLine {
+  to { opacity: 0.6; }
+}
+
+.cyber-team-card-compact.expanded {
+  grid-column: 1 / -1;
+  transform: scale(1.02);
+}
+
+.cyber-matrix-node {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.5s ease;
+}
+
+.cyber-connection-line {
+  box-shadow: 0 0 10px currentColor;
+}
+
+.services-mobile-carousel {
+  display: block;
+}
+
+@media (min-width: 769px) {
+  .services-mobile-carousel {
+    display: none;
+  }
+}
+`;
+
+const styleSheet = document.createElement("style");
+styleSheet.textContent = additionalStyles;
+document.head.appendChild(styleSheet);
+
+console.log("Soluctions S.A - JavaScript consolidado carregado!");

@@ -9,6 +9,10 @@
   <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#050510" />
   <!-- Cor da barra de status em navegadores mobile -->
+
+  <!-- Favicon (evita erro 404) -->
+  <link rel="icon" href="data:,">
+
   <title>Soluctions | Transformação Digital Inteligente</title>
 
   <!-- 🚀 PRECONNECTIONS - PRIORIDADE MÁXIMA para reduzir DNS lookup time -->
@@ -115,12 +119,8 @@
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@400;600&display=swap">
   </noscript>
 
-  <!-- 🎯 CSS CRÍTICO - Carregamento imediato para resolver loading -->
-  <link rel="stylesheet" href="css/main-critical.css">
-
-  <!-- 🎨 CSS PRINCIPAL - TODOS OS ESTILOS DA LANDING PAGE -->
+  <!--  CSS PRINCIPAL - TODOS OS ESTILOS DA LANDING PAGE -->
   <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/main-optimized.css">
 
   <!-- 📱 CSS MOBILE - Carregamento imediato -->
   <link rel="stylesheet" href="css/mobile.css">
@@ -128,14 +128,8 @@
   <!-- 🎨 AOS CSS - ESSENCIAL para animações de scroll -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
-  <!-- ⚡ JAVASCRIPT CRÍTICO - Carregamento imediato -->
-  <script src="js/critical.js"></script>
-
-  <!-- 🚀 JAVASCRIPT PRINCIPAL - Carregamento imediato para funcionalidades -->
+  <!-- ⚡ JAVASCRIPT CONSOLIDADO - Todas as funcionalidades em um único arquivo -->
   <script src="js/main.js" defer></script>
-
-  <!-- 👥 TEAM INTERACTIONS - Para nova seção da equipe -->
-  <script src="js/team-interactions.js" defer></script>
 
   <!-- 🎯 AOS SCRIPT - ESSENCIAL para animações de scroll -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
@@ -716,7 +710,7 @@
               <span class="cyber-tag analytics">Relatórios</span>
             </div>
             <a href="#" class="cyber-case-link">
-              <span>Ver caso completo</span>
+              <span>Falar com especialista</span>
               <i class="fas fa-arrow-right"></i>
             </a>
           </div>
@@ -768,7 +762,7 @@
               <span class="cyber-tag analytics">Conversão</span>
             </div>
             <a href="#" class="cyber-case-link">
-              <span>Ver caso completo</span>
+              <span>Falar com especialista</span>
               <i class="fas fa-arrow-right"></i>
             </a>
           </div>
@@ -820,7 +814,7 @@
               <span class="cyber-tag">ERP</span>
             </div>
             <a href="#" class="cyber-case-link">
-              <span>Ver caso completo</span>
+              <span>Falar com especialista</span>
               <i class="fas fa-arrow-right"></i>
             </a>
           </div>
@@ -1611,86 +1605,19 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" media="print"
     onload="this.media='all'; this.onload=null;">
 
-  <!-- ⚡ CARREGAMENTO INTELIGENTE DE SCRIPTS - Priorização baseada em criticidade -->
+  <!-- ⚡ CARREGAMENTO OTIMIZADO DE DEPENDÊNCIAS -->
   <script>
-    // Performance-first script loading
+    // Carregar particles.js apenas se necessário
     window.addEventListener('load', function () {
-      // Grupo 1: Animações essenciais (carregamento imediato após load)
-      const essentialScripts = [
-        // GSAP agora carregado no head
-      ];
-
-      // Grupo 2: Funcionalidades principais (carregamento com delay)
-      const mainScripts = [
-        'js/optimized-images.js',
-        'js/team-interactions.js'
-      ];
-
-      // Grupo 3: Funcionalidades secundárias (carregamento sob demanda)
-      const secondaryScripts = [
-        'https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js',
-        'js/mobile.optimizations.js',
-        'js/services-mobile.js',
-        'https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js'
-      ];
-
-      // Carregar scripts essenciais imediatamente
-      essentialScripts.forEach((src, index) => {
-        setTimeout(() => {
-          const script = document.createElement('script');
-          script.src = src;
-          script.async = true;
-          document.head.appendChild(script);
-        }, index * 50);
-      });
-
-      // Carregar scripts principais com pequeno delay
+      // Carregar particles.js com delay para não bloquear a renderização
       setTimeout(() => {
-        mainScripts.forEach((src, index) => {
-          setTimeout(() => {
-            const script = document.createElement('script');
-            script.src = src;
-            script.async = true;
-            document.head.appendChild(script);
-          }, index * 100);
-        });
-      }, 200);
-
-      // Carregar scripts secundários com delay maior ou sob demanda
-      const loadSecondaryScripts = () => {
-        secondaryScripts.forEach((src, index) => {
-          setTimeout(() => {
-            const script = document.createElement('script');
-            script.src = src;
-            script.async = true;
-            document.head.appendChild(script);
-          }, index * 150);
-        });
-      };
-
-      // Carregar scripts secundários após interaction ou após 2s
-      let interacted = false;
-      const triggerEvents = ['click', 'scroll', 'touchstart', 'keydown'];
-
-      const loadOnInteraction = () => {
-        if (!interacted) {
-          interacted = true;
-          loadSecondaryScripts();
-          triggerEvents.forEach(event =>
-            document.removeEventListener(event, loadOnInteraction)
-          );
-        }
-      };
-
-      triggerEvents.forEach(event =>
-        document.addEventListener(event, loadOnInteraction, { passive: true })
-      );
-
-      // Fallback: carregar após 2s se não houver interação
-      setTimeout(() => {
-        if (!interacted) loadOnInteraction();
-      }, 2000);
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js';
+        script.async = true;
+        document.head.appendChild(script);
+      }, 1000);
     });
+  </script>
   </script>
 
 </body>
