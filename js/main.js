@@ -44,7 +44,7 @@ let isPageLoaded = false;
 let supportsWebP = null;
 let supportsAVIF = null;
 
-// Prevent FOUC (apenas se não estiver pronto)
+// Prevent FOUC
 document.documentElement.classList.add("fouc-ready");
 
 // Verificação de dispositivo móvel (memoize e atualiza em resize/orientationchange)
@@ -99,15 +99,8 @@ function mainInit() {
     initMobileOptimizations();
     initServicesCarousel();
   }
-  // Lazy load AOS se necessário
   if (typeof AOS !== "undefined") {
-    AOS.init({
-      duration: 800,
-      easing: "ease-in-out",
-      once: true,
-      mirror: false,
-      offset: 50,
-    });
+    AOS.init({ duration: 700, easing: "ease", once: true, offset: 60 });
   }
 }
 
@@ -122,58 +115,32 @@ if (document.readyState === "loading") {
 // ========================================
 
 function initPreloader() {
-  console.log("Iniciando preloader...");
-
   const loader =
     document.getElementById("preloader") || document.querySelector(".loader");
   const progressFill = document.querySelector(".loader-progress-fill");
-
-  if (!loader) {
-    console.warn("Preloader não encontrado!");
-    return;
-  }
-
-  // Animar progresso
+  if (!loader) return;
   if (progressFill) {
     setTimeout(() => {
       progressFill.style.width = "60%";
     }, 100);
-
     setTimeout(() => {
       progressFill.style.width = "100%";
     }, 1000);
   }
-
-  // Função para esconder o preloader
   const hidePreloader = () => {
-    console.log("Escondendo preloader...");
     loader.style.opacity = "0";
     loader.style.transition = "opacity 0.3s ease";
-
     setTimeout(() => {
       loader.style.display = "none";
       loader.classList.add("hidden");
       document.body.style.overflow = "visible";
       isPageLoaded = true;
-      console.log("Preloader removido!");
-
-      // Disparar evento
       document.dispatchEvent(new CustomEvent("pageReady"));
-
-      // Inicializar partículas apenas após o loader ser ocultado
       initParticles();
     }, 300);
   };
-
-  // Ocultar loader após carregamento
-  window.addEventListener("load", () => {
-    setTimeout(hidePreloader, 1500);
-  });
-
-  // Fallback para esconder rapidamente em desenvolvimento
-  if (window.location.hostname === "localhost") {
-    setTimeout(hidePreloader, 1000);
-  }
+  window.addEventListener("load", () => setTimeout(hidePreloader, 1200));
+  if (window.location.hostname === "localhost") setTimeout(hidePreloader, 800);
 }
 
 // ========================================
@@ -215,7 +182,7 @@ function initScrollObserver() {
     });
 
   // Atualizar indicador de scroll
-  window.addEventListener("scroll", updateScrollIndicator);
+  window.addEventListener("scroll", updateScrollIndicator, { passive: true });
 }
 
 function updateScrollIndicator() {
@@ -356,9 +323,7 @@ function initUIInteractions() {
   // ========================================
 
   // Usar CSS scroll-behavior quando possível
-  if ("scrollBehavior" in document.documentElement.style) {
-    document.documentElement.style.scrollBehavior = "smooth";
-  }
+  document.documentElement.style.scrollBehavior = "smooth";
 }
 
 // ========================================
@@ -555,13 +520,9 @@ function isElementInViewport(el) {
 // Função de debounce para evitar chamadas excessivas
 function debounce(func, wait) {
   let timeout;
-  return function () {
-    const context = this;
-    const args = arguments;
+  return function (...args) {
     clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      func.apply(context, args);
-    }, wait);
+    timeout = setTimeout(() => func.apply(this, args), wait);
   };
 }
 
@@ -581,9 +542,7 @@ function initParticles() {
     !document.getElementById("particles-js")
   ) {
     const particlesContainer = document.getElementById("particles-js");
-    if (particlesContainer) {
-      particlesContainer.style.display = "none";
-    }
+    if (particlesContainer) particlesContainer.style.display = "none";
     return;
   }
 
@@ -834,12 +793,8 @@ function initChatbot() {
 // ========================================
 
 async function initImageOptimizations() {
-  // Detectar suporte a formatos modernos
   supportsWebP = await canUseWebP();
   supportsAVIF = await canUseAVIF();
-
-  console.log("Format Support - WebP:", supportsWebP, "AVIF:", supportsAVIF);
-
   setupLazyLoading();
 }
 
@@ -1482,22 +1437,14 @@ if (
   lcpObserver.observe({ entryTypes: ["largest-contentful-paint"] });
 }
 
-// Garantir inicialização do AOS quando disponível
+// Inicialização AOS apenas se necessário
 function ensureAOSInit() {
   if (typeof AOS !== "undefined") {
-    console.log("Inicializando AOS...");
-    AOS.init({
-      duration: 800,
-      easing: "ease-in-out",
-      once: true,
-      offset: 100,
-    });
+    AOS.init({ duration: 700, easing: "ease", once: true, offset: 60 });
   } else {
-    setTimeout(ensureAOSInit, 100);
+    setTimeout(ensureAOSInit, 120);
   }
 }
-
-// Tentar inicializar AOS quando disponível
 document.addEventListener("DOMContentLoaded", ensureAOSInit);
 window.addEventListener("load", ensureAOSInit);
 
@@ -1536,5 +1483,3 @@ const additionalStyles = `
 const styleSheet = document.createElement("style");
 styleSheet.textContent = additionalStyles;
 document.head.appendChild(styleSheet);
-
-console.log("Soluctions S.A - JavaScript consolidado carregado!");
