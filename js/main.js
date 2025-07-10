@@ -1,3 +1,72 @@
+// Acessibilidade e validação do formulário de contato
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector(".cyber-contact-form");
+  if (!form) return;
+  const name = form.querySelector("#name");
+  const email = form.querySelector("#email");
+  const message = form.querySelector("#message");
+  const errorName = form.querySelector("#error-name");
+  const errorEmail = form.querySelector("#error-email");
+  const errorMessage = form.querySelector("#error-message");
+  const successMsg = form.querySelector("#success-message");
+
+  function validateEmail(val) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+  }
+
+  form.addEventListener("submit", function (e) {
+    let valid = true;
+    // Nome
+    if (!name.value.trim()) {
+      errorName.classList.remove("hidden");
+      name.setAttribute("aria-invalid", "true");
+      valid = false;
+    } else {
+      errorName.classList.add("hidden");
+      name.removeAttribute("aria-invalid");
+    }
+    // Email
+    if (!validateEmail(email.value.trim())) {
+      errorEmail.classList.remove("hidden");
+      email.setAttribute("aria-invalid", "true");
+      valid = false;
+    } else {
+      errorEmail.classList.add("hidden");
+      email.removeAttribute("aria-invalid");
+    }
+    // Mensagem
+    if (!message.value.trim()) {
+      errorMessage.classList.remove("hidden");
+      message.setAttribute("aria-invalid", "true");
+      valid = false;
+    } else {
+      errorMessage.classList.add("hidden");
+      message.removeAttribute("aria-invalid");
+    }
+    if (!valid) {
+      e.preventDefault();
+      return;
+    }
+    e.preventDefault();
+    // Simula envio
+    setTimeout(() => {
+      form.reset();
+      successMsg.classList.remove("hidden");
+      setTimeout(() => successMsg.classList.add("hidden"), 4000);
+    }, 600);
+  });
+
+  // Acessibilidade: feedback ao digitar
+  [name, email, message].forEach((input) => {
+    input.addEventListener("input", () => {
+      if (input.value.trim()) {
+        const err = form.querySelector(`#error-${input.id}`);
+        if (err) err.classList.add("hidden");
+        input.removeAttribute("aria-invalid");
+      }
+    });
+  });
+});
 /**
  * Soluctions S.A - JavaScript Consolidado
  * Todas as funcionalidades em um único arquivo
@@ -121,19 +190,23 @@ function initPreloader() {
   if (!loader) return;
   if (progressFill) {
     setTimeout(() => {
-      progressFill.style.width = "60%";
+      progressFill.classList.add("progress-60");
     }, 100);
     setTimeout(() => {
-      progressFill.style.width = "100%";
+      progressFill.classList.remove("progress-60");
+      progressFill.classList.add("progress-100");
     }, 1000);
   }
   const hidePreloader = () => {
-    loader.style.opacity = "0";
-    loader.style.transition = "opacity 0.3s ease";
+    loader.classList.add("fade-out");
     setTimeout(() => {
-      loader.style.display = "none";
+      loader.classList.add("is-hidden");
       loader.classList.add("hidden");
-      document.body.style.overflow = "visible";
+      loader.setAttribute("aria-hidden", "true");
+      // Remove do DOM após animação para liberar memória
+      loader.parentNode && loader.parentNode.removeChild(loader);
+      document.body.classList.remove("is-locked");
+      document.body.classList.add("is-unlocked");
       isPageLoaded = true;
       document.dispatchEvent(new CustomEvent("pageReady"));
       initParticles();
@@ -156,9 +229,12 @@ function initScrollObserver() {
           entry.target.classList.add("active");
 
           // Ativar contadores dentro do elemento visível
-          const counters = entry.target.querySelectorAll(
-            ".counter:not(.counted)"
-          );
+          // Cache counters locais para evitar múltiplos querySelectorAll
+          const counters =
+            entry.target._counters ||
+            (entry.target._counters = entry.target.querySelectorAll(
+              ".counter:not(.counted)"
+            ));
           if (counters.length > 0) {
             counters.forEach((counter) => {
               animateCounter(counter);
@@ -174,12 +250,15 @@ function initScrollObserver() {
     }
   );
 
-  // Observar elementos com animações
-  document
-    .querySelectorAll(".reveal, .cyber-metric-card")
-    .forEach((element) => {
-      revealObserver.observe(element);
-    });
+  // Observar elementos com animações (cache global)
+  const revealElements =
+    DOMCache._revealElements ||
+    (DOMCache._revealElements = document.querySelectorAll(
+      ".reveal, .cyber-metric-card"
+    ));
+  revealElements.forEach((element) => {
+    revealObserver.observe(element);
+  });
 
   // Atualizar indicador de scroll
   window.addEventListener("scroll", updateScrollIndicator, { passive: true });
@@ -192,14 +271,17 @@ function updateScrollIndicator() {
   const clientHeight = document.documentElement.clientHeight;
 
   // Atualizar indicador de scroll
-  const scrollIndicator = document.querySelector(".scroll-indicator");
+  // Cache selectors para evitar múltiplos acessos ao DOM
+  const scrollIndicator =
+    DOMCache._scrollIndicator ||
+    (DOMCache._scrollIndicator = document.querySelector(".scroll-indicator"));
   if (scrollIndicator) {
     const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
     scrollIndicator.style.transform = `scaleX(${scrollPercentage / 100})`;
   }
 
-  // Atualizar header ao rolar
-  const header = document.querySelector("header");
+  const header =
+    DOMCache.header || (DOMCache.header = document.querySelector("header"));
   if (header) {
     if (scrollTop > 50) {
       header.classList.add("scrolled");
@@ -213,15 +295,19 @@ function updateScrollIndicator() {
 }
 
 function updateActiveNavLink() {
-  const sections = document.querySelectorAll("section[id]");
+  // Cache selectors para evitar múltiplos acessos ao DOM
+  const sections =
+    DOMCache._sections ||
+    (DOMCache._sections = document.querySelectorAll("section[id]"));
   let currentSection = "";
+  const scrollPosition = window.scrollY;
+  const header =
+    DOMCache.header || (DOMCache.header = document.querySelector("header"));
+  const headerHeight = header?.offsetHeight || 0;
 
   sections.forEach((section) => {
     const sectionTop = section.offsetTop;
     const sectionHeight = section.offsetHeight;
-    const scrollPosition = window.scrollY;
-    const headerHeight = document.querySelector("header")?.offsetHeight || 0;
-
     if (
       scrollPosition >= sectionTop - headerHeight - 100 &&
       scrollPosition < sectionTop + sectionHeight - headerHeight - 100
@@ -230,7 +316,11 @@ function updateActiveNavLink() {
     }
   });
 
-  const navLinks = document.querySelectorAll(".cyber-nav-link, .mobile-nav a");
+  const navLinks =
+    DOMCache._navLinks ||
+    (DOMCache._navLinks = document.querySelectorAll(
+      ".cyber-nav-link, .mobile-nav a"
+    ));
   navLinks.forEach((link) => {
     link.classList.remove("active-link");
     if (link.getAttribute("href") === `#${currentSection}`) {
@@ -259,9 +349,7 @@ function initUIInteractions() {
       "close-menu": () => toggleMenu(false),
       "faq-toggle": () => handleFaqToggle(target),
       "smooth-scroll": () => handleSmoothScroll(target),
-      "carousel-nav": () => handleCarouselNav(target),
-      "chatbot-toggle": () => toggleChatbot(),
-      "chatbot-send": () => sendChatbotMessage(),
+      // "carousel-nav", "chatbot-toggle", "chatbot-send" removidos pois não existem implementações
     };
 
     if (handlers[action]) {
@@ -337,21 +425,31 @@ function toggleMenu(show) {
   if (!mobileNav) return;
 
   if (show) {
-    mobileNav.classList.add("active");
-    mobileNav.style.transform = "translateX(0)";
-    document.body.style.overflow = "hidden";
+    mobileNav.classList.add("active", "translate-x-0");
+    mobileNav.classList.remove("translate-x-full");
+    document.body.classList.add("is-locked");
+    document.body.classList.remove("is-unlocked");
     if (mobileNavOverlay) {
-      mobileNavOverlay.classList.add("active");
-      mobileNavOverlay.style.display = "block";
+      mobileNavOverlay.classList.add("active", "is-visible");
+      mobileNavOverlay.classList.remove("is-hidden");
+      mobileNavOverlay.setAttribute("aria-hidden", "false");
     }
+    // Foco automático no menu para acessibilidade
+    setTimeout(() => {
+      mobileNav.setAttribute("tabindex", "-1");
+      mobileNav.focus();
+    }, 10);
   } else {
-    mobileNav.classList.remove("active");
-    mobileNav.style.transform = "translateX(100%)";
-    document.body.style.overflow = "";
+    mobileNav.classList.remove("active", "translate-x-0");
+    mobileNav.classList.add("translate-x-full");
+    document.body.classList.remove("is-locked");
+    document.body.classList.add("is-unlocked");
     if (mobileNavOverlay) {
-      mobileNavOverlay.classList.remove("active");
-      mobileNavOverlay.style.display = "none";
+      mobileNavOverlay.classList.remove("active", "is-visible");
+      mobileNavOverlay.classList.add("is-hidden");
+      mobileNavOverlay.setAttribute("aria-hidden", "true");
     }
+    mobileNav.removeAttribute("tabindex");
   }
 }
 
@@ -360,11 +458,18 @@ function handleFaqToggle(question) {
   const isOpen = question.classList.contains("active");
 
   // Fechar todas as outras perguntas
-  document.querySelectorAll(".cyber-faq-question.active").forEach((q) => {
+  // Cache perguntas ativas para evitar múltiplos acessos ao DOM
+  const activeQuestions =
+    DOMCache._faqQuestions ||
+    (DOMCache._faqQuestions = document.querySelectorAll(
+      ".cyber-faq-question.active"
+    ));
+  activeQuestions.forEach((q) => {
     if (q !== question) {
       q.classList.remove("active");
       if (q.nextElementSibling) {
-        q.nextElementSibling.style.maxHeight = null;
+        q.nextElementSibling.classList.remove("max-h-auto");
+        q.nextElementSibling.classList.add("max-h-none");
       }
     }
   });
@@ -372,11 +477,15 @@ function handleFaqToggle(question) {
   // Alternar estado atual
   if (isOpen) {
     question.classList.remove("active");
-    if (answer) answer.style.maxHeight = null;
+    if (answer) {
+      answer.classList.remove("max-h-auto");
+      answer.classList.add("max-h-none");
+    }
   } else {
     question.classList.add("active");
     if (answer) {
-      answer.style.maxHeight = answer.scrollHeight + "px";
+      answer.classList.remove("max-h-none");
+      answer.classList.add("max-h-auto");
     }
   }
 }
@@ -413,7 +522,9 @@ function updateCursor(x, y) {
     gsap.to(DOMCache.cursor, { x, y, duration: 0.2 });
     gsap.to(DOMCache.cursorDot, { x, y, duration: 0.1 });
   } else {
+    DOMCache.cursor.classList.add("translate-cursor");
     DOMCache.cursor.style.transform = `translate(${x}px, ${y}px)`;
+    DOMCache.cursorDot.classList.add("translate-cursor");
     DOMCache.cursorDot.style.transform = `translate(${x}px, ${y}px)`;
   }
 }
@@ -426,39 +537,49 @@ function initVisualEffects() {
   // Cursor personalizado otimizado
   if (DOMCache.cursor && DOMCache.cursorDot && window.innerWidth > 768) {
     // Event delegation para elementos interativos
-    document.addEventListener(
-      "mouseenter",
-      (e) => {
-        if (
-          e.target.matches(
-            "a, button, input, select, textarea, .cursor-pointer"
-          )
-        ) {
-          DOMCache.cursor.classList.add("active");
-          DOMCache.cursorDot.classList.add("active");
-        }
-      },
-      true
-    );
-
-    document.addEventListener(
-      "mouseleave",
-      (e) => {
-        if (
-          e.target.matches(
-            "a, button, input, select, textarea, .cursor-pointer"
-          )
-        ) {
-          DOMCache.cursor.classList.remove("active");
-          DOMCache.cursorDot.classList.remove("active");
-        }
-      },
-      true
-    );
+    if (!DOMCache._cursorListeners) {
+      function isElementOrDescendant(el) {
+        // Garante que el é um Element e não um Text, Document, etc
+        return el && typeof el.matches === "function";
+      }
+      document.addEventListener(
+        "mouseenter",
+        (e) => {
+          const target = e.target;
+          if (
+            isElementOrDescendant(target) &&
+            target.matches(
+              "a, button, input, select, textarea, .cursor-pointer"
+            )
+          ) {
+            DOMCache.cursor.classList.add("active");
+            DOMCache.cursorDot.classList.add("active");
+          }
+        },
+        true
+      );
+      document.addEventListener(
+        "mouseleave",
+        (e) => {
+          const target = e.target;
+          if (
+            isElementOrDescendant(target) &&
+            target.matches(
+              "a, button, input, select, textarea, .cursor-pointer"
+            )
+          ) {
+            DOMCache.cursor.classList.remove("active");
+            DOMCache.cursorDot.classList.remove("active");
+          }
+        },
+        true
+      );
+      DOMCache._cursorListeners = true;
+    }
   } else {
     // Em dispositivos móveis, ocultar cursor customizado
-    if (DOMCache.cursor) DOMCache.cursor.style.display = "none";
-    if (DOMCache.cursorDot) DOMCache.cursorDot.style.display = "none";
+    if (DOMCache.cursor) DOMCache.cursor.classList.add("is-hidden");
+    if (DOMCache.cursorDot) DOMCache.cursorDot.classList.add("is-hidden");
   }
 }
 
@@ -467,8 +588,10 @@ function initVisualEffects() {
 // ========================================
 
 function initCounters() {
-  const counters = document.querySelectorAll(".counter:not(.counted)");
-
+  // Cache counters para evitar múltiplos acessos ao DOM
+  const counters =
+    DOMCache._counters ||
+    (DOMCache._counters = document.querySelectorAll(".counter:not(.counted)"));
   counters.forEach((counter) => {
     if (isElementInViewport(counter)) {
       animateCounter(counter);
@@ -820,13 +943,20 @@ function setupLazyLoading() {
   // Cache de imagens carregadas - OTIMIZADO
   const loadedImages = new Set();
 
+  // Cache global de imagens para evitar múltiplos querySelectorAll
+  const lazyImages =
+    DOMCache._lazyImages ||
+    (DOMCache._lazyImages = document.querySelectorAll(
+      "img[data-src]:not(.loaded)"
+    ));
+
   // Verificar suporte nativo
   if ("loading" in HTMLImageElement.prototype) {
     // Usar loading="lazy" nativo com fallback otimizado
-    document.querySelectorAll("img[data-src]:not(.loaded)").forEach((img) => {
+    lazyImages.forEach((img) => {
       if (!loadedImages.has(img.src)) {
         img.loading = "lazy";
-        loadOptimizedImage(img);
+        loadImage(img);
         loadedImages.add(img.src);
       }
     });
@@ -839,7 +969,7 @@ function setupLazyLoading() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !loadedImages.has(entry.target.src)) {
-            loadOptimizedImage(entry.target);
+            loadImage(entry.target);
             loadedImages.add(entry.target.src);
             imageObserver.unobserve(entry.target);
           }
@@ -851,14 +981,14 @@ function setupLazyLoading() {
       }
     );
 
-    document.querySelectorAll("img[data-src]:not(.loaded)").forEach((img) => {
+    lazyImages.forEach((img) => {
       imageObserver.observe(img);
     });
   } else {
     // Fallback sem IntersectionObserver
-    document.querySelectorAll("img[data-src]:not(.loaded)").forEach((img) => {
+    lazyImages.forEach((img) => {
       if (!loadedImages.has(img.src)) {
-        loadOptimizedImage(img);
+        loadImage(img);
         loadedImages.add(img.src);
       }
     });
@@ -872,9 +1002,9 @@ async function loadImage(img) {
   // Aplicar blur-up effect
   if (img.dataset.placeholder) {
     img.src = img.dataset.placeholder;
-    img.style.filter = "blur(5px)";
-    img.style.transition = "filter 0.3s ease";
+    img.classList.add("is-blur");
   }
+  if (particlesContainer) particlesContainer.classList.add("is-hidden");
 
   try {
     await preloadImage(optimizedSrc);
@@ -952,8 +1082,7 @@ function enhanceHeroSection() {
 
   // Mover cards para o wrapper e aplicar efeitos
   statsCards.forEach((card, index) => {
-    card.style.transition = "all 0.3s ease";
-
+    // Flex container (mantém para desktop)
     const flexContainer = card.querySelector(".flex");
     if (flexContainer) {
       flexContainer.style.display = "flex";
@@ -963,15 +1092,12 @@ function enhanceHeroSection() {
 
     statsWrapper.appendChild(card);
 
-    // Adicionar efeito hover/touch
+    // Efeito touch: usa classe utilitária
     card.addEventListener("touchstart", () => {
-      card.style.transform = "scale(1.05)";
-      card.style.zIndex = "30";
+      card.classList.add("card-active");
     });
-
     card.addEventListener("touchend", () => {
-      card.style.transform = "";
-      card.style.zIndex = "";
+      card.classList.remove("card-active");
     });
   });
 }
@@ -980,21 +1106,16 @@ function setupInteractiveCards() {
   const cards = document.querySelectorAll(".cyber-stats-card");
 
   cards.forEach((card) => {
+    card.classList.add("fade-init");
     card.addEventListener("touchstart", () => {
-      card.classList.add("active");
+      card.classList.add("card-active");
     });
-
     card.addEventListener("touchend", () => {
-      card.classList.remove("active");
+      card.classList.remove("card-active");
     });
-
-    card.style.opacity = "0";
-    card.style.transform = "scale(0.8)";
-
     setTimeout(() => {
-      card.style.transition = "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
-      card.style.opacity = "1";
-      card.style.transform = "";
+      card.classList.remove("fade-init");
+      card.classList.add("fade-in-scale");
     }, 300);
   });
 }
@@ -1081,6 +1202,8 @@ function initServicesCarousel() {
     dot.addEventListener("click", () => goToSlide(index));
     dotsContainer.appendChild(dot);
   });
+  // Adiciona classe de transição CSS
+  carouselWrapper.classList.add("carousel-transition");
 
   // Variáveis de controle do carrossel
   let currentSlide = 0;
@@ -1134,7 +1257,7 @@ function initServicesCarousel() {
   carouselWrapper.addEventListener("touchstart", (e) => {
     touchStartX = e.touches[0].clientX;
     isDragging = true;
-    carouselWrapper.style.transition = "none";
+    carouselWrapper.classList.remove("carousel-transition");
   });
 
   carouselWrapper.addEventListener("touchmove", (e) => {
@@ -1162,7 +1285,7 @@ function initServicesCarousel() {
       currentSlide--;
     }
 
-    carouselWrapper.style.transition = "transform 0.3s ease";
+    carouselWrapper.classList.add("carousel-transition");
     updateCarousel();
   });
 }
@@ -1213,34 +1336,18 @@ function animateTeamCardHover(card, isHover) {
   const skills = card.querySelectorAll(".cyber-skill-badge");
 
   if (isHover) {
-    if (avatar) {
-      avatar.style.transform = "scale(1.1) rotate(5deg)";
-      avatar.style.boxShadow = "0 0 25px rgba(0, 243, 255, 0.8)";
-    }
-
-    if (roleIndicator) {
-      roleIndicator.style.transform = "scale(1.3)";
-      roleIndicator.style.boxShadow = "0 0 15px currentColor";
-    }
-
+    if (avatar) avatar.classList.add("team-avatar-hover");
+    if (roleIndicator) roleIndicator.classList.add("team-role-hover");
     skills.forEach((skill, skillIndex) => {
       setTimeout(() => {
-        skill.style.transform = "scale(1.1)";
-        skill.style.boxShadow = "0 0 15px rgba(0, 243, 255, 0.5)";
+        skill.classList.add("team-skill-hover");
       }, skillIndex * 100);
     });
   } else {
-    if (avatar) {
-      avatar.style.transform = "";
-      avatar.style.boxShadow = "";
-    }
-    if (roleIndicator) {
-      roleIndicator.style.transform = "";
-      roleIndicator.style.boxShadow = "";
-    }
+    if (avatar) avatar.classList.remove("team-avatar-hover");
+    if (roleIndicator) roleIndicator.classList.remove("team-role-hover");
     skills.forEach((skill) => {
-      skill.style.transform = "";
-      skill.style.boxShadow = "";
+      skill.classList.remove("team-skill-hover");
     });
   }
 }
@@ -1255,16 +1362,15 @@ function setupMatrixInteractions(matrixNodes) {
       resetMatrixNode(node);
     });
 
-    node.addEventListener("click", () => {
-      console.log("Matrix node clicked:", node.dataset.skill);
-    });
+    // node.addEventListener("click", () => {
+    //   console.log("Matrix node clicked:", node.dataset.skill);
+    // });
   });
 }
 
 function highlightMatrixNode(node, index) {
   const core = node.querySelector(".cyber-node-core");
   const label = node.querySelector(".cyber-node-label");
-
   const colors = [
     "#00f3ff",
     "#bc13fe",
@@ -1274,48 +1380,40 @@ function highlightMatrixNode(node, index) {
     "#ff6b35",
   ];
   const color = colors[index % colors.length];
-
   if (core) {
-    core.style.borderColor = color;
-    core.style.boxShadow = `0 0 30px ${color}`;
-    core.style.transform = "scale(1.2)";
+    core.style.setProperty("--matrix-node-color", color);
+    core.classList.add("matrix-node-hover");
   }
-
   if (label) {
-    label.style.color = color;
-    label.style.fontWeight = "600";
+    label.style.setProperty("--matrix-node-color", color);
+    label.classList.add("matrix-label-hover");
   }
 }
 
 function resetMatrixNode(node) {
   const core = node.querySelector(".cyber-node-core");
   const label = node.querySelector(".cyber-node-label");
-
   if (core) {
-    core.style.borderColor = "";
-    core.style.boxShadow = "";
-    core.style.transform = "";
+    core.classList.remove("matrix-node-hover");
+    core.style.removeProperty("--matrix-node-color");
   }
-
   if (label) {
-    label.style.color = "";
-    label.style.fontWeight = "";
+    label.classList.remove("matrix-label-hover");
+    label.style.removeProperty("--matrix-node-color");
   }
 }
 
 function setupAvatarAnimations(avatars) {
   avatars.forEach((avatar) => {
+    avatar.classList.add("avatar-tilt");
     avatar.addEventListener("mousemove", (e) => {
       const rect = avatar.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-
       const deltaX = ((e.clientX - centerX) / rect.width) * 10;
       const deltaY = ((e.clientY - centerY) / rect.height) * 10;
-
       avatar.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(1.05)`;
     });
-
     avatar.addEventListener("mouseleave", () => {
       avatar.style.transform = "";
     });
@@ -1345,20 +1443,21 @@ function animateTeamSection(section) {
   const matrixNodes = section.querySelectorAll(".cyber-matrix-node");
 
   teamCards.forEach((card, index) => {
-    setTimeout(() => {
-      card.style.opacity = "1";
-      card.style.transform = "translateY(0)";
-    }, index * 200);
+    card.classList.add("fade-init-up", `delay-${index}`);
+    // Remove fade-init-up e adiciona fade-in-up após o repaint (CSS faz o delay)
+    requestAnimationFrame(() => {
+      card.classList.remove("fade-init-up");
+      card.classList.add("fade-in-up");
+    });
   });
 
-  setTimeout(() => {
-    matrixNodes.forEach((node, index) => {
-      setTimeout(() => {
-        node.style.opacity = "1";
-        node.style.transform = "scale(1)";
-      }, index * 100);
+  matrixNodes.forEach((node, index) => {
+    node.classList.add("fade-init-up", `delay-${index}`);
+    requestAnimationFrame(() => {
+      node.classList.remove("fade-init-up");
+      node.classList.add("fade-in-up");
     });
-  }, 800);
+  });
 }
 
 function toggleTeamCardExpansion(card) {
@@ -1425,14 +1524,14 @@ if (
       .getEntries()
       .find((entry) => entry.name === "first-contentful-paint");
     if (fcpEntry) {
-      console.log("FCP:", fcpEntry.startTime.toFixed(2), "ms");
+      // console.log("FCP:", fcpEntry.startTime.toFixed(2), "ms");
     }
   });
   fcpObserver.observe({ entryTypes: ["paint"] });
 
   const lcpObserver = new PerformanceObserver((list) => {
     const lcpEntry = list.getEntries()[list.getEntries().length - 1];
-    console.log("LCP:", lcpEntry.startTime.toFixed(2), "ms");
+    // console.log("LCP:", lcpEntry.startTime.toFixed(2), "ms");
   });
   lcpObserver.observe({ entryTypes: ["largest-contentful-paint"] });
 }

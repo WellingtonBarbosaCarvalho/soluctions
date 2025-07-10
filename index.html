@@ -2,6 +2,32 @@
 <html lang="pt-br">
 
 <head>
+  <!-- SEO ESTRUTURAL AVANÇADO -->
+  <meta property="og:title" content="Soluctions | Transformação Digital Inteligente" />
+  <meta property="og:description"
+    content="Soluctions S.A - Transformação digital inteligente para empresas que querem dominar o mercado digital" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.soluctions.com.br/" />
+  <meta property="og:image" content="https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Soluctions | Transformação Digital Inteligente" />
+  <meta name="twitter:description"
+    content="Soluctions S.A - Transformação digital inteligente para empresas que querem dominar o mercado digital" />
+  <meta name="twitter:image" content="https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.jpg" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Soluctions S.A",
+      "url": "https://www.soluctions.com.br/",
+      "logo": "https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.jpg",
+      "sameAs": [
+        "https://www.linkedin.com/company/soluctions",
+        "https://www.instagram.com/soluctions",
+        "https://www.facebook.com/soluctions"
+      ]
+    }
+  </script>
   <meta charset="UTF-8" />
   <meta name="description"
     content="Soluctions S.A - Transformação digital inteligente para empresas que querem dominar o mercado digital" />
@@ -194,14 +220,14 @@
           Conosco</a>
       </div>
       <div class="mt-6 flex justify-center space-x-4">
-        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors"><i
-            class="fab fa-linkedin text-xl"></i></a>
-        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors"><i
-            class="fab fa-instagram text-xl"></i></a>
-        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors"><i
-            class="fab fa-facebook text-xl"></i></a>
-        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors"><i
-            class="fab fa-twitter text-xl"></i></a>
+        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors" aria-label="LinkedIn"><i
+            class="fab fa-linkedin text-xl" aria-hidden="true"></i></a>
+        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors" aria-label="Instagram"><i
+            class="fab fa-instagram text-xl" aria-hidden="true"></i></a>
+        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors" aria-label="Facebook"><i
+            class="fab fa-facebook text-xl" aria-hidden="true"></i></a>
+        <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors" aria-label="Twitter"><i
+            class="fab fa-twitter text-xl" aria-hidden="true"></i></a>
       </div>
     </div>
   </div>
@@ -274,14 +300,30 @@
             </div>
             <div class="mt-10 flex items-center space-x-4">
               <div class="flex -space-x-2">
-                <img src="https://randomuser.me/api/portraits/women/32.jpg"
-                  class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" />
-                <img src="https://randomuser.me/api/portraits/men/54.jpg"
-                  class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" />
-                <img src="https://randomuser.me/api/portraits/women/68.jpg"
-                  class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" />
-                <img src="https://randomuser.me/api/portraits/men/45.jpg"
-                  class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" />
+                <picture>
+                  <source srcset="https://randomuser.me/api/portraits/women/32.jpg" type="image/jpeg">
+                  <img src="https://randomuser.me/api/portraits/women/32.jpg"
+                    class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" loading="eager"
+                    decoding="async" />
+                </picture>
+                <picture>
+                  <source srcset="https://randomuser.me/api/portraits/men/54.jpg" type="image/jpeg">
+                  <img src="https://randomuser.me/api/portraits/men/54.jpg"
+                    class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" loading="eager"
+                    decoding="async" />
+                </picture>
+                <picture>
+                  <source srcset="https://randomuser.me/api/portraits/women/68.jpg" type="image/jpeg">
+                  <img src="https://randomuser.me/api/portraits/women/68.jpg"
+                    class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" loading="eager"
+                    decoding="async" />
+                </picture>
+                <picture>
+                  <source srcset="https://randomuser.me/api/portraits/men/45.jpg" type="image/jpeg">
+                  <img src="https://randomuser.me/api/portraits/men/45.jpg"
+                    class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" loading="eager"
+                    decoding="async" />
+                </picture>
                 <div
                   class="w-10 h-10 rounded-full border-2 border-blue-500 bg-blue-600 flex items-center justify-center text-white text-xs font-bold">
                   +200
@@ -300,8 +342,15 @@
               </div>
               <div class="cyber-card-glitch absolute inset-0 rounded-xl z-0"></div>
               <div class="cyber-card-content relative z-10 p-1 rounded-xl overflow-hidden shadow-neon-blue">
-                <img src="https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.jpg"
-                  alt="Digital Marketing" class="w-full h-auto rounded-lg hover-lift" />
+                <picture>
+                  <source srcset="https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.webp"
+                    type="image/webp">
+                  <source srcset="https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.jpg"
+                    type="image/jpeg">
+                  <img src="https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.jpg"
+                    alt="Digital Marketing" class="w-full h-auto rounded-lg hover-lift" loading="eager"
+                    decoding="async" />
+                </picture>
               </div>
 
               <!-- Stat cards -->
@@ -1326,28 +1375,34 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div class="cyber-contact-form-container" data-aos="fade-right">
-            <form class="cyber-contact-form">
+            <form class="cyber-contact-form" autocomplete="on" novalidate>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div class="cyber-form-group">
-                  <label for="name">Nome</label>
-                  <input type="text" id="name" class="cyber-input" required />
+                  <label for="name">Nome <span aria-hidden="true" class="text-red-500">*</span></label>
+                  <input type="text" id="name" class="cyber-input" required autocomplete="name" aria-required="true"
+                    aria-label="Nome">
+                  <span class="cyber-error-message hidden text-red-500 text-xs mt-1" id="error-name">Por favor, preencha
+                    seu nome.</span>
                 </div>
                 <div class="cyber-form-group">
-                  <label for="email">E-mail</label>
-                  <input type="email" id="email" class="cyber-input" required />
+                  <label for="email">E-mail <span aria-hidden="true" class="text-red-500">*</span></label>
+                  <input type="email" id="email" class="cyber-input" required autocomplete="email" aria-required="true"
+                    aria-label="E-mail">
+                  <span class="cyber-error-message hidden text-red-500 text-xs mt-1" id="error-email">Digite um e-mail
+                    válido.</span>
                 </div>
               </div>
               <div class="cyber-form-group mb-6">
                 <label for="phone">Telefone</label>
-                <input type="tel" id="phone" class="cyber-input" />
+                <input type="tel" id="phone" class="cyber-input" autocomplete="tel" aria-label="Telefone">
               </div>
               <div class="cyber-form-group mb-6">
                 <label for="company">Empresa</label>
-                <input type="text" id="company" class="cyber-input" />
+                <input type="text" id="company" class="cyber-input" autocomplete="organization" aria-label="Empresa">
               </div>
               <div class="cyber-form-group mb-6">
                 <label for="service">Interesse</label>
-                <select id="service" class="cyber-select">
+                <select id="service" class="cyber-select" aria-label="Interesse">
                   <option value="" selected disabled>
                     Selecione um serviço
                   </option>
@@ -1355,20 +1410,23 @@
                   <option value="landing">Landing Pages</option>
                   <option value="social">Social Media com IA</option>
                   <option value="chatbot">Chatbots com IA</option>
-                  <option value="consultoria">
-                    Consultoria em Presença Digital
-                  </option>
+                  <option value="consultoria">Consultoria em Presença Digital</option>
                   <option value="analytics">Analytics e BI</option>
                 </select>
               </div>
               <div class="cyber-form-group mb-6">
-                <label for="message">Mensagem</label>
-                <textarea id="message" rows="4" class="cyber-textarea"></textarea>
+                <label for="message">Mensagem <span aria-hidden="true" class="text-red-500">*</span></label>
+                <textarea id="message" rows="4" class="cyber-textarea" required aria-required="true"
+                  aria-label="Mensagem"></textarea>
+                <span class="cyber-error-message hidden text-red-500 text-xs mt-1" id="error-message">Por favor, escreva
+                  sua mensagem.</span>
               </div>
-              <button type="submit" class="cyber-submit-button">
+              <button type="submit" class="cyber-submit-button" aria-label="Enviar mensagem">
                 <span>Enviar Mensagem</span>
-                <i class="fas fa-paper-plane ml-2"></i>
+                <i class="fas fa-paper-plane ml-2" aria-hidden="true"></i>
               </button>
+              <div class="cyber-success-message hidden text-green-500 text-sm mt-4" id="success-message" role="status">
+                Mensagem enviada com sucesso!</div>
             </form>
           </div>
 
@@ -1513,18 +1571,10 @@
             tecnológicas avançadas e estratégias personalizadas.
           </p>
           <div class="cyber-footer-social">
-            <a href="#" aria-label="LinkedIn">
-              <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="#" aria-label="Instagram">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="#" aria-label="Facebook">
-              <i class="fab fa-facebook"></i>
-            </a>
-            <a href="#" aria-label="YouTube">
-              <i class="fab fa-youtube"></i>
-            </a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
           </div>
         </div>
 
@@ -1571,35 +1621,41 @@
           © 2025 Soluctions S.A. Todos os direitos reservados.
         </p>
         <div class="cyber-footer-legal">
-          <a href="#">Política de Privacidade</a>
-          <a href="#">Termos de Uso</a>
-          <a href="#">Contato</a>
+          <a href="#" rel="noopener">Política de Privacidade</a>
+          <a href="#" rel="noopener">Termos de Uso</a>
+          <a href="#" rel="noopener">Contato</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- 🎨 RECURSOS EXTERNOS DIFERIDOS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print"
-    onload="this.media='all'; this.onload=null;">
 
-  <!-- 🎯 Tailwind diferido -->
+  <!-- 🎨 RECURSOS EXTERNOS DIFERIDOS E OTIMIZADOS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print"
+    onload="this.media='all';this.onload=null;">
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </noscript>
+
+  <!-- 🎯 Tailwind diferido e seguro -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" media="print"
-    onload="this.media='all'; this.onload=null;">
+    onload="this.media='all';this.onload=null;">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  </noscript>
 
   <!-- ⚡ CARREGAMENTO OTIMIZADO DE DEPENDÊNCIAS -->
   <script>
     // Carregar particles.js apenas se necessário
     window.addEventListener('load', function () {
-      // Carregar particles.js com delay para não bloquear a renderização
       setTimeout(() => {
         const script = document.createElement('script');
         script.src = 'https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js';
         script.async = true;
+        script.setAttribute('crossorigin', 'anonymous');
         document.head.appendChild(script);
       }, 1000);
     });
-  </script>
   </script>
 
 </body>

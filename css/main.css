@@ -1,3 +1,144 @@
+/* Utilitários para delays de animação (até 10 itens) */
+.delay-0 {
+  transition-delay: 0ms !important;
+}
+.delay-1 {
+  transition-delay: 100ms !important;
+}
+.delay-2 {
+  transition-delay: 200ms !important;
+}
+.delay-3 {
+  transition-delay: 300ms !important;
+}
+.delay-4 {
+  transition-delay: 400ms !important;
+}
+.delay-5 {
+  transition-delay: 500ms !important;
+}
+.delay-6 {
+  transition-delay: 600ms !important;
+}
+.delay-7 {
+  transition-delay: 700ms !important;
+}
+.delay-8 {
+  transition-delay: 800ms !important;
+}
+.delay-9 {
+  transition-delay: 900ms !important;
+}
+.delay-10 {
+  transition-delay: 1000ms !important;
+}
+/* Utilitário para transição suave do carrossel mobile */
+.carousel-transition {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+/* Utilitários para matrix node e avatar interativo */
+.matrix-node-hover {
+  border-color: var(--matrix-node-color, #00f3ff) !important;
+  box-shadow: 0 0 30px var(--matrix-node-color, #00f3ff) !important;
+  transform: scale(1.2) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.matrix-label-hover {
+  color: var(--matrix-node-color, #00f3ff) !important;
+  font-weight: 600 !important;
+  transition: color 0.3s, font-weight 0.3s !important;
+}
+.avatar-tilt {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+/* Utilitários para exibição/ocultação e efeitos JS */
+.is-hidden {
+  display: none !important;
+}
+.is-visible {
+  display: block !important;
+}
+.is-locked {
+  overflow: hidden !important;
+}
+.is-unlocked {
+  overflow: visible !important;
+}
+.is-blur {
+  filter: blur(5px) !important;
+  transition: filter 0.3s ease !important;
+}
+.progress-60 {
+  width: 60% !important;
+  transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.progress-100 {
+  width: 100% !important;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.translate-x-0 {
+  transform: translateX(0) !important;
+}
+.translate-x-full {
+  transform: translateX(100%) !important;
+}
+.scroll-smooth {
+  scroll-behavior: smooth !important;
+}
+.max-h-none {
+  max-height: none !important;
+}
+.max-h-auto {
+  max-height: 1000px !important;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+/* Utilitário: animação de fade para preloader */
+.fade-out {
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+}
+/* Utilitário: animação de entrada para cards de equipe e matrix */
+.fade-in-up {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.fade-init-up {
+  opacity: 0 !important;
+  transform: translateY(40px) !important;
+}
+/* Utilitário: destaque de avatar e role em hover de card de equipe */
+.team-avatar-hover {
+  transform: scale(1.1) rotate(5deg) !important;
+  box-shadow: 0 0 25px rgba(0, 243, 255, 0.8) !important;
+}
+.team-role-hover {
+  transform: scale(1.3) !important;
+  box-shadow: 0 0 15px currentColor !important;
+}
+.team-skill-hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.5) !important;
+}
+/* Utilitário: animação de fade-in e scale para cards (JS) */
+.fade-in-scale {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Utilitário: estado inicial oculto para animação de entrada */
+.fade-init {
+  opacity: 0 !important;
+  transform: scale(0.8) !important;
+}
+
+/* Utilitário: card ativo em touch (mobile) */
+.card-active {
+  box-shadow: 0 0 20px var(--color-neon-blue, #00f3ff);
+  z-index: 30;
+  transform: scale(1.05) !important;
+}
 /* 
  * Soluctions S.A - Base Styles
  * Arquivo de estilos fundamentais e variáveis CSS
