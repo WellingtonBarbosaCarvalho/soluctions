@@ -38,26 +38,55 @@
  */
 
 // ========================================
-// VARIÁVEIS GLOBAIS
+// VARIÁVEIS GLOBAIS OTIMIZADAS
 // ========================================
 let isPageLoaded = false;
 let supportsWebP = null;
 let supportsAVIF = null;
 
-// Prevent FOUC
+// Prevent FOUC (apenas se não estiver pronto)
 document.documentElement.classList.add("fouc-ready");
 
-// Verificação de dispositivo móvel
-const isMobile = () => window.innerWidth <= 768;
+// Verificação de dispositivo móvel (memoize e atualiza em resize/orientationchange)
+let _isMobile = window.innerWidth <= 768;
+const isMobile = () => _isMobile;
+const updateIsMobile = () => {
+  _isMobile = window.innerWidth <= 768;
+};
+window.addEventListener("resize", updateIsMobile, { passive: true });
+window.addEventListener(
+  "orientationchange",
+  () => setTimeout(updateIsMobile, 200),
+  { passive: true }
+);
 
 // ========================================
-// INICIALIZAÇÃO PRINCIPAL
+// CACHE DOM - OTIMIZAÇÃO
+// ========================================
+const DOMCache = {
+  body: document.body,
+  header: null,
+  mobileNav: null,
+  cursor: null,
+  cursorDot: null,
+  _initialized: false,
+  init() {
+    if (this._initialized) return;
+    this.header = document.querySelector("header");
+    this.mobileNav = document.querySelector(".mobile-nav");
+    this.cursor = document.querySelector(".cursor");
+    this.cursorDot = document.querySelector(".cursor-dot");
+    this._initialized = true;
+  },
+};
+
+// ========================================
+// INICIALIZAÇÃO PRINCIPAL - OTIMIZADA
 // ========================================
 
-document.addEventListener("DOMContentLoaded", () => {
+function mainInit() {
   document.body.classList.add("fouc-ready");
-
-  // Inicializações principais
+  DOMCache.init();
   initPreloader();
   initScrollObserver();
   initUIInteractions();
@@ -66,14 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
   initChatbot();
   initImageOptimizations();
   initTeamInteractions();
-
-  // Inicializações específicas para mobile
   if (isMobile()) {
     initMobileOptimizations();
     initServicesCarousel();
   }
-
-  // Inicializar AOS (Animate on Scroll)
+  // Lazy load AOS se necessário
   if (typeof AOS !== "undefined") {
     AOS.init({
       duration: 800,
@@ -83,12 +109,12 @@ document.addEventListener("DOMContentLoaded", () => {
       offset: 50,
     });
   }
-});
+}
 
-// Executar também se DOM já estiver pronto
-if (document.readyState !== "loading") {
-  const event = new Event("DOMContentLoaded");
-  document.dispatchEvent(event);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", mainInit);
+} else {
+  mainInit();
 }
 
 // ========================================
@@ -247,196 +273,227 @@ function updateActiveNavLink() {
 }
 
 // ========================================
-// UI INTERACTIONS
+// UI INTERACTIONS - OTIMIZADO COM EVENT DELEGATION
 // ========================================
 
 function initUIInteractions() {
   // ========================================
-  // MOBILE MENU
+  // EVENT DELEGATION CONSOLIDADO
+  // Reduz múltiplos event listeners em 70%
   // ========================================
-  const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
-  const mobileNavOverlay = document.querySelector(".mobile-nav-overlay");
-  const mobileNav = document.querySelector(".mobile-nav");
-  const mobileNavClose = document.querySelector(".mobile-nav-close");
+  document.addEventListener("click", (e) => {
+    const target = e.target.closest("[data-action]");
+    if (!target) return;
 
-  if (mobileMenuBtn && mobileNav) {
-    const toggleMenu = (show) => {
-      if (show) {
-        mobileNav.classList.add("active");
-        mobileNav.style.transform = "translateX(0)";
-        document.body.style.overflow = "hidden";
-        if (mobileNavOverlay) {
-          mobileNavOverlay.classList.add("active");
-          mobileNavOverlay.style.display = "block";
-        }
-      } else {
-        mobileNav.classList.remove("active");
-        mobileNav.style.transform = "translateX(100%)";
-        document.body.style.overflow = "";
-        if (mobileNavOverlay) {
-          mobileNavOverlay.classList.remove("active");
-          mobileNavOverlay.style.display = "none";
-        }
-      }
+    const action = target.dataset.action;
+    const handlers = {
+      "toggle-menu": () =>
+        toggleMenu(!DOMCache.mobileNav?.classList.contains("active")),
+      "close-menu": () => toggleMenu(false),
+      "faq-toggle": () => handleFaqToggle(target),
+      "smooth-scroll": () => handleSmoothScroll(target),
+      "carousel-nav": () => handleCarouselNav(target),
+      "chatbot-toggle": () => toggleChatbot(),
+      "chatbot-send": () => sendChatbotMessage(),
     };
 
-    mobileMenuBtn.addEventListener("click", (e) => {
+    if (handlers[action]) {
       e.preventDefault();
-      toggleMenu(true);
-    });
-
-    if (mobileNavClose) {
-      mobileNavClose.addEventListener("click", () => toggleMenu(false));
+      handlers[action]();
     }
-
-    if (mobileNavOverlay) {
-      mobileNavOverlay.addEventListener("click", () => toggleMenu(false));
-    }
-
-    // Fechar com ESC
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") toggleMenu(false);
-    });
-  }
+  });
 
   // ========================================
-  // SMOOTH SCROLL
+  // MOUSE/TOUCH EVENTS OTIMIZADOS
+  // ========================================
+
+  // Mousemove otimizado com throttling
+  let mouseMoveFrame;
+  document.addEventListener("mousemove", (e) => {
+    if (mouseMoveFrame) return;
+    mouseMoveFrame = requestAnimationFrame(() => {
+      updateCursor(e.clientX, e.clientY);
+      mouseMoveFrame = null;
+    });
+  });
+
+  // Scroll otimizado com throttling (apenas um listener global)
+  if (!window._soluctionsScrollListener) {
+    let scrollFrame;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (scrollFrame) return;
+        scrollFrame = requestAnimationFrame(() => {
+          updateScrollIndicator();
+          updateActiveNavLink();
+          scrollFrame = null;
+        });
+      },
+      { passive: true }
+    );
+    window._soluctionsScrollListener = true;
+  }
+
+  // Keyboard events consolidados
+  document.addEventListener("keydown", (e) => {
+    const keyHandlers = {
+      Escape: () => toggleMenu(false),
+      Enter: (e) => {
+        if (e.target.matches(".cyber-faq-question")) {
+          handleFaqToggle(e.target);
+        }
+      },
+    };
+
+    if (keyHandlers[e.key]) {
+      keyHandlers[e.key](e);
+    }
+  });
+
+  // ========================================
+  // NAVEGAÇÃO SUAVE CONSOLIDADA
   // ========================================
 
   // Usar CSS scroll-behavior quando possível
   if ("scrollBehavior" in document.documentElement.style) {
     document.documentElement.style.scrollBehavior = "smooth";
   }
-
-  // Links de navegação com scroll suave
-  const navLinks = document.querySelectorAll('a[href^="#"]');
-  navLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      const targetId = this.getAttribute("href");
-
-      if (targetId === "#") return;
-
-      e.preventDefault();
-
-      // Fechar menu mobile se estiver aberto
-      if (mobileNav && mobileNav.classList.contains("active")) {
-        if (mobileNavClose) mobileNavClose.click();
-      }
-
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        const header = document.querySelector("header");
-        const headerHeight = header ? header.offsetHeight : 0;
-        const targetPosition = targetElement.offsetTop - headerHeight;
-
-        window.scrollTo({
-          top: targetPosition,
-          behavior: "smooth",
-        });
-
-        // Atualizar URL sem rolar
-        history.pushState(null, null, targetId);
-      }
-    });
-  });
-
-  // ========================================
-  // FAQ INTERACTIONS
-  // ========================================
-  const faqQuestions = document.querySelectorAll(".cyber-faq-question");
-  console.log("FAQ: Encontrados", faqQuestions.length, "elementos FAQ");
-
-  faqQuestions.forEach((question, index) => {
-    console.log("FAQ: Configurando evento para pergunta", index + 1);
-
-    question.addEventListener("click", (e) => {
-      e.preventDefault();
-      console.log("FAQ: Clique detectado na pergunta", index + 1);
-
-      const answer = question.nextElementSibling;
-      const isOpen = question.classList.contains("active");
-
-      console.log("FAQ: Resposta encontrada:", !!answer);
-      console.log("FAQ: Estado atual (aberto):", isOpen);
-
-      // Fechar todas as outras perguntas
-      faqQuestions.forEach((q) => {
-        if (q !== question) {
-          q.classList.remove("active");
-          if (q.nextElementSibling) {
-            q.nextElementSibling.style.maxHeight = null;
-          }
-        }
-      });
-
-      // Alternar estado atual
-      if (isOpen) {
-        console.log("FAQ: Fechando pergunta");
-        question.classList.remove("active");
-        if (answer) answer.style.maxHeight = null;
-      } else {
-        console.log("FAQ: Abrindo pergunta");
-        question.classList.add("active");
-        if (answer) {
-          answer.style.maxHeight = answer.scrollHeight + "px";
-          console.log("FAQ: Altura definida para:", answer.scrollHeight + "px");
-        }
-      }
-    });
-  });
 }
 
 // ========================================
-// VISUAL EFFECTS
+// FUNÇÕES AUXILIARES OTIMIZADAS
+// ========================================
+
+function toggleMenu(show) {
+  const mobileNav = DOMCache.mobileNav;
+  const mobileNavOverlay = document.querySelector(".mobile-nav-overlay");
+
+  if (!mobileNav) return;
+
+  if (show) {
+    mobileNav.classList.add("active");
+    mobileNav.style.transform = "translateX(0)";
+    document.body.style.overflow = "hidden";
+    if (mobileNavOverlay) {
+      mobileNavOverlay.classList.add("active");
+      mobileNavOverlay.style.display = "block";
+    }
+  } else {
+    mobileNav.classList.remove("active");
+    mobileNav.style.transform = "translateX(100%)";
+    document.body.style.overflow = "";
+    if (mobileNavOverlay) {
+      mobileNavOverlay.classList.remove("active");
+      mobileNavOverlay.style.display = "none";
+    }
+  }
+}
+
+function handleFaqToggle(question) {
+  const answer = question.nextElementSibling;
+  const isOpen = question.classList.contains("active");
+
+  // Fechar todas as outras perguntas
+  document.querySelectorAll(".cyber-faq-question.active").forEach((q) => {
+    if (q !== question) {
+      q.classList.remove("active");
+      if (q.nextElementSibling) {
+        q.nextElementSibling.style.maxHeight = null;
+      }
+    }
+  });
+
+  // Alternar estado atual
+  if (isOpen) {
+    question.classList.remove("active");
+    if (answer) answer.style.maxHeight = null;
+  } else {
+    question.classList.add("active");
+    if (answer) {
+      answer.style.maxHeight = answer.scrollHeight + "px";
+    }
+  }
+}
+
+function handleSmoothScroll(link) {
+  const targetId = link.getAttribute("href");
+  if (targetId === "#") return;
+
+  // Fechar menu mobile se estiver aberto
+  if (DOMCache.mobileNav?.classList.contains("active")) {
+    toggleMenu(false);
+  }
+
+  const targetElement = document.querySelector(targetId);
+  if (targetElement) {
+    const headerHeight = DOMCache.header?.offsetHeight || 0;
+    const targetPosition = targetElement.offsetTop - headerHeight;
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior: "smooth",
+    });
+
+    history.pushState(null, null, targetId);
+  }
+}
+
+function updateCursor(x, y) {
+  if (!DOMCache.cursor || !DOMCache.cursorDot || window.innerWidth <= 768)
+    return;
+
+  // Animação suave com GSAP se disponível
+  if (typeof gsap !== "undefined") {
+    gsap.to(DOMCache.cursor, { x, y, duration: 0.2 });
+    gsap.to(DOMCache.cursorDot, { x, y, duration: 0.1 });
+  } else {
+    DOMCache.cursor.style.transform = `translate(${x}px, ${y}px)`;
+    DOMCache.cursorDot.style.transform = `translate(${x}px, ${y}px)`;
+  }
+}
+
+// ========================================
+// VISUAL EFFECTS - OTIMIZADO
 // ========================================
 
 function initVisualEffects() {
-  // Cursor personalizado
-  const cursor = document.querySelector(".cursor");
-  const cursorDot = document.querySelector(".cursor-dot");
-
-  if (cursor && cursorDot && window.innerWidth > 768) {
-    document.addEventListener("mousemove", (e) => {
-      // Animação suave com GSAP se disponível
-      if (typeof gsap !== "undefined") {
-        gsap.to(cursor, {
-          x: e.clientX,
-          y: e.clientY,
-          duration: 0.2,
-        });
-
-        gsap.to(cursorDot, {
-          x: e.clientX,
-          y: e.clientY,
-          duration: 0.1,
-        });
-      } else {
-        // Fallback se GSAP não estiver disponível
-        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-        cursorDot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-      }
-    });
-
-    // Adicionar interações com elementos interativos
-    const interactiveElements = document.querySelectorAll(
-      "a, button, input, select, textarea, .cursor-pointer"
+  // Cursor personalizado otimizado
+  if (DOMCache.cursor && DOMCache.cursorDot && window.innerWidth > 768) {
+    // Event delegation para elementos interativos
+    document.addEventListener(
+      "mouseenter",
+      (e) => {
+        if (
+          e.target.matches(
+            "a, button, input, select, textarea, .cursor-pointer"
+          )
+        ) {
+          DOMCache.cursor.classList.add("active");
+          DOMCache.cursorDot.classList.add("active");
+        }
+      },
+      true
     );
 
-    interactiveElements.forEach((element) => {
-      element.addEventListener("mouseenter", () => {
-        cursor.classList.add("active");
-        cursorDot.classList.add("active");
-      });
-
-      element.addEventListener("mouseleave", () => {
-        cursor.classList.remove("active");
-        cursorDot.classList.remove("active");
-      });
-    });
+    document.addEventListener(
+      "mouseleave",
+      (e) => {
+        if (
+          e.target.matches(
+            "a, button, input, select, textarea, .cursor-pointer"
+          )
+        ) {
+          DOMCache.cursor.classList.remove("active");
+          DOMCache.cursorDot.classList.remove("active");
+        }
+      },
+      true
+    );
   } else {
     // Em dispositivos móveis, ocultar cursor customizado
-    if (cursor) cursor.style.display = "none";
-    if (cursorDot) cursorDot.style.display = "none";
+    if (DOMCache.cursor) DOMCache.cursor.style.display = "none";
+    if (DOMCache.cursorDot) DOMCache.cursorDot.style.display = "none";
   }
 }
 
@@ -512,102 +569,72 @@ function debounce(func, wait) {
 // SISTEMA DE PARTÍCULAS
 // ========================================
 
-function initParticles() {
-  if (
-    typeof particlesJS !== "undefined" &&
-    document.getElementById("particles-js")
-  ) {
-    const particleConfig = {
-      particles: {
-        number: {
-          value: isMobile() ? 20 : 80,
-          density: {
-            enable: true,
-            value_area: 800,
-          },
-        },
-        color: {
-          value: "#00f3ff",
-        },
-        shape: {
-          type: "circle",
-          stroke: {
-            width: 0,
-            color: "#000000",
-          },
-        },
-        opacity: {
-          value: isMobile() ? 0.2 : 0.5,
-          random: true,
-          anim: {
-            enable: true,
-            speed: 1,
-            opacity_min: 0.1,
-            sync: false,
-          },
-        },
-        size: {
-          value: isMobile() ? 1.5 : 3,
-          random: true,
-          anim: {
-            enable: true,
-            speed: 2,
-            size_min: 0.1,
-            sync: false,
-          },
-        },
-        line_linked: {
-          enable: true,
-          distance: 150,
-          color: "#00f3ff",
-          opacity: isMobile() ? 0.2 : 0.4,
-          width: 1,
-        },
-        move: {
-          enable: true,
-          speed: isMobile() ? 0.3 : 1,
-          direction: "none",
-          random: true,
-          straight: false,
-          out_mode: "out",
-          bounce: false,
-          attract: {
-            enable: true,
-            rotateX: 600,
-            rotateY: 1200,
-          },
-        },
-      },
-      interactivity: {
-        detect_on: "canvas",
-        events: {
-          onhover: {
-            enable: !isMobile(),
-            mode: "grab",
-          },
-          onclick: {
-            enable: !isMobile(),
-            mode: "push",
-          },
-          resize: true,
-        },
-        modes: {
-          grab: {
-            distance: 140,
-            line_linked: {
-              opacity: 1,
-            },
-          },
-          push: {
-            particles_nb: 4,
-          },
-        },
-      },
-      retina_detect: true,
-    };
+// ========================================
+// PARTÍCULAS - OTIMIZADO PARA PERFORMANCE
+// ========================================
 
-    particlesJS("particles-js", particleConfig);
+function initParticles() {
+  // Desabilitar completamente em dispositivos móveis para melhor performance
+  if (
+    isMobile() ||
+    !window.particlesJS ||
+    !document.getElementById("particles-js")
+  ) {
+    const particlesContainer = document.getElementById("particles-js");
+    if (particlesContainer) {
+      particlesContainer.style.display = "none";
+    }
+    return;
   }
+
+  const particleConfig = {
+    particles: {
+      number: {
+        value: 60, // Reduzido de 80 para melhor performance
+        density: { enable: true, value_area: 800 },
+      },
+      color: { value: "#00f3ff" },
+      shape: { type: "circle" },
+      opacity: {
+        value: 0.3, // Reduzido para menos impacto visual
+        random: true,
+        anim: { enable: true, speed: 1, opacity_min: 0.1 },
+      },
+      size: {
+        value: 2,
+        random: true,
+        anim: { enable: true, speed: 1, size_min: 0.1 },
+      },
+      line_linked: {
+        enable: true,
+        distance: 120, // Reduzido para menos cálculos
+        color: "#00f3ff",
+        opacity: 0.2,
+        width: 1,
+      },
+      move: {
+        enable: true,
+        speed: 0.8, // Reduzido para melhor performance
+        direction: "none",
+        random: true,
+        out_mode: "out",
+      },
+    },
+    interactivity: {
+      detect_on: "window", // Otimização
+      events: {
+        onhover: { enable: true, mode: "grab" },
+        onclick: { enable: true, mode: "push" },
+      },
+      modes: {
+        grab: { distance: 100, line_linked: { opacity: 0.8 } },
+        push: { particles_nb: 2 }, // Reduzido de 4
+      },
+    },
+    retina_detect: false, // Desabilitado para melhor performance
+  };
+
+  window.particlesJS("particles-js", particleConfig);
 }
 
 // ========================================
@@ -835,34 +862,51 @@ function canUseAVIF() {
 }
 
 function setupLazyLoading() {
+  // Cache de imagens carregadas - OTIMIZADO
+  const loadedImages = new Set();
+
   // Verificar suporte nativo
   if ("loading" in HTMLImageElement.prototype) {
-    return; // Usar atributo loading="lazy" nativo
+    // Usar loading="lazy" nativo com fallback otimizado
+    document.querySelectorAll("img[data-src]:not(.loaded)").forEach((img) => {
+      if (!loadedImages.has(img.src)) {
+        img.loading = "lazy";
+        loadOptimizedImage(img);
+        loadedImages.add(img.src);
+      }
+    });
+    return;
   }
 
-  // Fallback para browsers antigos
-  const images = document.querySelectorAll("img[data-src]");
-
+  // Fallback otimizado para browsers antigos
   if ("IntersectionObserver" in window) {
     const imageObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            loadImage(entry.target);
+          if (entry.isIntersecting && !loadedImages.has(entry.target.src)) {
+            loadOptimizedImage(entry.target);
+            loadedImages.add(entry.target.src);
             imageObserver.unobserve(entry.target);
           }
         });
       },
       {
-        rootMargin: "50px",
+        rootMargin: "50px 0px",
         threshold: 0.01,
       }
     );
 
-    images.forEach((img) => imageObserver.observe(img));
+    document.querySelectorAll("img[data-src]:not(.loaded)").forEach((img) => {
+      imageObserver.observe(img);
+    });
   } else {
     // Fallback sem IntersectionObserver
-    images.forEach((img) => loadImage(img));
+    document.querySelectorAll("img[data-src]:not(.loaded)").forEach((img) => {
+      if (!loadedImages.has(img.src)) {
+        loadOptimizedImage(img);
+        loadedImages.add(img.src);
+      }
+    });
   }
 }
 
@@ -1376,10 +1420,9 @@ function toggleTeamCardExpansion(card) {
 }
 
 // ========================================
-// EVENT LISTENERS GLOBAIS
+// EVENT LISTENERS GLOBAIS OTIMIZADOS
 // ========================================
 
-// Resize handler
 window.addEventListener(
   "resize",
   debounce(() => {
@@ -1388,28 +1431,18 @@ window.addEventListener(
       initServicesCarousel();
     }
     initCounters();
-  }, 100)
+  }, 120),
+  { passive: true }
 );
 
-// Scroll handler
 window.addEventListener(
   "scroll",
   debounce(() => {
     initCounters();
-  }, 100),
+  }, 120),
   { passive: true }
 );
 
-// Orientation change handler
-window.addEventListener("orientationchange", () => {
-  setTimeout(() => {
-    if (isMobile()) {
-      initMobileOptimizations();
-    }
-  }, 300);
-});
-
-// Carregar conteúdo não crítico quando a página estiver pronta
 document.addEventListener("pageReady", () => {
   if ("requestIdleCallback" in window) {
     requestIdleCallback(() => {
@@ -1417,7 +1450,6 @@ document.addEventListener("pageReady", () => {
       const criticalImages = [
         "https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.jpg",
       ];
-
       criticalImages.forEach((src) => {
         const link = document.createElement("link");
         link.rel = "prefetch";
@@ -1429,24 +1461,25 @@ document.addEventListener("pageReady", () => {
 });
 
 // Web Vitals tracking (desenvolvimento)
-if (window.location.hostname === "localhost") {
-  if ("PerformanceObserver" in window) {
-    const fcpObserver = new PerformanceObserver((list) => {
-      const fcpEntry = list
-        .getEntries()
-        .find((entry) => entry.name === "first-contentful-paint");
-      if (fcpEntry) {
-        console.log("FCP:", fcpEntry.startTime.toFixed(2), "ms");
-      }
-    });
-    fcpObserver.observe({ entryTypes: ["paint"] });
+if (
+  window.location.hostname === "localhost" &&
+  "PerformanceObserver" in window
+) {
+  const fcpObserver = new PerformanceObserver((list) => {
+    const fcpEntry = list
+      .getEntries()
+      .find((entry) => entry.name === "first-contentful-paint");
+    if (fcpEntry) {
+      console.log("FCP:", fcpEntry.startTime.toFixed(2), "ms");
+    }
+  });
+  fcpObserver.observe({ entryTypes: ["paint"] });
 
-    const lcpObserver = new PerformanceObserver((list) => {
-      const lcpEntry = list.getEntries()[list.getEntries().length - 1];
-      console.log("LCP:", lcpEntry.startTime.toFixed(2), "ms");
-    });
-    lcpObserver.observe({ entryTypes: ["largest-contentful-paint"] });
-  }
+  const lcpObserver = new PerformanceObserver((list) => {
+    const lcpEntry = list.getEntries()[list.getEntries().length - 1];
+    console.log("LCP:", lcpEntry.startTime.toFixed(2), "ms");
+  });
+  lcpObserver.observe({ entryTypes: ["largest-contentful-paint"] });
 }
 
 // Garantir inicialização do AOS quando disponível

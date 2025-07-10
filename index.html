@@ -23,12 +23,11 @@
 
   <!-- 🎨 CSS CRÍTICO INLINE - Renderização imediata do above-the-fold -->
   <style>
-    /* Critical path CSS - apenas estilos essenciais para first paint */
+    /* Critical path CSS - OTIMIZADO - apenas essencial para first paint */
     :root {
       --color-bg-primary: #050510;
       --color-bg-secondary: #0a0a18;
       --color-neon-blue: #00f3ff;
-      --color-neon-purple: #bc13fe;
       --color-text-primary: rgba(255, 255, 255, 0.9)
     }
 
@@ -39,7 +38,7 @@
     }
 
     body {
-      font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--color-bg-primary);
       color: var(--color-text-primary);
       overflow-x: hidden;
@@ -56,21 +55,10 @@
       justify-content: center
     }
 
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 40;
-      background: rgba(5, 5, 16, 0.95);
-      backdrop-filter: blur(10px)
-    }
-
     .hero {
       min-height: 100vh;
       display: flex;
-      align-items: center;
-      background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%)
+      align-items: center
     }
 
     .container {
@@ -87,10 +75,6 @@
       align-items: center
     }
 
-    .justify-center {
-      justify-content: center
-    }
-
     .text-center {
       text-align: center
     }
@@ -98,16 +82,17 @@
     .hidden {
       display: none
     }
+  </style>
 
-    @media (min-width:768px) {
-      .md\\:block {
-        display: block
-      }
+  @media (min-width:768px) {
+  .md\\:block {
+  display: block
+  }
 
-      .md\\:hidden {
-        display: none
-      }
-    }
+  .md\\:hidden {
+  display: none
+  }
+  }
   </style>
 
   <!-- 📦 FONTES - OTIMIZADAS com font-display swap -->
@@ -121,9 +106,6 @@
 
   <!--  CSS PRINCIPAL - TODOS OS ESTILOS DA LANDING PAGE -->
   <link rel="stylesheet" href="css/main.css">
-
-  <!-- 📱 CSS MOBILE - Carregamento imediato -->
-  <link rel="stylesheet" href="css/mobile.css">
 
   <!-- 🎨 AOS CSS - ESSENCIAL para animações de scroll -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
@@ -237,7 +219,7 @@
         <nav class="hidden lg:block">
           <ul class="flex space-x-8">
             <li><a href="#hero" class="cyber-nav-link">Início</a></li>
-            <li><a href="#services" class="cyber-nav-link">Serviços</a></li>
+            <li><a href="#services" class="cyber-nav-link" data-action="smooth-scroll">Serviços</a></li>
             <li><a href="#cases" class="cyber-nav-link">Cases</a></li>
             <li><a href="#team" class="cyber-nav-link">Equipe</a></li>
             <li><a href="#pricing" class="cyber-nav-link">Pacotes</a></li>
@@ -248,7 +230,7 @@
           <a href="#contact" class="hidden sm:block glitch-button">
             <span class="glitch-button-text">Fale Conosco</span>
           </a>
-          <button class="mobile-menu-btn lg:hidden text-white">
+          <button class="mobile-menu-btn lg:hidden text-white" data-action="toggle-menu" aria-label="Abrir menu">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -281,11 +263,11 @@
               inteligentes até chatbots com IA.
             </p>
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <a href="#contact" class="neon-button primary">
+              <a href="#contact" class="neon-button primary" data-action="smooth-scroll">
                 <span class="neon-button-text">Iniciar Jornada Digital</span>
                 <span class="neon-button-glow"></span>
               </a>
-              <a href="#services" class="neon-button secondary">
+              <a href="#services" class="neon-button secondary" data-action="smooth-scroll">
                 <span class="neon-button-text">Nossos Serviços</span>
                 <span class="neon-button-glow"></span>
               </a>
@@ -1267,7 +1249,7 @@
 
         <div class="cyber-faq">
           <div class="cyber-faq-item">
-            <button class="cyber-faq-question">
+            <button class="cyber-faq-question" data-action="faq-toggle">
               <h4>Quanto tempo leva para ver resultados?</h4>
               <i class="fas fa-chevron-down"></i>
             </button>
@@ -1282,7 +1264,7 @@
           </div>
 
           <div class="cyber-faq-item">
-            <button class="cyber-faq-question">
+            <button class="cyber-faq-question" data-action="faq-toggle">
               <h4>Existe fidelidade nos pacotes?</h4>
               <i class="fas fa-chevron-down"></i>
             </button>
@@ -1296,7 +1278,7 @@
           </div>
 
           <div class="cyber-faq-item">
-            <button class="cyber-faq-question">
+            <button class="cyber-faq-question" data-action="faq-toggle">
               <h4>Como funciona o relatório de resultados?</h4>
               <i class="fas fa-chevron-down"></i>
             </button>
@@ -1311,7 +1293,7 @@
           </div>
 
           <div class="cyber-faq-item">
-            <button class="cyber-faq-question">
+            <button class="cyber-faq-question" data-action="faq-toggle">
               <h4>É possível personalizar os pacotes?</h4>
               <i class="fas fa-chevron-down"></i>
             </button>
