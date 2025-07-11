@@ -342,26 +342,58 @@
               </div>
               <div class="cyber-card-glitch absolute inset-0 rounded-xl z-0"></div>
               <div class="cyber-card-content relative z-10 p-1 rounded-xl overflow-hidden shadow-neon-blue">
-                <picture>
-                  <source srcset="https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.webp"
-                    type="image/webp">
-                  <source srcset="https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.jpg"
-                    type="image/jpeg">
-                  <img src="https://cdn.pixabay.com/photo/2018/03/01/09/33/business-3190209_1280.jpg"
-                    alt="Digital Marketing" class="w-full h-auto rounded-lg hover-lift" loading="eager"
-                    decoding="async" />
-                </picture>
+                <!-- Card CTA Flutuante -->
+                <div
+                  class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full flex justify-center items-center z-20">
+                  <div
+                    class="bg-gradient-to-br from-purple-700 via-purple-600 to-blue-600 bg-opacity-95 shadow-neon-blue rounded-3xl border-2 border-purple-500 p-10 flex flex-col items-center max-w-xl w-full"
+                    style="box-sizing:border-box; min-height:340px;">
+                    <div class="flex items-center mb-8">
+                      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#00f3ff" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-presentation">
+                        <rect x="2" y="3" width="20" height="14" rx="2" />
+                        <path d="M12 21V17" />
+                        <path d="M9 21h6" />
+                      </svg>
+                      <span class="ml-4 text-2xl font-bold text-white">Digital Marketing</span>
+                    </div>
+                    <form class="cyber-cta-form w-full flex flex-col sm:flex-row gap-6 items-center" autocomplete="on"
+                      novalidate>
+                      <input type="text" id="cta-name" class="cyber-input flex-1 h-14 text-xl min-w-0" required
+                        autocomplete="name" aria-required="true" aria-label="Nome" placeholder="Seu nome"
+                        style="box-sizing:border-box;">
+                      <input type="tel" id="cta-phone" class="cyber-input flex-1 h-14 text-xl min-w-0" required
+                        autocomplete="tel" aria-required="true" aria-label="WhatsApp" placeholder="WhatsApp"
+                        style="box-sizing:border-box;">
+                      <button type="submit" class="cyber-submit-button flex-shrink-0 w-full sm:w-auto h-14 text-xl px-8"
+                        aria-label="Quero ser atendido" style="box-sizing:border-box;">
+                        <span>Quero ser atendido</span>
+                        <i class="fas fa-paper-plane ml-2" aria-hidden="true"></i>
+                      </button>
+                    </form>
+                    <div class="cyber-success-message hidden text-green-500 text-xs mt-4" id="cta-success-message"
+                      role="status">
+                      Recebido! Em breve entraremos em contato.
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <!-- Stat cards -->
-              <div class="cyber-stats-wrapper">
+              <div class="cyber-stats-wrapper pointer-events-none select-none">
                 <div
-                  class="cyber-stats-card absolute -bottom-5 -left-5 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-md border border-blue-500 p-4 rounded-lg shadow-neon-blue z-20">
-                  <div class="flex items-center space-x-3">
+                  class="cyber-stats-card absolute -bottom-5 -left-5 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-md border border-blue-500 p-4 rounded-lg shadow-neon-blue z-10 flex items-center min-w-[180px] min-h-[64px]">
+                  <div class="flex items-center space-x-3 w-full">
                     <div class="h-10 w-10 rounded-full bg-blue-900 flex items-center justify-center">
-                      <i class="fas fa-chart-line text-blue-400"></i>
+                      <!-- SVG Chart Icon -->
+                      <svg width="24" height="24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M3 17v-2a4 4 0 0 1 4-4h14" />
+                        <rect x="3" y="13" width="4" height="8" rx="2" />
+                        <rect x="17" y="9" width="4" height="12" rx="2" />
+                      </svg>
                     </div>
-                    <div>
+                    <div class="flex flex-col">
                       <div class="text-sm font-semibold text-gray-400">
                         Crescimento Médio
                       </div>
@@ -371,14 +403,20 @@
                     </div>
                   </div>
                 </div>
-
                 <div
-                  class="cyber-stats-card absolute -top-5 -right-5 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-md border border-blue-500 p-4 rounded-lg shadow-neon-blue z-20">
-                  <div class="flex items-center space-x-3">
+                  class="cyber-stats-card absolute -top-5 -right-5 bg-gray-900 bg-opacity-80 backdrop-filter backdrop-blur-md border border-blue-500 p-4 rounded-lg shadow-neon-blue z-10 flex items-center min-w-[180px] min-h-[64px]">
+                  <div class="flex items-center space-x-3 w-full">
                     <div class="h-10 w-10 rounded-full bg-indigo-900 flex items-center justify-center">
-                      <i class="fas fa-users text-indigo-400"></i>
+                      <!-- SVG Users Icon -->
+                      <svg width="24" height="24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                      </svg>
                     </div>
-                    <div>
+                    <div class="flex flex-col">
                       <div class="text-sm font-semibold text-gray-400">
                         Alcance Digital
                       </div>
@@ -747,22 +785,21 @@
           </div>
         </div>
 
-        <!-- Case Study 2 - E-commerce -->
+        <!-- Case Study 2 - Wantour Landing Page -->
         <div class="cyber-case-card reverse" data-aos="fade-left">
           <div class="cyber-case-media">
-            <img src="https://cdn.pixabay.com/photo/2017/12/26/09/15/woman-3040029_960_720.jpg" alt="E-commerce"
-              class="cyber-case-image" />
+            <img src="https://i.postimg.cc/d1KX1MY8/image.png" alt="Landing Wantour" class="cyber-case-image" />
             <div class="cyber-case-overlay"></div>
           </div>
           <div class="cyber-case-content">
             <div class="cyber-case-header">
               <div class="cyber-case-icon purple">
-                <i class="fab fa-instagram"></i>
+                <i class="fas fa-plane"></i>
               </div>
               <div>
-                <h3 class="cyber-case-title">E-commerce Fashion</h3>
+                <h3 class="cyber-case-title">Landing Page Wantour</h3>
                 <div class="cyber-case-subtitle">
-                  Meta Ads + Google Ads
+                  Lançamento Digital + Captação de Leads
                 </div>
               </div>
             </div>
@@ -770,120 +807,74 @@
               <div class="cyber-timeline-item">
                 <h4>Desafio</h4>
                 <p>
-                  Loja online com tráfego baixo e alto custo de aquisição de clientes.
+                  A Wantour, uma nova empresa de passagens aéreas, precisava se posicionar no mercado e captar seus
+                  primeiros clientes de forma rápida e eficiente.
                 </p>
               </div>
               <div class="cyber-timeline-item">
                 <h4>Solução</h4>
                 <p>
-                  Campanhas otimizadas no Meta e Google, remarketing avançado e análise de dados em tempo real.
+                  Criação de uma landing page moderna e responsiva, com foco em conversão, integração com ferramentas de
+                  automação de marketing e campanhas de tráfego pago para geração de leads qualificados.
                 </p>
               </div>
               <div class="cyber-timeline-item">
                 <h4>Resultado</h4>
                 <p>
-                  280% mais vendas, 50% menos CAC e ROI de 12x nas campanhas.
+                  Primeiros leads gerados, validação do interesse do público e início do reconhecimento da marca Wantour
+                  no segmento de turismo.
                 </p>
               </div>
             </div>
             <div class="cyber-case-tags">
-              <span class="cyber-tag">Meta Ads</span>
-              <span class="cyber-tag">Google Ads</span>
-              <span class="cyber-tag ai">Remarketing</span>
-              <span class="cyber-tag analytics">Conversão</span>
+              <span class="cyber-tag">Landing Page</span>
+              <span class="cyber-tag">Tráfego Pago</span>
+              <span class="cyber-tag ai">Captação de Leads</span>
+              <span class="cyber-tag analytics">Turismo</span>
             </div>
             <a href="#" class="cyber-case-link">
-              <span>Falar com especialista</span>
-              <i class="fas fa-arrow-right"></i>
+              <span>Garanta sua oferta exclusiva</span>
+              <i class="fas fa-gift"></i>
             </a>
           </div>
         </div>
 
-        <!-- Case Study 3 - Sistema B2B -->
-        <div class="cyber-case-card" data-aos="fade-right">
-          <div class="cyber-case-media">
-            <img src="https://i.ibb.co/sYtRcBf/Flux-Dev-A-digital-composition-with-a-futuristic-and-minimalis-0.jpg"
-              alt="Sistema B2B" class="cyber-case-image" />
-            <div class="cyber-case-overlay"></div>
-          </div>
-          <div class="cyber-case-content">
-            <div class="cyber-case-header">
-              <div class="cyber-case-icon green">
-                <i class="fas fa-cogs"></i>
-              </div>
-              <div>
-                <h3 class="cyber-case-title">ERP Customizado</h3>
-                <div class="cyber-case-subtitle">
-                  LinkedIn Ads + Sistema Integrado
-                </div>
-              </div>
-            </div>
-            <div class="cyber-case-timeline">
-              <div class="cyber-timeline-item">
-                <h4>Desafio</h4>
-                <p>
-                  Empresa B2B precisava de sistema próprio e geração de leads qualificados.
-                </p>
-              </div>
-              <div class="cyber-timeline-item">
-                <h4>Solução</h4>
-                <p>
-                  ERP sob medida + campanhas LinkedIn segmentadas por cargo e setor específico.
-                </p>
-              </div>
-              <div class="cyber-timeline-item">
-                <h4>Resultado</h4>
-                <p>
-                  Sistema 100% customizado, 180% mais leads B2B e 60% menos tempo de fechamento.
-                </p>
-              </div>
-            </div>
-            <div class="cyber-case-tags">
-              <span class="cyber-tag ai">Sistema Custom</span>
-              <span class="cyber-tag">LinkedIn Ads</span>
-              <span class="cyber-tag">B2B</span>
-              <span class="cyber-tag">ERP</span>
-            </div>
-            <a href="#" class="cyber-case-link">
-              <span>Falar com especialista</span>
-              <i class="fas fa-arrow-right"></i>
-            </a>
-          </div>
-        </div>
+      </div>
+      </div>
 
-        <!-- Key Metrics -->
-        <div class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div class="cyber-metric-card" data-aos="zoom-in" data-aos-delay="100">
-            <div class="cyber-metric-value">
-              <span class="counter" data-target="280">0</span><span>%</span>
-            </div>
-            <div class="cyber-metric-label">
-              Aumento médio em vendas
-            </div>
-            <div class="cyber-metric-glow"></div>
+      <!-- Key Metrics -->
+      <div class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="cyber-metric-card" data-aos="zoom-in" data-aos-delay="100">
+          <div class="cyber-metric-value">
+            <span class="counter" data-target="50">0</span><span>+</span>
           </div>
-          <div class="cyber-metric-card" data-aos="zoom-in" data-aos-delay="200">
-            <div class="cyber-metric-value">
-              <span class="counter" data-target="180">0</span><span>%</span>
-            </div>
-            <div class="cyber-metric-label">Mais leads qualificados</div>
-            <div class="cyber-metric-glow"></div>
+          <div class="cyber-metric-label">
+            Leads gerados no lançamento
           </div>
-          <div class="cyber-metric-card" data-aos="zoom-in" data-aos-delay="300">
-            <div class="cyber-metric-value">
-              <span class="counter" data-target="60">0</span><span>%</span>
-            </div>
-            <div class="cyber-metric-label">
-              Redução no tempo de fechamento
-            </div>
-            <div class="cyber-metric-glow"></div>
-          </div>
-          <div class="cyber-metric-card" data-aos="zoom-in" data-aos-delay="400">
-            <div class="cyber-metric-value"><span class="counter" data-target="12">0</span><span>x</span></div>
-            <div class="cyber-metric-label">ROI médio das campanhas</div>
-            <div class="cyber-metric-glow"></div>
-          </div>
+          <div class="cyber-metric-glow"></div>
         </div>
+        <div class="cyber-metric-card" data-aos="zoom-in" data-aos-delay="200">
+          <div class="cyber-metric-value">
+            <span class="counter" data-target="30">0</span><span>%</span>
+          </div>
+          <div class="cyber-metric-label">Taxa de conversão inicial</div>
+          <div class="cyber-metric-glow"></div>
+        </div>
+        <div class="cyber-metric-card" data-aos="zoom-in" data-aos-delay="300">
+          <div class="cyber-metric-value">
+            <span class="counter" data-target="100">0</span><span>%</span>
+          </div>
+          <div class="cyber-metric-label">
+            Projeto entregue no prazo
+          </div>
+          <div class="cyber-metric-glow"></div>
+        </div>
+        <div class="cyber-metric-card" data-aos="zoom-in" data-aos-delay="400">
+          <div class="cyber-metric-value"><span class="counter" data-target="1">0</span><span>º</span></div>
+          <div class="cyber-metric-label">Passos para crescer junto</div>
+          <div class="cyber-metric-glow"></div>
+        </div>
+      </div>
       </div>
     </section>
 
@@ -1377,49 +1368,20 @@
           <div class="cyber-contact-form-container" data-aos="fade-right">
             <form class="cyber-contact-form" autocomplete="on" novalidate>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div class="cyber-form-group">
+                <div class="cyber-form-group md:col-span-2">
                   <label for="name">Nome <span aria-hidden="true" class="text-red-500">*</span></label>
                   <input type="text" id="name" class="cyber-input" required autocomplete="name" aria-required="true"
                     aria-label="Nome">
                   <span class="cyber-error-message hidden text-red-500 text-xs mt-1" id="error-name">Por favor, preencha
                     seu nome.</span>
                 </div>
-                <div class="cyber-form-group">
-                  <label for="email">E-mail <span aria-hidden="true" class="text-red-500">*</span></label>
-                  <input type="email" id="email" class="cyber-input" required autocomplete="email" aria-required="true"
-                    aria-label="E-mail">
-                  <span class="cyber-error-message hidden text-red-500 text-xs mt-1" id="error-email">Digite um e-mail
-                    válido.</span>
+                <div class="cyber-form-group md:col-span-2">
+                  <label for="phone">WhatsApp <span aria-hidden="true" class="text-red-500">*</span></label>
+                  <input type="tel" id="phone" class="cyber-input" required autocomplete="tel" aria-required="true"
+                    aria-label="WhatsApp" placeholder="(99) 99999-9999">
+                  <span class="cyber-error-message hidden text-red-500 text-xs mt-1" id="error-phone">Por favor,
+                    preencha seu WhatsApp.</span>
                 </div>
-              </div>
-              <div class="cyber-form-group mb-6">
-                <label for="phone">Telefone</label>
-                <input type="tel" id="phone" class="cyber-input" autocomplete="tel" aria-label="Telefone">
-              </div>
-              <div class="cyber-form-group mb-6">
-                <label for="company">Empresa</label>
-                <input type="text" id="company" class="cyber-input" autocomplete="organization" aria-label="Empresa">
-              </div>
-              <div class="cyber-form-group mb-6">
-                <label for="service">Interesse</label>
-                <select id="service" class="cyber-select" aria-label="Interesse">
-                  <option value="" selected disabled>
-                    Selecione um serviço
-                  </option>
-                  <option value="ads">Gestão de Anúncios</option>
-                  <option value="landing">Landing Pages</option>
-                  <option value="social">Social Media com IA</option>
-                  <option value="chatbot">Chatbots com IA</option>
-                  <option value="consultoria">Consultoria em Presença Digital</option>
-                  <option value="analytics">Analytics e BI</option>
-                </select>
-              </div>
-              <div class="cyber-form-group mb-6">
-                <label for="message">Mensagem <span aria-hidden="true" class="text-red-500">*</span></label>
-                <textarea id="message" rows="4" class="cyber-textarea" required aria-required="true"
-                  aria-label="Mensagem"></textarea>
-                <span class="cyber-error-message hidden text-red-500 text-xs mt-1" id="error-message">Por favor, escreva
-                  sua mensagem.</span>
               </div>
               <button type="submit" class="cyber-submit-button" aria-label="Enviar mensagem">
                 <span>Enviar Mensagem</span>
@@ -1432,45 +1394,26 @@
 
           <div data-aos="fade-left">
             <div class="cyber-contact-info-container mb-8">
-              <h3 class="text-2xl font-bold mb-6">Nossos Escritórios</h3>
-
+              <h3 class="text-2xl font-bold mb-6">Fale com a Soluctions</h3>
               <div class="space-y-6">
-                <!-- Office 1 -->
                 <div class="cyber-contact-info-item">
                   <div class="cyber-contact-icon">
                     <i class="fas fa-map-marker-alt"></i>
                   </div>
                   <div>
-                    <h4>Zurich</h4>
-                    <p>Bahnhofstrasse 1, 8001 Zürich, Suíça</p>
-                    <p>+41 12 345 6789</p>
+                    <h4>Brasil</h4>
+                    <p>Atendimento em todo o país, 100% digital</p>
+                    <p>+55 11 99999-9999</p>
                     <p>contato@soluctions.com</p>
                   </div>
                 </div>
-
-                <!-- Office 2 -->
                 <div class="cyber-contact-info-item">
                   <div class="cyber-contact-icon purple">
-                    <i class="fas fa-map-marker-alt"></i>
+                    <i class="fas fa-clock"></i>
                   </div>
                   <div>
-                    <h4>Malta</h4>
-                    <p>Triq il-Kbira, Valletta VLT 1010, Malta</p>
-                    <p>+356 1234 5678</p>
-                    <p>suporte@soluctions.com</p>
-                  </div>
-                </div>
-
-                <!-- Office 3 -->
-                <div class="cyber-contact-info-item">
-                  <div class="cyber-contact-icon green">
-                    <i class="fas fa-map-marker-alt"></i>
-                  </div>
-                  <div>
-                    <h4>Manchester</h4>
-                    <p>1 Spinningfields, Manchester M3 3EB, Reino Unido</p>
-                    <p>+44 161 123 4567</p>
-                    <p>comercial@soluctions.com</p>
+                    <h4>Horário de atendimento</h4>
+                    <p>Segunda a Sexta, das 9h às 18h</p>
                   </div>
                 </div>
               </div>
