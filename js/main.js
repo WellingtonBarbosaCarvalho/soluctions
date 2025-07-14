@@ -689,6 +689,29 @@ class CyberpunkExperienceSystem {
     });
   }
 
+  setupRealtimeValidation() {
+    // Configurar validação em tempo real para todos os inputs
+    const inputs = document.querySelectorAll('.nano-field input');
+    
+    inputs.forEach(input => {
+      // Validar em tempo real enquanto digita (com debounce)
+      let validationTimeout;
+      
+      input.addEventListener('input', () => {
+        clearTimeout(validationTimeout);
+        validationTimeout = setTimeout(() => {
+          this.validateFieldRealtime(input);
+        }, 300); // Debounce de 300ms
+      });
+      
+      // Validar imediatamente ao sair do campo
+      input.addEventListener('blur', () => {
+        clearTimeout(validationTimeout);
+        this.validateFieldRealtime(input);
+      });
+    });
+  }
+
   setupGlowEffects() {
     const fieldGlows = document.querySelectorAll('.field-glow');
     
@@ -705,6 +728,60 @@ class CyberpunkExperienceSystem {
           glow.style.opacity = '0';
           glow.style.transform = 'scale(1)';
         });
+      }
+    });
+  }
+
+  setupDataStreams() {
+    // Configurar streams de dados visuais nos campos
+    const dataStreams = document.querySelectorAll('.data-stream');
+    
+    dataStreams.forEach(stream => {
+      const field = stream.closest('.nano-field');
+      const input = field?.querySelector('input');
+      
+      if (input) {
+        input.addEventListener('focus', () => {
+          this.activateDataStream(stream);
+        });
+        
+        input.addEventListener('blur', () => {
+          this.deactivateDataStream(stream);
+        });
+      }
+    });
+  }
+
+  activateDataStream(stream) {
+    // Criar partículas de dados
+    const particle = document.createElement('div');
+    particle.className = 'data-particle';
+    particle.style.cssText = `
+      position: absolute;
+      width: 2px;
+      height: 8px;
+      background: linear-gradient(to bottom, transparent, #00f3ff, transparent);
+      left: 0;
+      top: 0;
+      animation: dataFlow 1.5s linear infinite;
+    `;
+    
+    stream.appendChild(particle);
+    
+    // Remover após animação
+    setTimeout(() => {
+      if (particle.parentElement) {
+        particle.parentElement.removeChild(particle);
+      }
+    }, 1500);
+  }
+
+  deactivateDataStream(stream) {
+    // Limpar partículas existentes
+    const particles = stream.querySelectorAll('.data-particle');
+    particles.forEach(particle => {
+      if (particle.parentElement) {
+        particle.parentElement.removeChild(particle);
       }
     });
   }
@@ -1098,6 +1175,255 @@ const DOMCache = {
 };
 
 // ========================================
+// OTIMIZAÇÃO DE SERVICE CARDS - SISTEMA PERFORMÁTICO
+// ========================================
+
+class OptimizedServiceCards {
+  constructor() {
+    this.cards = new Map();
+    this.observer = null;
+    this.isInitialized = false;
+    this.animationFrameId = null;
+    
+    // Cache de elementos DOM
+    this.domCache = {
+      serviceCards: null,
+      cardIcons: null,
+      cardLinks: null,
+      cardTags: null
+    };
+    
+    this.init();
+  }
+  
+  init() {
+    if (this.isInitialized) return;
+    
+    this.cacheElements();
+    this.setupIntersectionObserver();
+    this.setupEventListeners();
+    this.setupHoverOptimizations();
+    
+    this.isInitialized = true;
+  }
+  
+  cacheElements() {
+    // Cache todos os elementos uma única vez
+    this.domCache.serviceCards = document.querySelectorAll('.cyber-service-card.enhanced');
+    this.domCache.cardIcons = document.querySelectorAll('.cyber-service-card.enhanced .cyber-service-icon');
+    this.domCache.cardLinks = document.querySelectorAll('.cyber-service-card.enhanced .cyber-service-link');
+    this.domCache.cardTags = document.querySelectorAll('.cyber-service-card.enhanced .cyber-tag');
+    
+    // Armazenar informações dos cards
+    this.domCache.serviceCards.forEach((card, index) => {
+      this.cards.set(card, {
+        id: index,
+        isVisible: false,
+        isHovered: false,
+        animationsEnabled: false,
+        boundingRect: null
+      });
+    });
+  }
+  
+  setupIntersectionObserver() {
+    // Observer otimizado para ativar animações apenas quando visível
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const cardData = this.cards.get(entry.target);
+          if (cardData) {
+            cardData.isVisible = entry.isIntersecting;
+            
+            if (entry.isIntersecting && !cardData.animationsEnabled) {
+              this.enableCardAnimations(entry.target);
+              cardData.animationsEnabled = true;
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '50px 0px'
+      }
+    );
+    
+    // Observar todos os cards
+    this.domCache.serviceCards.forEach(card => {
+      this.observer.observe(card);
+    });
+  }
+  
+  enableCardAnimations(card) {
+    // Ativar animações apenas quando o card está visível
+    const beforeElement = card.querySelector('::before');
+    if (beforeElement) {
+      beforeElement.style.animationPlayState = 'running';
+    }
+    
+    // Adicionar classe para animações CSS
+    card.classList.add('animations-enabled');
+  }
+  
+  setupEventListeners() {
+    // Event delegation otimizado para hovers
+    const serviceSection = document.getElementById('services');
+    if (!serviceSection) return;
+    
+    // Throttled mouse events
+    let hoverTimeout = null;
+    
+    serviceSection.addEventListener('mouseenter', (e) => {
+      const card = e.target.closest('.cyber-service-card.enhanced');
+      if (!card) return;
+      
+      clearTimeout(hoverTimeout);
+      const cardData = this.cards.get(card);
+      
+      if (cardData && cardData.isVisible && !cardData.isHovered) {
+        cardData.isHovered = true;
+        this.handleCardHover(card, true);
+      }
+    }, true);
+    
+    serviceSection.addEventListener('mouseleave', (e) => {
+      const card = e.target.closest('.cyber-service-card.enhanced');
+      if (!card) return;
+      
+      const cardData = this.cards.get(card);
+      
+      if (cardData && cardData.isHovered) {
+        hoverTimeout = setTimeout(() => {
+          cardData.isHovered = false;
+          this.handleCardHover(card, false);
+        }, 100); // Pequeno delay para evitar flickering
+      }
+    }, true);
+  }
+  
+  handleCardHover(card, isEntering) {
+    // Cancelar animação anterior se existir
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+    
+    this.animationFrameId = requestAnimationFrame(() => {
+      if (isEntering) {
+        // Ativar animação da borda apenas no hover
+        const beforePseudo = getComputedStyle(card, '::before');
+        card.style.setProperty('--border-animation-state', 'running');
+        
+        // Efeito nos ícones
+        const icon = card.querySelector('.cyber-service-icon');
+        if (icon) {
+          icon.style.transform = 'translate3d(0, 0, 0) scale(1.1)';
+        }
+        
+        // Efeito nas tags com delay escalonado
+        const tags = card.querySelectorAll('.cyber-tag');
+        tags.forEach((tag, index) => {
+          setTimeout(() => {
+            tag.style.transform = 'translate3d(0, -2px, 0) scale(1.05)';
+          }, index * 50);
+        });
+        
+      } else {
+        // Desativar animações para economizar recursos
+        card.style.setProperty('--border-animation-state', 'paused');
+        
+        // Reset do ícone
+        const icon = card.querySelector('.cyber-service-icon');
+        if (icon) {
+          icon.style.transform = 'translate3d(0, 0, 0) scale(1)';
+        }
+        
+        // Reset das tags
+        const tags = card.querySelectorAll('.cyber-tag');
+        tags.forEach(tag => {
+          tag.style.transform = 'translate3d(0, 0, 0) scale(1)';
+        });
+      }
+    });
+  }
+  
+  setupHoverOptimizations() {
+    // CSS custom properties para controle de animações
+    const style = document.createElement('style');
+    style.textContent = `
+      .cyber-service-card.enhanced {
+        --border-animation-state: paused;
+      }
+      
+      .cyber-service-card.enhanced::before {
+        animation-play-state: var(--border-animation-state, paused);
+      }
+      
+      .cyber-service-card.enhanced.animations-enabled::before {
+        animation-play-state: var(--border-animation-state, paused);
+      }
+      
+      /* Hover otimizado apenas com transform */
+      .cyber-service-card.enhanced:hover {
+        transform: translate3d(0, -10px, 0) scale(1.02);
+      }
+      
+      /* Preload de transforms para evitar jank */
+      .cyber-service-icon,
+      .cyber-tag {
+        will-change: auto;
+      }
+      
+      .cyber-service-card.enhanced:hover .cyber-service-icon,
+      .cyber-service-card.enhanced:hover .cyber-tag {
+        will-change: transform;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  // Método público para cleanup
+  destroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+    
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+    
+    this.cards.clear();
+    this.isInitialized = false;
+  }
+  
+  // Método para atualizar cache quando necessário
+  updateCache() {
+    this.domCache.serviceCards.forEach(card => {
+      const cardData = this.cards.get(card);
+      if (cardData) {
+        cardData.boundingRect = card.getBoundingClientRect();
+      }
+    });
+  }
+}
+
+// Instância global otimizada
+let optimizedServiceCards = null;
+
+function initOptimizedServiceCards() {
+  // Inicializar apenas se há cards de serviço na página
+  if (document.querySelector('.cyber-service-card.enhanced')) {
+    optimizedServiceCards = new OptimizedServiceCards();
+  }
+}
+
+// Cleanup ao sair da página
+window.addEventListener('beforeunload', () => {
+  if (optimizedServiceCards) {
+    optimizedServiceCards.destroy();
+  }
+});
+
+// ========================================
 // INICIALIZAÇÃO PRINCIPAL - OTIMIZADA
 // ========================================
 
@@ -1112,6 +1438,10 @@ function mainInit() {
   initChatbot();
   initImageOptimizations();
   initTeamInteractions();
+  // Inicializar service cards após DOM estar pronto
+  setTimeout(() => {
+    initOptimizedServiceCards();
+  }, 100);
   if (isMobile()) {
     initMobileOptimizations();
     initServicesCarousel();

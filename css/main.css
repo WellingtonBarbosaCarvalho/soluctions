@@ -710,7 +710,7 @@
    ENHANCED SERVICE CARDS STYLES
    ======================================== */
 
-/* Service Cards Melhorados */
+/* Service Cards Otimizados para Performance */
 .cyber-service-card.enhanced {
   position: relative;
   padding: 2.5rem;
@@ -719,11 +719,19 @@
   border: 2px solid transparent;
   background-clip: padding-box;
   border-radius: 20px;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* OTIMIZAÇÃO: Transições específicas em vez de 'all' */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  /* OTIMIZAÇÃO: GPU acceleration sem overhead */
+  transform: translate3d(0, 0, 0);
+  /* OTIMIZAÇÃO: Containment para isolar layout/paint */
+  contain: layout style paint;
+  /* OTIMIZAÇÃO: Backface visibility para GPU */
+  backface-visibility: hidden;
 }
 
 .cyber-service-card.enhanced::before {
@@ -736,17 +744,31 @@
   background: linear-gradient(45deg, #00f3ff, #bc13fe, #ff2a6d, #00ff88, #00f3ff);
   border-radius: 20px;
   z-index: -1;
-  animation: borderRotate 4s linear infinite;
+  /* OTIMIZAÇÃO: Pausar animação por padrão */
+  animation: borderRotate 4s linear infinite paused;
+  /* OTIMIZAÇÃO: GPU acceleration */
+  transform: translate3d(0, 0, 0);
+  /* OTIMIZAÇÃO: Reduzir opacity para economizar */
+  opacity: 0.7;
+  /* OTIMIZAÇÃO: Prevenir reflow desnecessário */
+  contain: strict;
 }
 
 @keyframes borderRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(360deg); }
 }
 
 .cyber-service-card.enhanced:hover {
-  transform: translateY(-10px) scale(1.02);
+  /* OTIMIZAÇÃO: Usar translate3d para GPU */
+  transform: translate3d(0, -10px, 0) scale(1.02);
   box-shadow: 0 20px 40px rgba(0, 243, 255, 0.3);
+}
+
+.cyber-service-card.enhanced:hover::before {
+  /* OTIMIZAÇÃO: Ativar animação apenas no hover */
+  animation-play-state: running;
+  opacity: 1;
 }
 
 /* Service Badge */
@@ -775,7 +797,7 @@
   color: #000;
 }
 
-/* Enhanced Service Icon */
+/* Enhanced Service Icon - Otimizado */
 .cyber-service-card.enhanced .cyber-service-icon {
   width: 80px;
   height: 80px;
@@ -787,6 +809,11 @@
   margin-bottom: 1.5rem;
   position: relative;
   overflow: hidden;
+  /* OTIMIZAÇÃO: Transição específica para transform */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* OTIMIZAÇÃO: GPU acceleration */
+  transform: translate3d(0, 0, 0);
+  contain: layout style;
 }
 
 .cyber-service-card.enhanced .cyber-service-icon::before {
@@ -794,9 +821,11 @@
   position: absolute;
   inset: 0;
   background: inherit;
-  filter: blur(20px);
-  opacity: 0.5;
+  /* OTIMIZAÇÃO: Usar transform em vez de filter blur para performance */
+  transform: translate3d(0, 0, 0) scale(1.2);
+  opacity: 0.4;
   z-index: -1;
+  border-radius: inherit;
 }
 
 /* Enhanced Title */
@@ -854,7 +883,11 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border: 1px solid;
-  transition: all 0.3s ease;
+  /* OTIMIZAÇÃO: Transições específicas */
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  /* OTIMIZAÇÃO: GPU acceleration */
+  transform: translate3d(0, 0, 0);
+  contain: layout style;
 }
 
 /* Colored Tags */
@@ -1006,9 +1039,14 @@
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
-  transition: all 0.3s ease;
+  /* OTIMIZAÇÃO: Transições específicas */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  /* OTIMIZAÇÃO: GPU acceleration */
+  transform: translate3d(0, 0, 0);
+  contain: layout style;
 }
 
 .cyber-service-link.enhanced::before {
@@ -1047,6 +1085,19 @@
   .cyber-service-card.enhanced {
     min-height: auto;
     padding: 1.5rem;
+    /* OTIMIZAÇÃO MOBILE: Desabilitar animações custosas */
+    contain: layout style paint;
+  }
+  
+  .cyber-service-card.enhanced::before {
+    /* OTIMIZAÇÃO MOBILE: Pausar animação da borda */
+    animation-play-state: paused !important;
+    opacity: 0.3;
+  }
+  
+  .cyber-service-card.enhanced:hover {
+    /* OTIMIZAÇÃO MOBILE: Hover simplificado */
+    transform: translate3d(0, -5px, 0) scale(1.01);
   }
   
   .cyber-service-badge {
@@ -1061,6 +1112,12 @@
     height: 60px;
     font-size: 1.5rem;
   }
+  
+  /* OTIMIZAÇÃO MOBILE: Simplificar interações touch */
+  .cyber-service-card.enhanced .cyber-tag:hover {
+    transform: none;
+  }
+}
   
   .cyber-cta-highlight {
     font-size: 0.85rem;
@@ -2701,6 +2758,289 @@ header.scrolled {
 .cyber-feature-card p {
   color: var(--color-text-secondary);
   margin-bottom: 0;
+}
+
+/* Novos estilos para cores dos ícones */
+.cyber-feature-icon.blue {
+  color: var(--color-neon-blue);
+  background-color: rgba(0, 243, 255, 0.1);
+}
+
+.cyber-feature-icon.green {
+  color: #00ff88;
+  background-color: rgba(0, 255, 136, 0.1);
+}
+
+.cyber-feature-icon.purple {
+  color: #bc13fe;
+  background-color: rgba(188, 19, 254, 0.1);
+}
+
+.cyber-feature-icon.orange {
+  color: #ff6b35;
+  background-color: rgba(255, 107, 53, 0.1);
+}
+
+/* Estilo moderno para feature cards */
+.cyber-feature-card.modern {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-feature-card.modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.cyber-feature-card.modern:hover::before {
+  left: 100%;
+}
+
+.cyber-feature-card.modern:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.cyber-feature-card.modern h3 {
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 0.75rem;
+}
+
+.cyber-feature-card.modern p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.cyber-feature-card.modern:hover .cyber-feature-icon.blue {
+  background-color: var(--color-neon-blue);
+  color: var(--color-bg-primary);
+}
+
+.cyber-feature-card.modern:hover .cyber-feature-icon.green {
+  background-color: #00ff88;
+  color: var(--color-bg-primary);
+}
+
+.cyber-feature-card.modern:hover .cyber-feature-icon.purple {
+  background-color: #bc13fe;
+  color: var(--color-bg-primary);
+}
+
+.cyber-feature-card.modern:hover .cyber-feature-icon.orange {
+  background-color: #ff6b35;
+  color: var(--color-bg-primary);
+}
+
+/* Estilos modernos para a equipe */
+.cyber-team-card.modern {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-team-card.modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.cyber-team-card.modern:hover::before {
+  left: 100%;
+}
+
+.cyber-team-card.modern:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Cores para avatares da equipe */
+.cyber-avatar-placeholder.blue {
+  background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(0, 243, 255, 0.1));
+  border: 2px solid rgba(0, 243, 255, 0.3);
+}
+
+.cyber-avatar-glow.blue {
+  background: radial-gradient(circle, rgba(0, 243, 255, 0.4), transparent);
+}
+
+.cyber-avatar-placeholder.green {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.1));
+  border: 2px solid rgba(0, 255, 136, 0.3);
+}
+
+.cyber-avatar-glow.green {
+  background: radial-gradient(circle, rgba(0, 255, 136, 0.4), transparent);
+}
+
+.cyber-avatar-placeholder.purple {
+  background: linear-gradient(135deg, rgba(188, 19, 254, 0.2), rgba(188, 19, 254, 0.1));
+  border: 2px solid rgba(188, 19, 254, 0.3);
+}
+
+.cyber-avatar-glow.purple {
+  background: radial-gradient(circle, rgba(188, 19, 254, 0.4), transparent);
+}
+
+.cyber-avatar-placeholder.orange {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 107, 53, 0.1));
+  border: 2px solid rgba(255, 107, 53, 0.3);
+}
+
+.cyber-avatar-glow.orange {
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.4), transparent);
+}
+
+/* Highlights da equipe */
+.cyber-team-highlight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.cyber-team-highlight.blue {
+  background: rgba(0, 243, 255, 0.1);
+  color: #00f3ff;
+  border: 1px solid rgba(0, 243, 255, 0.3);
+}
+
+.cyber-team-highlight.green {
+  background: rgba(0, 255, 136, 0.1);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+/* Cards compactos modernos */
+.cyber-team-card-compact.modern {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-team-card-compact.modern:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cyber-team-card-compact.modern.blue:hover {
+  border-color: rgba(0, 243, 255, 0.5);
+  box-shadow: 0 15px 30px rgba(0, 243, 255, 0.2);
+}
+
+.cyber-team-card-compact.modern.green:hover {
+  border-color: rgba(0, 255, 136, 0.5);
+  box-shadow: 0 15px 30px rgba(0, 255, 136, 0.2);
+}
+
+.cyber-team-card-compact.modern.purple:hover {
+  border-color: rgba(188, 19, 254, 0.5);
+  box-shadow: 0 15px 30px rgba(188, 19, 254, 0.2);
+}
+
+.cyber-team-card-compact.modern.orange:hover {
+  border-color: rgba(255, 107, 53, 0.5);
+  box-shadow: 0 15px 30px rgba(255, 107, 53, 0.2);
+}
+
+/* Avatares mini coloridos */
+.cyber-avatar-mini.blue {
+  background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(0, 243, 255, 0.1));
+  border: 2px solid rgba(0, 243, 255, 0.3);
+}
+
+.cyber-avatar-mini.green {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.1));
+  border: 2px solid rgba(0, 255, 136, 0.3);
+}
+
+.cyber-avatar-mini.purple {
+  background: linear-gradient(135deg, rgba(188, 19, 254, 0.2), rgba(188, 19, 254, 0.1));
+  border: 2px solid rgba(188, 19, 254, 0.3);
+}
+
+.cyber-avatar-mini.orange {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 107, 53, 0.1));
+  border: 2px solid rgba(255, 107, 53, 0.3);
+}
+
+/* Role indicators coloridos */
+.cyber-role-indicator.blue {
+  background: #00f3ff;
+}
+
+.cyber-role-indicator.green {
+  background: #00ff88;
+}
+
+.cyber-role-indicator.purple {
+  background: #bc13fe;
+}
+
+.cyber-role-indicator.orange {
+  background: #ff6b35;
+}
+
+/* Skill badges coloridos */
+.cyber-skill-badge.blue {
+  background: rgba(0, 243, 255, 0.2);
+  color: #00f3ff;
+  border: 1px solid rgba(0, 243, 255, 0.3);
+}
+
+.cyber-skill-badge.green {
+  background: rgba(0, 255, 136, 0.2);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.cyber-skill-badge.purple {
+  background: rgba(188, 19, 254, 0.2);
+  color: #bc13fe;
+  border: 1px solid rgba(188, 19, 254, 0.3);
+}
+
+.cyber-skill-badge.orange {
+  background: rgba(255, 107, 53, 0.2);
+  color: #ff6b35;
+  border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+.cyber-skill-badge.backend {
+  background: rgba(0, 243, 255, 0.2);
+  color: #00f3ff;
+  border: 1px solid rgba(0, 243, 255, 0.3);
+}
+
+.cyber-skill-badge.frontend {
+  background: rgba(0, 255, 136, 0.2);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.3);
 }
 
 /* CTA Section */
