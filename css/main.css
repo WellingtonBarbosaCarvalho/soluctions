@@ -3043,6 +3043,297 @@ header.scrolled {
   border: 1px solid rgba(0, 255, 136, 0.3);
 }
 
+/* DNA Tecnológico Moderno */
+.cyber-stack-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.cyber-stack-category {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 15px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.cyber-stack-category:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cyber-stack-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cyber-stack-title.blue {
+  color: #00f3ff;
+}
+
+.cyber-stack-title.green {
+  color: #00ff88;
+}
+
+.cyber-stack-title.purple {
+  color: #bc13fe;
+}
+
+.cyber-stack-title.orange {
+  color: #ff6b35;
+}
+
+.cyber-stack-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.cyber-stack-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.cyber-stack-item:hover {
+  transform: scale(1.05);
+}
+
+.cyber-stack-item.blue {
+  background: rgba(0, 243, 255, 0.15);
+  color: #00f3ff;
+  border: 1px solid rgba(0, 243, 255, 0.3);
+}
+
+.cyber-stack-item.blue:hover {
+  background: rgba(0, 243, 255, 0.25);
+  box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+}
+
+.cyber-stack-item.green {
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.cyber-stack-item.green:hover {
+  background: rgba(0, 255, 136, 0.25);
+  box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+}
+
+.cyber-stack-item.purple {
+  background: rgba(188, 19, 254, 0.15);
+  color: #bc13fe;
+  border: 1px solid rgba(188, 19, 254, 0.3);
+}
+
+.cyber-stack-item.purple:hover {
+  background: rgba(188, 19, 254, 0.25);
+  box-shadow: 0 5px 15px rgba(188, 19, 254, 0.3);
+}
+
+.cyber-stack-item.orange {
+  background: rgba(255, 107, 53, 0.15);
+  color: #ff6b35;
+  border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+.cyber-stack-item.orange:hover {
+  background: rgba(255, 107, 53, 0.25);
+  box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+}
+
+/* Matrix nodes modernos */
+.cyber-matrix-node.modern {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-matrix-node.modern:hover {
+  transform: translateY(-8px) scale(1.05);
+}
+
+.cyber-matrix-node.modern.blue:hover {
+  border-color: rgba(0, 243, 255, 0.5);
+  box-shadow: 0 15px 40px rgba(0, 243, 255, 0.3);
+}
+
+.cyber-matrix-node.modern.green:hover {
+  border-color: rgba(0, 255, 136, 0.5);
+  box-shadow: 0 15px 40px rgba(0, 255, 136, 0.3);
+}
+
+.cyber-matrix-node.modern.purple:hover {
+  border-color: rgba(188, 19, 254, 0.5);
+  box-shadow: 0 15px 40px rgba(188, 19, 254, 0.3);
+}
+
+.cyber-matrix-node.modern.orange:hover {
+  border-color: rgba(255, 107, 53, 0.5);
+  box-shadow: 0 15px 40px rgba(255, 107, 53, 0.3);
+}
+
+.cyber-node-core.blue,
+.cyber-node-core.green,
+.cyber-node-core.purple,
+.cyber-node-core.orange {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.75rem;
+  font-size: 1.5rem;
+  position: relative;
+}
+
+.cyber-node-core.blue {
+  background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(0, 243, 255, 0.1));
+  color: #00f3ff;
+  border: 2px solid rgba(0, 243, 255, 0.3);
+}
+
+.cyber-node-core.green {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 136, 0.1));
+  color: #00ff88;
+  border: 2px solid rgba(0, 255, 136, 0.3);
+}
+
+.cyber-node-core.purple {
+  background: linear-gradient(135deg, rgba(188, 19, 254, 0.2), rgba(188, 19, 254, 0.1));
+  color: #bc13fe;
+  border: 2px solid rgba(188, 19, 254, 0.3);
+}
+
+.cyber-node-core.orange {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 107, 53, 0.1));
+  color: #ff6b35;
+  border: 2px solid rgba(255, 107, 53, 0.3);
+}
+
+.cyber-node-label {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.cyber-node-member {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+}
+
+/* Team Synergy */
+.cyber-team-synergy {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.synergy-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.synergy-highlight {
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-weight: 600;
+  margin: 0 0.25rem;
+  display: inline-block;
+}
+
+.synergy-highlight.blue {
+  background: rgba(0, 243, 255, 0.2);
+  color: #00f3ff;
+}
+
+.synergy-highlight.green {
+  background: rgba(0, 255, 136, 0.2);
+  color: #00ff88;
+}
+
+.synergy-highlight.purple {
+  background: rgba(188, 19, 254, 0.2);
+  color: #bc13fe;
+}
+
+.synergy-highlight.orange {
+  background: rgba(255, 107, 53, 0.2);
+  color: #ff6b35;
+}
+
+.synergy-result {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(45deg, #00f3ff, #bc13fe);
+  border-radius: 20px;
+  margin-left: 0.5rem;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .cyber-stack-showcase {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .cyber-stack-category {
+    padding: 1rem;
+  }
+  
+  .cyber-matrix-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .synergy-text {
+    font-size: 1rem;
+  }
+  
+  .synergy-highlight,
+  .synergy-result {
+    display: block;
+    margin: 0.5rem auto;
+  }
+}
+
 /* CTA Section */
 .cyber-cta {
   position: relative;
@@ -3928,6 +4219,461 @@ header.scrolled {
 .cyber-pricing-button.purple:hover {
   box-shadow: 0 0 15px rgba(188, 19, 254, 0.5);
   background-color: rgba(188, 19, 254, 0.1);
+}
+
+/* ========================================
+ * MODERN PRICING CARDS - Nova versão colorida e moderna
+ * ======================================== */
+
+/* Container principal dos cards modernos */
+.modern-pricing-card {
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(10, 10, 25, 0.95) 0%, 
+    rgba(15, 15, 35, 0.95) 100%);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  transform: translateY(0);
+}
+
+.modern-pricing-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.modern-pricing-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Efeito glow colorido */
+.pricing-glow-effect {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 22px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.pricing-glow-effect.blue {
+  background: linear-gradient(45deg, #00f3ff, #1e3a8a);
+}
+
+.pricing-glow-effect.green {
+  background: linear-gradient(45deg, #10b981, #059669);
+}
+
+.pricing-glow-effect.purple {
+  background: linear-gradient(45deg, #8b5cf6, #7c3aed);
+}
+
+/* Temas de cores */
+.modern-pricing-card.blue-theme {
+  border-color: rgba(0, 243, 255, 0.3);
+}
+
+.modern-pricing-card.green-theme {
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.modern-pricing-card.purple-theme {
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+/* Hover effects */
+.modern-pricing-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.modern-pricing-card:hover .pricing-glow-effect {
+  opacity: 0.6;
+}
+
+.modern-pricing-card.blue-theme:hover {
+  border-color: #00f3ff;
+  box-shadow: 0 20px 40px rgba(0, 243, 255, 0.25);
+}
+
+.modern-pricing-card.green-theme:hover {
+  border-color: #10b981;
+  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.25);
+}
+
+.modern-pricing-card.purple-theme:hover {
+  border-color: #8b5cf6;
+  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.25);
+}
+
+/* Badge popular */
+.pricing-popular-badge {
+  position: absolute;
+  top: -15px;
+  right: 1.5rem;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+  z-index: 10;
+}
+
+.pricing-popular-badge i {
+  color: #fbbf24;
+}
+
+/* Header do card */
+.modern-pricing-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.modern-pricing-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-pricing-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+  z-index: 1;
+}
+
+.modern-pricing-icon i {
+  position: relative;
+  z-index: 2;
+}
+
+.modern-pricing-icon.blue {
+  background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(30, 58, 138, 0.2));
+  color: #00f3ff;
+}
+
+.modern-pricing-icon.green {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+  color: #10b981;
+}
+
+.modern-pricing-icon.purple {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.2));
+  color: #8b5cf6;
+}
+
+.modern-pricing-card:hover .modern-pricing-icon {
+  transform: rotate(10deg) scale(1.1);
+}
+
+/* Títulos */
+.modern-pricing-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.25rem;
+  line-height: 1.3;
+}
+
+.modern-pricing-subtitle {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+/* Valores e preços */
+.modern-pricing-value {
+  margin: 1.5rem 0;
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pricing-label {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.pricing-consultation {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+  background: linear-gradient(135deg, #ffffff, #e5e7eb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pricing-consultation.blue {
+  background: linear-gradient(135deg, #00f3ff, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pricing-consultation.green {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pricing-consultation.purple {
+  background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pricing-custom {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+}
+
+/* Descrição */
+.modern-pricing-description {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 0.975rem;
+}
+
+/* Lista de features */
+.modern-pricing-features {
+  list-style: none;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.modern-pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 0.75rem;
+}
+
+.feature-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.feature-check.blue {
+  background: linear-gradient(135deg, #00f3ff, #1e3a8a);
+  color: white;
+}
+
+.feature-check.green {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.feature-check.purple {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
+}
+
+.modern-pricing-features span {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+/* CTAs modernos */
+.modern-cta-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  margin-top: auto;
+}
+
+.modern-cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.modern-cta-button:hover::before {
+  left: 100%;
+}
+
+.modern-cta-button.blue {
+  background: linear-gradient(135deg, #00f3ff, #1e3a8a);
+  color: white;
+  border-color: #00f3ff;
+}
+
+.modern-cta-button.green {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border-color: #10b981;
+}
+
+.modern-cta-button.purple {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
+  border-color: #8b5cf6;
+}
+
+.modern-cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.modern-cta-button.blue:hover {
+  box-shadow: 0 15px 35px rgba(0, 243, 255, 0.4);
+}
+
+.modern-cta-button.green:hover {
+  box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+}
+
+.modern-cta-button.purple:hover {
+  box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4);
+}
+
+.cta-text {
+  position: relative;
+  z-index: 2;
+}
+
+.cta-arrow {
+  font-size: 1.25rem;
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.modern-cta-button:hover .cta-arrow {
+  transform: translateX(5px);
+}
+
+/* Animação pulse */
+.pulse-animation {
+  animation: modernPulse 2s infinite;
+}
+
+@keyframes modernPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+}
+
+/* Card popular destaque */
+.modern-pricing-card.popular {
+  transform: scale(1.05);
+  z-index: 10;
+  border-width: 3px;
+}
+
+.modern-pricing-card.popular:hover {
+  transform: translateY(-12px) scale(1.07);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .modern-pricing-card {
+    min-height: auto;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .modern-pricing-card.popular {
+    transform: scale(1);
+    margin-top: 1rem;
+  }
+  
+  .modern-pricing-card.popular:hover {
+    transform: translateY(-8px) scale(1.02);
+  }
+  
+  .modern-pricing-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+  
+  .modern-pricing-title {
+    font-size: 1.25rem;
+  }
+  
+  .modern-cta-button {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.95rem;
+  }
+  
+  .pricing-popular-badge {
+    font-size: 0.8rem;
+    padding: 0.625rem 1.25rem;
+  }
 }
 
 /* Ajustes responsivos */
