@@ -1,3 +1,65 @@
+/* Animação cyberpunk para botão dinâmico CTA */
+.cyber-dynamic-btn {
+  box-shadow: 0 0 16px 2px #00f3ff, 0 0 32px 4px #7c3aed44;
+  border: 2px solid #7c3aed;
+  background: linear-gradient(90deg, #1a0036 0%, #0a0a18 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.5s, color 0.5s, box-shadow 0.5s;
+}
+.cyber-dynamic-btn-text {
+  text-shadow: 0 0 8px #fff, 0 0 16px #00f3ff;
+  transition: color 0.5s, text-shadow 0.5s;
+}
+.cyber-lightning {
+  filter: drop-shadow(0 0 8px #fff200) drop-shadow(0 0 16px #fff200);
+  pointer-events: none;
+}
+@keyframes cyber-lightning-flash {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  10%,
+  90% {
+    opacity: 1;
+  }
+  20%,
+  80% {
+    opacity: 0.5;
+  }
+}
+.cyber-lightning[style*="opacity: 1"] {
+  animation: cyber-lightning-flash 0.6s linear infinite;
+}
+/* Animações do animate.css (fadeIn/fadeOut) */
+.animate__animated {
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+}
+.animate__fadeIn {
+  animation-name: fadeIn;
+}
+.animate__fadeOut {
+  animation-name: fadeOut;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 /* Utilitários para delays de animação (até 10 itens) */
 .delay-0 {
   transition-delay: 0ms !important;
@@ -35,6 +97,613 @@
 /* Utilitário para transição suave do carrossel mobile */
 .carousel-transition {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* ========================================
+   CYBERPUNK EXPERIENCE SYSTEM STYLES
+   ======================================== */
+
+/* Botão Super Saiyan - Otimizado para Performance */
+.cyber-btn {
+  position: relative;
+  width: 200px;
+  height: 60px;
+  background: linear-gradient(45deg, #000011, #000033);
+  border: 2px solid #00f3ff;
+  border-radius: 12px;
+  color: #00f3ff;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+  will-change: transform; /* Otimização para GPU */
+  contain: layout style; /* Isolamento de repaint */
+}
+
+.cyber-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 50px rgba(0, 243, 255, 0.5);
+}
+
+/* Núcleo de energia - Otimizado */
+.energy-core {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, #00f3ff, #bc13fe, #ff2a6d, #00ff88, #00f3ff);
+  opacity: 0.3;
+  z-index: 1;
+  animation: rotate 3s linear infinite;
+  will-change: transform;
+  contain: layout;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Relâmpagos */
+.lightning-field {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.lightning-bolt {
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(to bottom, transparent, #00f3ff, transparent);
+  opacity: 0.3;
+  transition: all 0.1s ease;
+}
+
+.bolt-1 { top: 10%; left: 20%; }
+.bolt-2 { top: 30%; right: 20%; }
+.bolt-3 { bottom: 30%; left: 30%; }
+.bolt-4 { bottom: 10%; right: 30%; }
+.bolt-5 { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+/* Texto holográfico */
+.btn-text {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-shadow: 0 0 10px currentColor;
+}
+
+.text-layer-1,
+.text-layer-2 {
+  position: absolute;
+  transition: all 0.3s ease;
+}
+
+.text-layer-1 {
+  opacity: 1;
+}
+
+.text-layer-2 {
+  opacity: 0;
+  transform: translateY(5px);
+}
+
+.cyber-btn:hover .text-layer-1 {
+  opacity: 0;
+  transform: translateY(-5px);
+}
+
+.cyber-btn:hover .text-layer-2 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Anéis de plasma - Otimizado */
+.plasma-ring {
+  position: absolute;
+  border: 2px solid rgba(0, 243, 255, 0.3);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateZ(0);
+  animation: plasmaExpand 3s ease-in-out infinite;
+  will-change: transform, opacity;
+  contain: layout;
+}
+
+.ring-1 {
+  width: 40px;
+  height: 40px;
+  animation-delay: 0s;
+}
+
+.ring-2 {
+  width: 60px;
+  height: 60px;
+  animation-delay: 1s;
+}
+
+.ring-3 {
+  width: 80px;
+  height: 80px;
+  animation-delay: 2s;
+}
+
+@keyframes plasmaExpand {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+/* Partículas quânticas */
+.quantum-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #00f3ff;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #00f3ff;
+}
+
+.quantum-particles .particle:nth-child(1) { top: 20%; left: 15%; }
+.quantum-particles .particle:nth-child(2) { top: 30%; right: 15%; }
+.quantum-particles .particle:nth-child(3) { bottom: 30%; left: 25%; }
+.quantum-particles .particle:nth-child(4) { bottom: 20%; right: 25%; }
+.quantum-particles .particle:nth-child(5) { top: 60%; left: 60%; }
+
+/* Formulário Futurista */
+.form-portal {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.quantum-form {
+  width: 100%;
+  padding: 1rem;
+}
+
+.nano-field {
+  position: relative;
+  margin-bottom: 1.5rem;
+  transform: translateY(50px);
+  opacity: 0;
+  filter: blur(10px);
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  width: 100%;
+}
+
+.nano-field input {
+  width: 100%;
+  padding: 15px 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(0, 243, 255, 0.3);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.nano-field input:focus {
+  border-color: #00f3ff;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+}
+
+.nano-field label {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  transform-origin: left center;
+}
+
+.nano-field input:focus + label,
+.nano-field input:not(:placeholder-shown) + label {
+  transform: translateY(-25px) scale(0.8);
+  color: #00f3ff;
+}
+
+/* Field Glow Effect */
+.field-glow {
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #00f3ff, #bc13fe, #ff2a6d, #00ff88);
+  border-radius: 8px;
+  opacity: 0;
+  z-index: -1;
+  filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.field-active .field-glow {
+  opacity: 0.5;
+  transform: scale(1.05);
+}
+
+/* Data Stream */
+.data-stream {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+@keyframes dataFlow {
+  from {
+    left: -10px;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+/* Validação visual */
+.field-valid {
+  border-color: #00ff88 !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3) !important;
+}
+
+.field-invalid {
+  border-color: #ff2a6d !important;
+  box-shadow: 0 0 20px rgba(255, 42, 109, 0.3) !important;
+}
+
+@keyframes validationParticle {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Botão Submit Quântico */
+.quantum-submit {
+  position: relative;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(45deg, #00f3ff, #bc13fe);
+  border: none;
+  border-radius: 8px;
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  overflow: hidden;
+  transform: scale(0);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.quantum-submit:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+}
+
+/* Submit Energy */
+.submit-energy {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, #fff, transparent);
+  opacity: 0.3;
+  z-index: 1;
+}
+
+/* Submit Sparks */
+.submit-sparks {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.spark {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #fff;
+}
+
+.submit-sparks .spark:nth-child(1) { top: 20%; left: 20%; }
+.submit-sparks .spark:nth-child(2) { top: 30%; right: 20%; }
+.submit-sparks .spark:nth-child(3) { bottom: 20%; left: 30%; }
+
+.submit-text {
+  position: relative;
+  z-index: 10;
+}
+
+/* Portal de Sucesso */
+.success-portal {
+  text-align: center;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid #00ff88;
+  border-radius: 12px;
+  transform-style: preserve-3d;
+}
+
+.success-icon {
+  color: #00ff88;
+  font-size: 48px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 20px #00ff88);
+}
+
+.success-title {
+  color: #00ff88;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px #00ff88;
+}
+
+.success-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.success-rings {
+  position: relative;
+  margin-top: 30px;
+  height: 100px;
+}
+
+.success-rings .ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 2px solid #00ff88;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+.success-rings .ring:nth-child(1) {
+  width: 40px;
+  height: 40px;
+}
+
+.success-rings .ring:nth-child(2) {
+  width: 60px;
+  height: 60px;
+}
+
+.success-rings .ring:nth-child(3) {
+  width: 80px;
+  height: 80px;
+}
+
+@keyframes successRing {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Estágios do sistema */
+.cyber-stage {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.button-stage,
+.form-stage,
+.success-stage {
+  transform-style: preserve-3d;
+}
+
+.form-portal,
+.success-portal {
+  transform-style: preserve-3d;
+  transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Canvas de partículas */
+#particles-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Containers do card cyberpunk */
+.cyber-card-content {
+  position: relative;
+  min-width: 500px; /* Largura mínima para acomodar o botão */
+  min-height: 350px; /* Altura mínima para todos os elementos */
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 12px;
+  overflow: visible; /* Permite que efeitos saiam do container */
+}
+
+.cyber-nexus-card {
+  position: relative;
+  width: 100%;
+  min-height: 300px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.cyber-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.button-stage,
+.form-stage,
+.success-stage {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* ========================================
+   OTIMIZAÇÕES DE PERFORMANCE
+   ======================================== */
+
+/* Reduzir motion para dispositivos com preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  .energy-core,
+  .plasma-ring,
+  .submit-energy {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  
+  .cyber-btn,
+  .nano-field,
+  .quantum-submit {
+    transition: none !important;
+  }
+  
+  #particles-canvas {
+    display: none !important;
+  }
+}
+
+/* Otimizações para dispositivos com baixa potência */
+@media (max-width: 768px), (max-height: 600px) {
+  /* Reduzir efeitos visuais complexos */
+  .energy-core {
+    animation-duration: 6s; /* Mais lento */
+    opacity: 0.2; /* Menos opacidade */
+  }
+  
+  .plasma-ring {
+    animation-duration: 6s;
+    opacity: 0.2;
+  }
+  
+  .lightning-bolt,
+  .quantum-particles {
+    display: none; /* Remover efeitos secundários */
+  }
+  
+  /* Simplificar shadows */
+  .cyber-btn {
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.2) !important;
+  }
+  
+  .nano-field input:focus {
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2) !important;
+  }
+}
+
+/* Responsividade - Performance First */
+@media (max-width: 768px) {
+  .cyber-card-container {
+    max-width: 95%;
+    min-height: 350px;
+    margin: 1rem auto;
+  }
+  
+  .cyber-card-content {
+    min-width: auto;
+    min-height: 300px;
+    padding: 1.5rem;
+  }
+  
+  .cyber-nexus-card {
+    min-height: 250px;
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+  
+  .cyber-btn {
+    width: 180px;
+    height: 50px;
+    font-size: 12px;
+    will-change: auto; /* Remover will-change em mobile */
+  }
+  
+  .nano-field input {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+  
+  .quantum-submit {
+    padding: 12px;
+    font-size: 14px;
+  }
+  
+  .button-stage,
+  .form-stage,
+  .success-stage {
+    min-height: 150px;
+    padding: 0.5rem;
+  }
+  
+  /* Desabilitar Canvas em dispositivos muito pequenos */
+  @media (max-width: 480px) {
+    #particles-canvas {
+      display: none;
+    }
+    
+    .cyber-matrix,
+    .energy-field {
+      display: none;
+    }
+  }
 }
 /* Utilitários para matrix node e avatar interativo */
 .matrix-node-hover {
@@ -187,7 +856,8 @@
   .cyber-card-container {
     position: relative;
     margin: 2rem auto;
-    max-width: 100%;
+    max-width: 600px; /* Expandido para acomodar o botão cyberpunk */
+    min-height: 400px; /* Altura mínima para garantir espaço */
     overflow: visible;
     transform: none;
     perspective: 1000px;

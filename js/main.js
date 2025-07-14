@@ -1,113 +1,1061 @@
-// Acessibilidade e validação do formulário de contato
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector(".cyber-contact-form");
-  if (!form) return;
-  const name = form.querySelector("#name");
-  const email = form.querySelector("#email");
-  const message = form.querySelector("#message");
-  const errorName = form.querySelector("#error-name");
-  const errorEmail = form.querySelector("#error-email");
-  const errorMessage = form.querySelector("#error-message");
-  const successMsg = form.querySelector("#success-message");
-
-  function validateEmail(val) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
-  }
-
-  form.addEventListener("submit", function (e) {
-    let valid = true;
-    // Nome
-    if (!name.value.trim()) {
-      errorName.classList.remove("hidden");
-      name.setAttribute("aria-invalid", "true");
-      valid = false;
-    } else {
-      errorName.classList.add("hidden");
-      name.removeAttribute("aria-invalid");
-    }
-    // Email
-    if (!validateEmail(email.value.trim())) {
-      errorEmail.classList.remove("hidden");
-      email.setAttribute("aria-invalid", "true");
-      valid = false;
-    } else {
-      errorEmail.classList.add("hidden");
-      email.removeAttribute("aria-invalid");
-    }
-    // Mensagem
-    if (!message.value.trim()) {
-      errorMessage.classList.remove("hidden");
-      message.setAttribute("aria-invalid", "true");
-      valid = false;
-    } else {
-      errorMessage.classList.add("hidden");
-      message.removeAttribute("aria-invalid");
-    }
-    if (!valid) {
-      e.preventDefault();
-      return;
-    }
-    e.preventDefault();
-    // Simula envio
-    setTimeout(() => {
-      form.reset();
-      successMsg.classList.remove("hidden");
-      setTimeout(() => successMsg.classList.add("hidden"), 4000);
-    }, 600);
-  });
-
-  // Acessibilidade: feedback ao digitar
-  [name, email, message].forEach((input) => {
-    input.addEventListener("input", () => {
-      if (input.value.trim()) {
-        const err = form.querySelector(`#error-${input.id}`);
-        if (err) err.classList.add("hidden");
-        input.removeAttribute("aria-invalid");
-      }
-    });
-  });
-});
 /**
- * Soluctions S.A - JavaScript Consolidado
- * Todas as funcionalidades em um único arquivo
- *
- * CONSOLIDAÇÃO COMPLETA:
- * ✅ critical.js - Funcionalidades críticas (preloader, menu mobile, scroll suave)
- * ✅ main.js - Funcionalidades principais (animações, contadores, chatbot, partículas)
- * ✅ mobile.optimizations.js - Otimizações para dispositivos móveis
- * ✅ optimized-images.js - Sistema de lazy loading e otimização de imagens
- * ✅ services-mobile.js - Carrossel de serviços para mobile
- * ✅ team-interactions.js - Interações da seção de equipe
- *
- * FUNCIONALIDADES INCLUÍDAS:
- * - Preloader animado
- * - Menu mobile responsivo
- * - Scroll suave e indicador de progresso
- * - Animações de contadores
- * - Sistema de partículas (particles.js)
- * - Chatbot interativo
- * - Lazy loading de imagens com suporte WebP/AVIF
- * - Otimizações específicas para mobile
- * - Carrossel de serviços para dispositivos móveis
- * - Interações avançadas da equipe
- * - FAQ interativo
- * - Cursor personalizado
- * - Scroll observer para animações
- * - Performance tracking
- *
- * COMPATIBILIDADE:
- * - Todos os navegadores modernos
- * - Fallbacks para navegadores antigos
- * - Otimizado para performance em mobile
- *
- * DEPENDÊNCIAS EXTERNAS:
- * - AOS (Animate on Scroll)
- * - GSAP (GreenSock Animation Platform) - opcional
- * - Particles.js - opcional
+ * ========================================
+ * SOLUCTIONS CYBERPUNK EXPERIENCE SYSTEM
+ * ========================================
+ * Sistema de experiência futurística completo
+ * Arquitetura orientada a objetos otimizada
  */
 
+class CyberpunkExperienceSystem {
+  constructor() {
+    this.canvas = null;
+    this.ctx = null;
+    this.particles = [];
+    this.energyField = null;
+    this.audioContext = null;
+    this.isInitialized = false;
+    this.mouseX = 0;
+    this.mouseY = 0;
+    this.currentStage = 'button';
+    
+    // Estados do sistema
+    this.states = {
+      button: { active: true },
+      form: { active: false },
+      success: { active: false }
+    };
+    
+    this.init();
+  }
+
+  async init() {
+    if (this.isInitialized) return;
+    
+    await this.initAudioSystem();
+    this.initCanvas();
+    this.initParticleSystem();
+    this.initEnergyField();
+    this.initMatrixBackground();
+    this.initSuperSaiyanButton();
+    this.initQuantumForm();
+    this.initEventListeners();
+    
+    this.isInitialized = true;
+    this.startRenderLoop();
+  }
+
+  // ========================================
+  // SISTEMA DE ÁUDIO SINTÉTICO
+  // ========================================
+  async initAudioSystem() {
+    try {
+      this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    } catch (e) {
+      console.warn('Audio context not supported');
+    }
+  }
+
+  playTone(frequency, duration = 0.1, type = 'sine') {
+    if (!this.audioContext) return;
+    
+    const oscillator = this.audioContext.createOscillator();
+    const gainNode = this.audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(this.audioContext.destination);
+    
+    oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
+    oscillator.type = type;
+    
+    gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + duration);
+    
+    oscillator.start(this.audioContext.currentTime);
+    oscillator.stop(this.audioContext.currentTime + duration);
+  }
+
+  playSuccessSequence() {
+    if (!this.audioContext) return;
+    
+    const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+    notes.forEach((note, i) => {
+      setTimeout(() => this.playTone(note, 0.3, 'square'), i * 200);
+    });
+  }
+
+  playHoverSound() {
+    this.playTone(800, 0.05, 'triangle');
+  }
+
+  playClickSound() {
+    this.playTone(1200, 0.1, 'sawtooth');
+  }
+  // ========================================
+  // SISTEMA DE PARTÍCULAS DINÂMICO
+  // ========================================
+  initCanvas() {
+    this.canvas = document.getElementById('particles-canvas');
+    if (!this.canvas) {
+      this.canvas = document.createElement('canvas');
+      this.canvas.id = 'particles-canvas';
+      this.canvas.style.position = 'absolute';
+      this.canvas.style.top = '0';
+      this.canvas.style.left = '0';
+      this.canvas.style.width = '100%';
+      this.canvas.style.height = '100%';
+      this.canvas.style.pointerEvents = 'none';
+      this.canvas.style.zIndex = '1';
+      
+      const container = document.querySelector('.cyber-card-content');
+      if (container) container.appendChild(this.canvas);
+    }
+    
+    this.ctx = this.canvas.getContext('2d');
+    this.resizeCanvas();
+    
+    window.addEventListener('resize', () => this.resizeCanvas());
+  }
+
+  resizeCanvas() {
+    if (!this.canvas) return;
+    
+    const rect = this.canvas.parentElement.getBoundingClientRect();
+    this.canvas.width = rect.width;
+    this.canvas.height = rect.height;
+  }
+
+  initParticleSystem() {
+    this.particles = [];
+    
+    // Criar 50 partículas
+    for (let i = 0; i < 50; i++) {
+      this.particles.push({
+        x: Math.random() * (this.canvas?.width || 400),
+        y: Math.random() * (this.canvas?.height || 300),
+        vx: (Math.random() - 0.5) * 2,
+        vy: (Math.random() - 0.5) * 2,
+        size: Math.random() * 3 + 1,
+        opacity: Math.random() * 0.5 + 0.3,
+        color: this.getRandomColor(),
+        life: Math.random() * 100
+      });
+    }
+  }
+
+  getRandomColor() {
+    const colors = ['#00f3ff', '#bc13fe', '#ff2a6d', '#00ff88'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  updateParticles() {
+    if (!this.canvas || !this.ctx) return;
+    
+    this.particles.forEach(particle => {
+      // Movimento
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+      
+      // Interação com cursor
+      const dx = this.mouseX - particle.x;
+      const dy = this.mouseY - particle.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      
+      if (distance < 100) {
+        const force = (100 - distance) / 100;
+        particle.vx += dx * force * 0.01;
+        particle.vy += dy * force * 0.01;
+      }
+      
+      // Bordas
+      if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
+      if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
+      
+      // Manter dentro dos limites
+      particle.x = Math.max(0, Math.min(this.canvas.width, particle.x));
+      particle.y = Math.max(0, Math.min(this.canvas.height, particle.y));
+      
+      // Ciclo de vida
+      particle.life += 1;
+      if (particle.life > 200) {
+        particle.life = 0;
+        particle.color = this.getRandomColor();
+      }
+    });
+  }
+
+  renderParticles() {
+    if (!this.ctx || !this.canvas) return;
+    
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    // Desenhar conexões
+    this.ctx.strokeStyle = 'rgba(0, 243, 255, 0.1)';
+    this.ctx.lineWidth = 1;
+    
+    for (let i = 0; i < this.particles.length; i++) {
+      for (let j = i + 1; j < this.particles.length; j++) {
+        const dx = this.particles[i].x - this.particles[j].x;
+        const dy = this.particles[i].y - this.particles[j].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < 80) {
+          this.ctx.beginPath();
+          this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
+          this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+          this.ctx.stroke();
+        }
+      }
+    }
+    
+    // Desenhar partículas
+    this.particles.forEach(particle => {
+      this.ctx.save();
+      this.ctx.globalAlpha = particle.opacity;
+      this.ctx.fillStyle = particle.color;
+      this.ctx.shadowBlur = 10;
+      this.ctx.shadowColor = particle.color;
+      
+      this.ctx.beginPath();
+      this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      this.ctx.fill();
+      
+      this.ctx.restore();
+    });
+  }
+  // ========================================
+  // CAMPO DE ENERGIA QUE SEGUE O CURSOR
+  // ========================================
+  initEnergyField() {
+    this.energyField = {
+      x: 0,
+      y: 0,
+      intensity: 0,
+      ripples: []
+    };
+  }
+
+  updateEnergyField() {
+    if (!this.energyField) return;
+    
+    // Suavizar movimento
+    this.energyField.x += (this.mouseX - this.energyField.x) * 0.1;
+    this.energyField.y += (this.mouseY - this.energyField.y) * 0.1;
+    
+    // Atualizar ripples
+    this.energyField.ripples = this.energyField.ripples.filter(ripple => {
+      ripple.radius += 2;
+      ripple.opacity -= 0.02;
+      return ripple.opacity > 0;
+    });
+  }
+
+  renderEnergyField() {
+    if (!this.ctx || !this.energyField) return;
+    
+    // Campo de energia principal
+    const gradient = this.ctx.createRadialGradient(
+      this.energyField.x, this.energyField.y, 0,
+      this.energyField.x, this.energyField.y, 50
+    );
+    gradient.addColorStop(0, 'rgba(0, 243, 255, 0.3)');
+    gradient.addColorStop(1, 'rgba(0, 243, 255, 0)');
+    
+    this.ctx.save();
+    this.ctx.fillStyle = gradient;
+    this.ctx.beginPath();
+    this.ctx.arc(this.energyField.x, this.energyField.y, 50, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.restore();
+    
+    // Ripples
+    this.energyField.ripples.forEach(ripple => {
+      this.ctx.save();
+      this.ctx.globalAlpha = ripple.opacity;
+      this.ctx.strokeStyle = '#00f3ff';
+      this.ctx.lineWidth = 2;
+      this.ctx.shadowBlur = 10;
+      this.ctx.shadowColor = '#00f3ff';
+      
+      this.ctx.beginPath();
+      this.ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
+      this.ctx.stroke();
+      
+      this.ctx.restore();
+    });
+  }
+
+  addEnergyRipple(x, y) {
+    if (!this.energyField) return;
+    
+    this.energyField.ripples.push({
+      x: x,
+      y: y,
+      radius: 0,
+      opacity: 1
+    });
+  }
+
+  // ========================================
+  // MATRIX BACKGROUND COM LINHAS CYBER
+  // ========================================
+  initMatrixBackground() {
+    this.matrixLines = [];
+    
+    // Criar linhas matrix
+    for (let i = 0; i < 20; i++) {
+      this.matrixLines.push({
+        x: Math.random() * (this.canvas?.width || 400),
+        y: Math.random() * (this.canvas?.height || 300),
+        length: Math.random() * 100 + 50,
+        speed: Math.random() * 2 + 1,
+        opacity: Math.random() * 0.5 + 0.2,
+        angle: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  updateMatrixLines() {
+    this.matrixLines.forEach(line => {
+      line.x += Math.cos(line.angle) * line.speed;
+      line.y += Math.sin(line.angle) * line.speed;
+      
+      // Wraparound
+      if (line.x < 0) line.x = this.canvas?.width || 400;
+      if (line.x > (this.canvas?.width || 400)) line.x = 0;
+      if (line.y < 0) line.y = this.canvas?.height || 300;
+      if (line.y > (this.canvas?.height || 300)) line.y = 0;
+    });
+  }
+
+  renderMatrixLines() {
+    if (!this.ctx) return;
+    
+    this.ctx.save();
+    this.ctx.strokeStyle = 'rgba(0, 243, 255, 0.2)';
+    this.ctx.lineWidth = 1;
+    this.ctx.shadowBlur = 5;
+    this.ctx.shadowColor = '#00f3ff';
+    
+    this.matrixLines.forEach(line => {
+      this.ctx.save();
+      this.ctx.globalAlpha = line.opacity;
+      
+      this.ctx.beginPath();
+      this.ctx.moveTo(line.x, line.y);
+      this.ctx.lineTo(
+        line.x + Math.cos(line.angle) * line.length,
+        line.y + Math.sin(line.angle) * line.length
+      );
+      this.ctx.stroke();
+      
+      this.ctx.restore();
+    });
+    
+    this.ctx.restore();
+  }
+
+  // ========================================
+  // BOTÃO SUPER SAIYAN COM EFEITOS
+  // ========================================
+  initSuperSaiyanButton() {
+    const button = document.getElementById('cyber-btn');
+    if (!button) return;
+    
+    this.superSaiyanButton = {
+      element: button,
+      energyCore: button.querySelector('.energy-core'),
+      lightningBolts: button.querySelectorAll('.lightning-bolt'),
+      plasmaRings: button.querySelectorAll('.plasma-ring'),
+      quantumParticles: button.querySelectorAll('.quantum-particles .particle'),
+      textLayers: button.querySelectorAll('.btn-text span'),
+      isCharging: false,
+      morphState: 0 // 0 = normal, 1 = neon bright, 2 = black with glow
+    };
+    
+    this.initButtonAnimations();
+    this.initButtonEvents();
+  }
+
+  initButtonAnimations() {
+    if (!this.superSaiyanButton) return;
+    
+    // Gradiente cônico rotativo no núcleo
+    this.animateEnergyCore();
+    
+    // Relâmpagos em sequência
+    this.animateLightningSequence();
+    
+    // Anéis de plasma expandindo
+    this.animatePlasmaRings();
+    
+    // Partículas quânticas dançando
+    this.animateQuantumParticles();
+    
+    // Morphing total
+    this.startMorphingCycle();
+  }
+
+  animateEnergyCore() {
+    const { energyCore } = this.superSaiyanButton;
+    if (!energyCore) return;
+    
+    let rotation = 0;
+    const animate = () => {
+      rotation += 2;
+      energyCore.style.background = `conic-gradient(from ${rotation}deg, #00f3ff, #bc13fe, #ff2a6d, #00ff88, #00f3ff)`;
+      requestAnimationFrame(animate);
+    };
+    animate();
+  }
+
+  animateLightningSequence() {
+    const { lightningBolts } = this.superSaiyanButton;
+    if (!lightningBolts.length) return;
+    
+    const sequence = () => {
+      lightningBolts.forEach((bolt, index) => {
+        setTimeout(() => {
+          bolt.style.opacity = '1';
+          bolt.style.filter = 'drop-shadow(0 0 10px #00f3ff)';
+          
+          setTimeout(() => {
+            bolt.style.opacity = '0.3';
+            bolt.style.filter = 'none';
+          }, 150);
+        }, index * 100);
+      });
+    };
+    
+    setInterval(sequence, 2000);
+  }
+
+  animatePlasmaRings() {
+    const { plasmaRings } = this.superSaiyanButton;
+    if (!plasmaRings.length) return;
+    
+    plasmaRings.forEach((ring, index) => {
+      const animate = () => {
+        ring.style.transform = `scale(${1 + Math.sin(Date.now() * 0.005 + index) * 0.2})`;
+        ring.style.opacity = `${0.3 + Math.sin(Date.now() * 0.003 + index) * 0.2}`;
+        requestAnimationFrame(animate);
+      };
+      animate();
+    });
+  }
+
+  animateQuantumParticles() {
+    const { quantumParticles } = this.superSaiyanButton;
+    if (!quantumParticles.length) return;
+    
+    quantumParticles.forEach((particle, index) => {
+      const animate = () => {
+        const time = Date.now() * 0.001 + index;
+        const x = Math.sin(time) * 20;
+        const y = Math.cos(time * 1.5) * 15;
+        
+        particle.style.transform = `translate(${x}px, ${y}px) scale(${1 + Math.sin(time * 2) * 0.3})`;
+        particle.style.opacity = `${0.5 + Math.sin(time * 3) * 0.3}`;
+        
+        requestAnimationFrame(animate);
+      };
+      animate();
+    });
+  }
+
+  startMorphingCycle() {
+    const { element, textLayers } = this.superSaiyanButton;
+    if (!element) return;
+    
+    const morphStates = [
+      {
+        background: 'linear-gradient(45deg, #000011, #000033)',
+        color: '#00f3ff',
+        shadow: '0 0 30px #00f3ff, inset 0 0 30px rgba(0, 243, 255, 0.1)'
+      },
+      {
+        background: 'linear-gradient(45deg, #00f3ff, #bc13fe)',
+        color: '#000',
+        shadow: '0 0 50px #00f3ff, 0 0 100px #bc13fe'
+      },
+      {
+        background: '#000',
+        color: '#fff',
+        shadow: '0 0 40px #fff, inset 0 0 20px rgba(255, 255, 255, 0.1)'
+      }
+    ];
+    
+    setInterval(() => {
+      this.superSaiyanButton.morphState = (this.superSaiyanButton.morphState + 1) % morphStates.length;
+      const state = morphStates[this.superSaiyanButton.morphState];
+      
+      element.style.background = state.background;
+      element.style.boxShadow = state.shadow;
+      
+      textLayers.forEach(layer => {
+        layer.style.color = state.color;
+        layer.style.textShadow = `0 0 10px ${state.color}`;
+      });
+      
+      this.playHoverSound();
+    }, 3000);
+  }
+
+  initButtonEvents() {
+    const { element } = this.superSaiyanButton;
+    if (!element) return;
+    
+    element.addEventListener('mouseenter', () => {
+      this.onButtonHover();
+    });
+    
+    element.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.onButtonClick();
+    });
+  }
+
+  onButtonHover() {
+    const { element, plasmaRings } = this.superSaiyanButton;
+    
+    // Intensificar efeitos
+    element.style.transform = 'scale(1.05)';
+    
+    plasmaRings.forEach(ring => {
+      ring.style.animationDuration = '0.5s';
+    });
+    
+    this.playHoverSound();
+    
+    // Adicionar ripple de energia
+    const rect = element.getBoundingClientRect();
+    this.addEnergyRipple(rect.left + rect.width / 2, rect.top + rect.height / 2);
+  }
+
+  onButtonClick() {
+    this.playClickSound();
+    this.startCinematicTransition();
+  }
+
+  // ========================================
+  // TRANSIÇÕES CINEMATOGRÁFICAS 3D
+  // ========================================
+  startCinematicTransition() {
+    const buttonStage = document.getElementById('button-stage');
+    const formStage = document.getElementById('form-stage');
+    
+    if (!buttonStage || !formStage) return;
+    
+    // Fase 1: Botão sai com rotação 3D dramática
+    this.animateButtonExit(buttonStage).then(() => {
+      // Fase 2: Portal dimensional surge
+      this.animatePortalEntrance(formStage).then(() => {
+        // Fase 3: Campos aparecem em cascata
+        this.animateFormFields();
+      });
+    });
+  }
+
+  animateButtonExit(buttonStage) {
+    return new Promise(resolve => {
+      const button = this.superSaiyanButton.element;
+      
+      // Animação de saída dramática
+      button.style.transition = 'all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+      button.style.transform = 'rotateY(90deg) rotateX(45deg) scale(0)';
+      button.style.opacity = '0';
+      button.style.filter = 'blur(10px)';
+      
+      // Efeito de explosaço de partículas
+      this.createParticleExplosion();
+      
+      setTimeout(() => {
+        buttonStage.classList.add('hidden');
+        resolve();
+      }, 1000);
+    });
+  }
+
+  createParticleExplosion() {
+    // Criar partículas de explosação
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => {
+        this.particles.push({
+          x: this.canvas.width / 2,
+          y: this.canvas.height / 2,
+          vx: (Math.random() - 0.5) * 10,
+          vy: (Math.random() - 0.5) * 10,
+          size: Math.random() * 5 + 2,
+          opacity: 1,
+          color: this.getRandomColor(),
+          life: 0,
+          maxLife: 60
+        });
+      }, i * 50);
+    }
+  }
+
+  animatePortalEntrance(formStage) {
+    return new Promise(resolve => {
+      formStage.classList.remove('hidden');
+      
+      const portal = formStage.querySelector('.form-portal');
+      if (portal) {
+        // Efeito de portal dimensional
+        portal.style.transform = 'scale(0) rotateZ(180deg)';
+        portal.style.opacity = '0';
+        portal.style.filter = 'blur(20px) hue-rotate(180deg)';
+        
+        setTimeout(() => {
+          portal.style.transition = 'all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+          portal.style.transform = 'scale(1) rotateZ(0deg)';
+          portal.style.opacity = '1';
+          portal.style.filter = 'blur(0px) hue-rotate(0deg)';
+          
+          resolve();
+        }, 100);
+      } else {
+        resolve();
+      }
+    });
+  }
+
+  animateFormFields() {
+    const fields = document.querySelectorAll('.nano-field');
+    const submitButton = document.querySelector('.quantum-submit');
+    
+    fields.forEach((field, index) => {
+      setTimeout(() => {
+        field.style.transform = 'translateY(0)';
+        field.style.opacity = '1';
+        field.style.filter = 'blur(0)';
+        
+        // Efeito de data stream
+        this.animateDataStream(field);
+      }, index * 200);
+    });
+    
+    // Animar botão submit por último
+    setTimeout(() => {
+      if (submitButton) {
+        submitButton.style.transform = 'scale(1)';
+        submitButton.style.opacity = '1';
+        this.animateSubmitButton(submitButton);
+      }
+    }, fields.length * 200 + 300);
+  }
+
+  // ========================================
+  // FORMULÁRIO FUTURISTA COM ANIMAÇÕES
+  // ========================================
+  initQuantumForm() {
+    const form = document.getElementById('quantum-form');
+    if (!form) return;
+    
+    this.setupFloatingLabels();
+    this.setupGlowEffects();
+    this.setupDataStreams();
+    this.setupRealtimeValidation();
+    this.setupQuantumSubmit();
+  }
+
+  setupFloatingLabels() {
+    const inputs = document.querySelectorAll('.nano-field input');
+    
+    inputs.forEach(input => {
+      const label = input.nextElementSibling;
+      
+      input.addEventListener('focus', () => {
+        if (label) {
+          label.style.transform = 'translateY(-25px) scale(0.8)';
+          label.style.color = '#00f3ff';
+        }
+        
+        // Ativar glow effect
+        input.parentElement.classList.add('field-active');
+      });
+      
+      input.addEventListener('blur', () => {
+        if (!input.value && label) {
+          label.style.transform = 'translateY(0) scale(1)';
+          label.style.color = 'rgba(255, 255, 255, 0.7)';
+        }
+        
+        input.parentElement.classList.remove('field-active');
+      });
+      
+      input.addEventListener('input', () => {
+        this.validateFieldRealtime(input);
+      });
+    });
+  }
+
+  setupGlowEffects() {
+    const fieldGlows = document.querySelectorAll('.field-glow');
+    
+    fieldGlows.forEach(glow => {
+      const input = glow.parentElement.querySelector('input');
+      
+      if (input) {
+        input.addEventListener('focus', () => {
+          glow.style.opacity = '1';
+          glow.style.transform = 'scale(1.1)';
+        });
+        
+        input.addEventListener('blur', () => {
+          glow.style.opacity = '0';
+          glow.style.transform = 'scale(1)';
+        });
+      }
+    });
+  }
+
+  animateDataStream(field) {
+    const dataStream = field.querySelector('.data-stream');
+    if (!dataStream) return;
+    
+    // Criar efeito de stream de dados
+    const stream = document.createElement('div');
+    stream.className = 'data-particle';
+    stream.style.cssText = `
+      position: absolute;
+      width: 2px;
+      height: 10px;
+      background: linear-gradient(to bottom, transparent, #00f3ff, transparent);
+      left: 0;
+      top: 0;
+      animation: dataFlow 2s linear infinite;
+    `;
+    
+    dataStream.appendChild(stream);
+    
+    setTimeout(() => {
+      if (stream.parentElement) {
+        stream.parentElement.removeChild(stream);
+      }
+    }, 2000);
+  }
+
+  validateFieldRealtime(input) {
+    const field = input.parentElement;
+    const isValid = this.validateInput(input);
+    
+    if (isValid) {
+      field.classList.add('field-valid');
+      field.classList.remove('field-invalid');
+      
+      // Efeito visual de sucesso
+      this.createValidationParticles(field, '#00ff88');
+    } else if (input.value.length > 0) {
+      field.classList.add('field-invalid');
+      field.classList.remove('field-valid');
+      
+      // Efeito visual de erro
+      this.createValidationParticles(field, '#ff2a6d');
+    }
+  }
+
+  validateInput(input) {
+    switch (input.type) {
+      case 'text':
+        return input.value.trim().length >= 2;
+      case 'tel':
+        return /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/.test(input.value);
+      default:
+        return input.value.trim().length > 0;
+    }
+  }
+
+  createValidationParticles(field, color) {
+    for (let i = 0; i < 5; i++) {
+      const particle = document.createElement('div');
+      particle.style.cssText = `
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: ${color};
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1000;
+        top: 50%;
+        right: 10px;
+        animation: validationParticle 1s ease-out forwards;
+        animation-delay: ${i * 100}ms;
+      `;
+      
+      field.appendChild(particle);
+      
+      setTimeout(() => {
+        if (particle.parentElement) {
+          particle.parentElement.removeChild(particle);
+        }
+      }, 1000 + (i * 100));
+    }
+  }
+
+  setupQuantumSubmit() {
+    const submitButton = document.querySelector('.quantum-submit');
+    const form = document.getElementById('quantum-form');
+    
+    if (!submitButton || !form) return;
+    
+    submitButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.handleQuantumSubmit();
+    });
+    
+    this.animateSubmitButton(submitButton);
+  }
+
+  animateSubmitButton(button) {
+    const energy = button.querySelector('.submit-energy');
+    const sparks = button.querySelectorAll('.spark');
+    
+    if (energy) {
+      let rotation = 0;
+      const animate = () => {
+        rotation += 3;
+        energy.style.transform = `rotate(${rotation}deg)`;
+        requestAnimationFrame(animate);
+      };
+      animate();
+    }
+    
+    sparks.forEach((spark, index) => {
+      const animate = () => {
+        const time = Date.now() * 0.001 + index;
+        const x = Math.sin(time * 2) * 15;
+        const y = Math.cos(time * 3) * 10;
+        
+        spark.style.transform = `translate(${x}px, ${y}px)`;
+        spark.style.opacity = `${0.7 + Math.sin(time * 4) * 0.3}`;
+        
+        requestAnimationFrame(animate);
+      };
+      animate();
+    });
+  }
+
+  handleQuantumSubmit() {
+    const inputs = document.querySelectorAll('.nano-field input');
+    let isValid = true;
+    
+    inputs.forEach(input => {
+      if (!this.validateInput(input)) {
+        isValid = false;
+        input.parentElement.classList.add('field-invalid');
+      }
+    });
+    
+    if (isValid) {
+      this.playSuccessSequence();
+      this.showSuccessPortal();
+    } else {
+      this.playTone(200, 0.3, 'sawtooth'); // Som de erro
+    }
+  }
+
+  showSuccessPortal() {
+    const formStage = document.getElementById('form-stage');
+    const successStage = document.getElementById('success-stage');
+    
+    if (!formStage || !successStage) return;
+    
+    // Transition cinematográfica para sucesso
+    formStage.style.transition = 'all 1s ease-out';
+    formStage.style.transform = 'scale(0.8) rotateX(90deg)';
+    formStage.style.opacity = '0';
+    
+    setTimeout(() => {
+      formStage.classList.add('hidden');
+      successStage.classList.remove('hidden');
+      
+      // Animar portal de sucesso
+      const portal = successStage.querySelector('.success-portal');
+      if (portal) {
+        portal.style.transform = 'scale(0) rotateZ(180deg)';
+        portal.style.opacity = '0';
+        
+        setTimeout(() => {
+          portal.style.transition = 'all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+          portal.style.transform = 'scale(1) rotateZ(0deg)';
+          portal.style.opacity = '1';
+          
+          this.animateSuccessRings();
+        }, 100);
+      }
+    }, 1000);
+  }
+
+  animateSuccessRings() {
+    const rings = document.querySelectorAll('.success-rings .ring');
+    
+    rings.forEach((ring, index) => {
+      setTimeout(() => {
+        ring.style.animation = 'successRing 2s ease-out infinite';
+      }, index * 200);
+    });
+  }
+
+  // ========================================
+  // EVENT LISTENERS E CONTROLES PRINCIPAIS
+  // ========================================
+  initEventListeners() {
+    // Mouse tracking para campo de energia
+    document.addEventListener('mousemove', (e) => {
+      const canvas = this.canvas;
+      if (!canvas) return;
+      
+      const rect = canvas.getBoundingClientRect();
+      this.mouseX = e.clientX - rect.left;
+      this.mouseY = e.clientY - rect.top;
+    });
+    
+    // Click tracking para ripples
+    document.addEventListener('click', (e) => {
+      const canvas = this.canvas;
+      if (!canvas) return;
+      
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+        this.addEnergyRipple(x, y);
+      }
+    });
+  }
+
+  // ========================================
+  // LOOP DE RENDERIZAÇÃO PRINCIPAL
+  // ========================================
+  startRenderLoop() {
+    const render = () => {
+      this.updateParticles();
+      this.updateEnergyField();
+      this.updateMatrixLines();
+      
+      this.renderMatrixLines();
+      this.renderParticles();
+      this.renderEnergyField();
+      
+      requestAnimationFrame(render);
+    };
+    
+    render();
+  }
+}
+
 // ========================================
-// VARIÁVEIS GLOBAIS OTIMIZADAS
+// ESTILOS CSS ADICIONAIS NECESSÁRIOS
+// ========================================
+const cyberpunkStyles = `
+<style>
+/* Animations for Cyberpunk System */
+@keyframes dataFlow {
+  from {
+    left: 0;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  to {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes validationParticle {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes successRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.nano-field {
+  position: relative;
+  margin-bottom: 1.5rem;
+  transform: translateY(50px);
+  opacity: 0;
+  filter: blur(10px);
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.field-active .field-glow {
+  opacity: 1 !important;
+  transform: scale(1.1) !important;
+}
+
+.field-valid {
+  border-color: #00ff88 !important;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3) !important;
+}
+
+.field-invalid {
+  border-color: #ff2a6d !important;
+  box-shadow: 0 0 20px rgba(255, 42, 109, 0.3) !important;
+}
+
+.quantum-submit {
+  transform: scale(0);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cyber-stage {
+  perspective: 1000px;
+}
+
+.form-portal {
+  transform-style: preserve-3d;
+}
+
+.success-portal {
+  transform-style: preserve-3d;
+}
+</style>
+`;
+
+// ========================================
+// INICIALIZAÇÃO DO SISTEMA
+// ========================================
+
+// Verificar se já existe uma instância
+if (!window.cyberpunkSystem) {
+  // Adicionar estilos CSS
+  document.head.insertAdjacentHTML('beforeend', cyberpunkStyles);
+  
+  // Inicializar sistema quando DOM estiver pronto
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      window.cyberpunkSystem = new CyberpunkExperienceSystem();
+    });
+  } else {
+    window.cyberpunkSystem = new CyberpunkExperienceSystem();
+  }
+}
+
+// ========================================
+// SISTEMA LEGADO MANTIDO PARA COMPATIBILIDADE
 // ========================================
 let isPageLoaded = false;
 let supportsWebP = null;

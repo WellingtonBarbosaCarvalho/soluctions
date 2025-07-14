@@ -336,44 +336,121 @@
           </div>
           <div class="lg:w-1/2 relative">
             <!-- Imagem hero com efeito cyberpunk -->
-            <div class="cyber-card-container relative mx-auto max-w-lg">
+            <div class="cyber-card-container relative mx-auto">
               <div
                 class="cyber-card-border absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl z-0">
               </div>
               <div class="cyber-card-glitch absolute inset-0 rounded-xl z-0"></div>
               <div class="cyber-card-content relative z-10 p-1 rounded-xl overflow-hidden shadow-neon-blue">
-                <!-- Card CTA Flutuante -->
-                <div
-                  class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full flex justify-center items-center z-20">
-                  <div
-                    class="bg-gradient-to-br from-purple-700 via-purple-600 to-blue-600 bg-opacity-95 shadow-neon-blue rounded-3xl border-2 border-purple-500 p-10 flex flex-col items-center max-w-xl w-full"
-                    style="box-sizing:border-box; min-height:340px;">
-                    <div class="flex items-center mb-8">
-                      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#00f3ff" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-presentation">
-                        <rect x="2" y="3" width="20" height="14" rx="2" />
-                        <path d="M12 21V17" />
-                        <path d="M9 21h6" />
-                      </svg>
-                      <span class="ml-4 text-2xl font-bold text-white">Digital Marketing</span>
-                    </div>
-                    <form class="cyber-cta-form w-full flex flex-col sm:flex-row gap-6 items-center" autocomplete="on"
-                      novalidate>
-                      <input type="text" id="cta-name" class="cyber-input flex-1 h-14 text-xl min-w-0" required
-                        autocomplete="name" aria-required="true" aria-label="Nome" placeholder="Seu nome"
-                        style="box-sizing:border-box;">
-                      <input type="tel" id="cta-phone" class="cyber-input flex-1 h-14 text-xl min-w-0" required
-                        autocomplete="tel" aria-required="true" aria-label="WhatsApp" placeholder="WhatsApp"
-                        style="box-sizing:border-box;">
-                      <button type="submit" class="cyber-submit-button flex-shrink-0 w-full sm:w-auto h-14 text-xl px-8"
-                        aria-label="Quero ser atendido" style="box-sizing:border-box;">
-                        <span>Quero ser atendido</span>
-                        <i class="fas fa-paper-plane ml-2" aria-hidden="true"></i>
-                      </button>
-                    </form>
-                    <div class="cyber-success-message hidden text-green-500 text-xs mt-4" id="cta-success-message"
-                      role="status">
-                      Recebido! Em breve entraremos em contato.
+                <div class="cyber-matrix"></div>
+                <div class="energy-field"></div>
+                <canvas id="particles-canvas"></canvas>
+                <!-- Main Container -->
+                <div class="cyber-stage">
+                  <div class="hologram-container">
+                    <!-- Scanning Lines -->
+                    <div class="scan-lines"></div>
+                    <!-- Main Card -->
+                    <div class="cyber-nexus-card">
+                      <!-- Glitch Overlay -->
+                      <div class="glitch-overlay"></div>
+                      <!-- Header -->
+                      <div class="cyber-header">
+                        <div class="icon-pulse">
+                          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon points="13,2 3,14 12,14 11,22 21,10 12,10"></polygon>
+                          </svg>
+                        </div>
+                        <h2 class="cyber-title">
+                          <span class="text-morph">DIGITAL</span>
+                          <span class="text-glow">TRANSFORMATION</span>
+                        </h2>
+                      </div>
+                      <!-- Dynamic Button Section -->
+                      <div id="button-stage" class="button-stage">
+                        <button id="cyber-btn" class="cyber-btn">
+                          <!-- Energy Core -->
+                          <div class="energy-core"></div>
+                          <!-- Lightning Field -->
+                          <div class="lightning-field">
+                            <div class="lightning-bolt bolt-1"></div>
+                            <div class="lightning-bolt bolt-2"></div>
+                            <div class="lightning-bolt bolt-3"></div>
+                            <div class="lightning-bolt bolt-4"></div>
+                            <div class="lightning-bolt bolt-5"></div>
+                          </div>
+                          <!-- Holographic Text -->
+                          <span class="btn-text">
+                            <span class="text-layer-1">INICIAR</span>
+                            <span class="text-layer-2">CONTATO</span>
+                          </span>
+                          <!-- Plasma Rings -->
+                          <div class="plasma-ring ring-1"></div>
+                          <div class="plasma-ring ring-2"></div>
+                          <div class="plasma-ring ring-3"></div>
+                          <!-- Quantum Particles -->
+                          <div class="quantum-particles">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                          </div>
+                        </button>
+                      </div>
+                      <!-- Form Section -->
+                      <div id="form-stage" class="form-stage hidden">
+                        <div class="form-portal">
+                          <form id="quantum-form" class="quantum-form">
+                            <div class="field-group">
+                              <div class="nano-field">
+                                <input type="text" id="q-name" required>
+                                <label for="q-name">Nome Completo</label>
+                                <div class="field-glow"></div>
+                                <div class="data-stream"></div>
+                              </div>
+                            </div>
+                            <div class="field-group">
+                              <div class="nano-field">
+                                <input type="tel" id="q-phone" required>
+                                <label for="q-phone">WhatsApp</label>
+                                <div class="field-glow"></div>
+                                <div class="data-stream"></div>
+                              </div>
+                            </div>
+                            <div class="field-group">
+                              <button type="submit" class="quantum-submit">
+                                <span class="submit-text">TRANSMITIR DADOS</span>
+                                <div class="submit-energy"></div>
+                                <div class="submit-sparks">
+                                  <div class="spark"></div>
+                                  <div class="spark"></div>
+                                  <div class="spark"></div>
+                                </div>
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <!-- Success Portal -->
+                      <div id="success-stage" class="success-stage hidden">
+                        <div class="success-portal">
+                          <div class="success-icon">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2">
+                              <polyline points="20,6 9,17 4,12"></polyline>
+                            </svg>
+                          </div>
+                          <h3 class="success-title">CONEXÃO ESTABELECIDA</h3>
+                          <p class="success-text">Dados transmitidos com sucesso.<br>Aguarde contato em breve.</p>
+                          <div class="success-rings">
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
