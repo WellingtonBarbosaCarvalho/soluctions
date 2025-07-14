@@ -705,6 +705,372 @@
     }
   }
 }
+
+/* ========================================
+   ENHANCED SERVICE CARDS STYLES
+   ======================================== */
+
+/* Service Cards Melhorados */
+.cyber-service-card.enhanced {
+  position: relative;
+  padding: 2.5rem;
+  min-height: 600px;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(10, 10, 24, 0.95));
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cyber-service-card.enhanced::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #00f3ff, #bc13fe, #ff2a6d, #00ff88, #00f3ff);
+  border-radius: 20px;
+  z-index: -1;
+  animation: borderRotate 4s linear infinite;
+}
+
+@keyframes borderRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.cyber-service-card.enhanced:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 243, 255, 0.3);
+}
+
+/* Service Badge */
+.cyber-service-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(45deg, #00f3ff, #bc13fe);
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 10;
+}
+
+.cyber-service-badge.popular {
+  background: linear-gradient(45deg, #ff2a6d, #bc13fe);
+  color: #fff;
+}
+
+.cyber-service-badge.premium {
+  background: linear-gradient(45deg, #ffb800, #ff6b35);
+  color: #000;
+}
+
+/* Enhanced Service Icon */
+.cyber-service-card.enhanced .cyber-service-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-service-card.enhanced .cyber-service-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  filter: blur(20px);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+/* Enhanced Title */
+.cyber-service-card.enhanced h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #fff, #00f3ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Enhanced Description */
+.cyber-service-description {
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* Service Features */
+.cyber-service-features {
+  margin-bottom: 1.5rem;
+}
+
+.cyber-feature-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+}
+
+.cyber-feature-item i {
+  width: 20px;
+  color: #00f3ff;
+  margin-right: 0.8rem;
+  font-size: 0.9rem;
+}
+
+/* Enhanced Tags */
+.cyber-service-card.enhanced .cyber-service-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.cyber-service-card.enhanced .cyber-tag {
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid;
+  transition: all 0.3s ease;
+}
+
+/* Colored Tags */
+.cyber-tag.google {
+  background: rgba(234, 67, 53, 0.1);
+  border-color: #ea4335;
+  color: #ea4335;
+}
+
+.cyber-tag.meta {
+  background: rgba(24, 119, 242, 0.1);
+  border-color: #1877f2;
+  color: #1877f2;
+}
+
+.cyber-tag.linkedin {
+  background: rgba(0, 119, 181, 0.1);
+  border-color: #0077b5;
+  color: #0077b5;
+}
+
+.cyber-tag.tiktok {
+  background: rgba(255, 0, 80, 0.1);
+  border-color: #ff0050;
+  color: #ff0050;
+}
+
+.cyber-tag.design {
+  background: rgba(188, 19, 254, 0.1);
+  border-color: #bc13fe;
+  color: #bc13fe;
+}
+
+.cyber-tag.seo {
+  background: rgba(0, 255, 136, 0.1);
+  border-color: #00ff88;
+  color: #00ff88;
+}
+
+.cyber-tag.mobile {
+  background: rgba(0, 243, 255, 0.1);
+  border-color: #00f3ff;
+  color: #00f3ff;
+}
+
+.cyber-tag.hosting {
+  background: rgba(255, 184, 0, 0.1);
+  border-color: #ffb800;
+  color: #ffb800;
+}
+
+.cyber-tag.audit {
+  background: rgba(255, 184, 0, 0.1);
+  border-color: #ffb800;
+  color: #ffb800;
+}
+
+.cyber-tag.strategy {
+  background: rgba(255, 107, 53, 0.1);
+  border-color: #ff6b35;
+  color: #ff6b35;
+}
+
+.cyber-tag.competitor {
+  background: rgba(188, 19, 254, 0.1);
+  border-color: #bc13fe;
+  color: #bc13fe;
+}
+
+.cyber-tag.roadmap {
+  background: rgba(0, 255, 136, 0.1);
+  border-color: #00ff88;
+  color: #00ff88;
+}
+
+/* CTA Section - Substitui Pricing */
+.cyber-service-cta {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(188, 19, 254, 0.1));
+  border-radius: 15px;
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-service-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00f3ff, transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.cyber-cta-highlight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+  color: #00f3ff;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.cyber-cta-highlight i {
+  font-size: 1.2rem;
+  color: #00ff88;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.cyber-cta-urgency {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 42, 109, 0.15);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 42, 109, 0.3);
+  display: inline-block;
+}
+
+.cyber-urgency-text {
+  color: #ff2a6d;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 5px rgba(255, 42, 109, 0.3);
+}
+
+/* Enhanced Service Link */
+.cyber-service-link.enhanced {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(45deg, #00f3ff, #bc13fe);
+  color: #000;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-service-link.enhanced::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, #bc13fe, #ff2a6d);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cyber-service-link.enhanced:hover::before {
+  opacity: 1;
+}
+
+.cyber-service-link.enhanced:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 243, 255, 0.4);
+}
+
+.cyber-service-link.enhanced span,
+.cyber-service-link.enhanced i {
+  position: relative;
+  z-index: 2;
+}
+
+/* Responsividade para Enhanced Cards */
+@media (max-width: 1024px) {
+  .cyber-service-card.enhanced {
+    min-height: 550px;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cyber-service-card.enhanced {
+    min-height: auto;
+    padding: 1.5rem;
+  }
+  
+  .cyber-service-badge {
+    top: 15px;
+    right: 15px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+  }
+  
+  .cyber-service-card.enhanced .cyber-service-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+  
+  .cyber-cta-highlight {
+    font-size: 0.85rem;
+    gap: 0.6rem;
+  }
+  
+  .cyber-cta-highlight i {
+    font-size: 1rem;
+  }
+}
 /* Utilitários para matrix node e avatar interativo */
 .matrix-node-hover {
   border-color: var(--matrix-node-color, #00f3ff) !important;
