@@ -1732,39 +1732,25 @@ function toggleMenu(show) {
 }
 
 function handleFaqToggle(question) {
-  const answer = question.nextElementSibling;
-  const isOpen = question.classList.contains("active");
-
+  // Encontrar o item FAQ pai (que contém tanto a pergunta quanto a resposta)
+  const faqItem = question.closest('.cyber-faq-enhanced-item');
+  if (!faqItem) return;
+  
+  const isItemOpen = faqItem.classList.contains('active');
+  
   // Fechar todas as outras perguntas
-  // Cache perguntas ativas para evitar múltiplos acessos ao DOM
-  const activeQuestions =
-    DOMCache._faqQuestions ||
-    (DOMCache._faqQuestions = document.querySelectorAll(
-      ".cyber-faq-question.active"
-    ));
-  activeQuestions.forEach((q) => {
-    if (q !== question) {
-      q.classList.remove("active");
-      if (q.nextElementSibling) {
-        q.nextElementSibling.classList.remove("max-h-auto");
-        q.nextElementSibling.classList.add("max-h-none");
-      }
+  const allFaqItems = document.querySelectorAll('.cyber-faq-enhanced-item');
+  allFaqItems.forEach((item) => {
+    if (item !== faqItem) {
+      item.classList.remove('active');
     }
   });
-
+  
   // Alternar estado atual
-  if (isOpen) {
-    question.classList.remove("active");
-    if (answer) {
-      answer.classList.remove("max-h-auto");
-      answer.classList.add("max-h-none");
-    }
+  if (isItemOpen) {
+    faqItem.classList.remove('active');
   } else {
-    question.classList.add("active");
-    if (answer) {
-      answer.classList.remove("max-h-none");
-      answer.classList.add("max-h-auto");
-    }
+    faqItem.classList.add('active');
   }
 }
 
