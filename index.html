@@ -33,11 +33,14 @@
     content="Soluctions S.A - Transformação digital inteligente para empresas que querem dominar o mercado digital" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="format-detection" content="telephone=no" />
-  <meta name="theme-color" content="#050510" />
   <!-- Cor da barra de status em navegadores mobile -->
 
-  <!-- Favicon (evita erro 404) -->
-  <link rel="icon" href="data:,">
+  <!-- Favicon Soluctions -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon.svg">
+  <meta name="msapplication-TileColor" content="#0a0a18">
+  <meta name="theme-color" content="#3b82f6">
 
   <title>Soluctions | Transformação Digital Inteligente</title>
 
@@ -108,6 +111,67 @@
     .hidden {
       display: none
     }
+
+    /* Preloader Critical CSS - garantindo renderização perfeita desde o início */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .loader-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .loader-logo {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 0.375rem;
+      background: linear-gradient(to right, #3b82f6, #8b5cf6);
+      color: white;
+      font-size: 3rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+    }
+
+    .loader-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #60a5fa, #a78bfa);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .loader-progress {
+      width: 12rem;
+      height: 0.25rem;
+      border-radius: 9999px;
+      background: #1f2937;
+      overflow: hidden;
+    }
+
+    .loader-progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(to right, #3b82f6, #8b5cf6);
+      transition: all 2s ease;
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
+    }
   </style>
 
   @media (min-width:768px) {
@@ -149,19 +213,16 @@
 
 <body>
   <!-- Preloader -->
-  <div id="preloader" class="loader flex items-center justify-center fixed inset-0 z-50 bg-gray-900">
-    <div class="loader-inner flex flex-col items-center">
-      <div
-        class="loader-logo text-5xl flex items-center justify-center w-20 h-20 rounded-md bg-gradient-to-r from-blue-500 to-purple-600 text-white mb-4 font-bold">
+  <div id="preloader">
+    <div class="loader-inner">
+      <div class="loader-logo">
         S
       </div>
-      <div
-        class="loader-text text-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 font-bold mb-4">
+      <div class="loader-text">
         Soluctions S.A
       </div>
-      <div class="loader-progress w-48 h-1 rounded-full bg-gray-800 overflow-hidden">
-        <div
-          class="loader-progress-fill h-full w-0 bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-2000">
+      <div class="loader-progress">
+        <div class="loader-progress-fill" id="progress-bar">
         </div>
       </div>
     </div>
