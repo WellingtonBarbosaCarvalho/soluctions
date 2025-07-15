@@ -100,6 +100,225 @@
 }
 
 /* ========================================
+   MOBILE SERVICES CAROUSEL
+   ======================================== */
+.mobile-services-carousel {
+  margin: 0 -1.5rem;
+  padding: 0 1.5rem;
+}
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  gap: 1rem;
+}
+
+.mobile-service-card {
+  min-width: 280px;
+  max-width: 320px;
+  background: linear-gradient(135deg, rgba(15, 15, 30, 0.9) 0%, rgba(25, 25, 45, 0.8) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 16px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  margin-right: 1rem;
+}
+
+.mobile-service-card:last-child {
+  margin-right: 0;
+}
+
+.mobile-service-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.mobile-service-badge.popular {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.mobile-service-badge.premium {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.mobile-service-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.mobile-service-icon.blue {
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  color: #bfdbfe;
+}
+
+.mobile-service-icon.purple {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #ddd6fe;
+}
+
+.mobile-service-icon.yellow {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fef3c7;
+}
+
+.mobile-service-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.mobile-service-card p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.mobile-service-highlight {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.mobile-service-highlight i {
+  color: #10b981;
+  font-size: 0.875rem;
+}
+
+.mobile-service-highlight span {
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.mobile-service-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.mobile-service-btn:hover {
+  border-color: rgba(59, 130, 246, 0.6);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.08) 100%);
+}
+
+.mobile-service-btn span {
+  font-size: 0.875rem;
+}
+
+.mobile-service-btn i {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+.carousel-navigation {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: #3b82f6;
+  width: 20px;
+  border-radius: 10px;
+}
+
+/* Mobile Journey Optimized */
+.startup-journey-mobile {
+  padding: 2rem 1rem;
+}
+
+.journey-icon-mobile {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981, #059669);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  margin: 0 auto 1rem;
+}
+
+.journey-stat-mobile {
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(15, 15, 30, 0.6) 0%, rgba(25, 25, 45, 0.4) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.stat-number-mobile {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: 'Orbitron', monospace;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label-mobile {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.3;
+}
+
+/* ========================================
    HERO SECTION SIMPLIFIED DESIGN
    ======================================== */
 .hero-btn-simple {
@@ -290,6 +509,139 @@
   
   .cyber-stat-number {
     font-size: 1.5rem;
+  }
+}
+
+/* ========================================
+   MOBILE OPTIMIZATION FIXES
+   ======================================== */
+
+/* Seção de serviços - mobile spacing */
+@media (max-width: 1023px) {
+  .cyber-services .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Reduzir margin-bottom dos títulos em mobile */
+  .cyber-services .mb-16 {
+    margin-bottom: 2rem;
+  }
+  
+  /* Otimizar cards de feature no mobile */
+  .cyber-feature-card {
+    padding: 1.5rem;
+  }
+  
+  .cyber-feature-card h3 {
+    font-size: 1.125rem;
+  }
+  
+  .cyber-feature-card p {
+    font-size: 0.875rem;
+  }
+}
+
+/* Cases section - mobile optimization */
+@media (max-width: 1023px) {
+  .cyber-case-card {
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+  
+  .cyber-case-media {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .cyber-case-content {
+    width: 100%;
+    padding: 1rem;
+  }
+}
+
+/* Team section - mobile optimization */
+@media (max-width: 1023px) {
+  .cyber-team-card {
+    margin-bottom: 2rem;
+  }
+  
+  .cyber-team-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .cyber-matrix-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* Contact section - mobile optimization */
+@media (max-width: 1023px) {
+  .cyber-contact-enhanced-form,
+  .cyber-contact-enhanced-info {
+    margin-bottom: 2rem;
+  }
+  
+  .cyber-specialist-card {
+    padding: 1.5rem;
+  }
+  
+  .cyber-contact-methods {
+    margin-top: 2rem;
+  }
+}
+
+/* General mobile improvements */
+@media (max-width: 767px) {
+  /* Reduzir padding geral em mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Títulos responsivos */
+  .cyber-glitch-title {
+    font-size: 1.75rem !important;
+  }
+  
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  h2 {
+    font-size: 2rem !important;
+  }
+  
+  h3 {
+    font-size: 1.5rem !important;
+  }
+  
+  /* Espaçamentos menores */
+  .py-20 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  .py-32 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  
+  .mb-16 {
+    margin-bottom: 2rem;
+  }
+  
+  .mt-20 {
+    margin-top: 3rem;
+  }
+  
+  /* Melhorar botões em mobile */
+  .hero-btn-simple,
+  .mobile-service-btn {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
   }
 }
 

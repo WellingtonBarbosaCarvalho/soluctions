@@ -2846,3 +2846,141 @@ const additionalStyles = `
 const styleSheet = document.createElement("style");
 styleSheet.textContent = additionalStyles;
 document.head.appendChild(styleSheet);
+
+// ========================================
+// MOBILE SERVICES CAROUSEL SYSTEM
+// ========================================
+class MobileServicesCarousel {
+  constructor() {
+    this.currentSlide = 0;
+    this.totalSlides = 3;
+    this.track = null;
+    this.dots = null;
+    this.touchStartX = 0;
+    this.touchEndX = 0;
+    this.autoplayInterval = null;
+    this.init();
+  }
+
+  init() {
+    this.track = document.querySelector('.carousel-track');
+    this.dots = document.querySelectorAll('.dot');
+    
+    if (!this.track || !this.dots.length) return;
+    
+    this.setupEventListeners();
+    this.updateCarousel();
+    this.startAutoplay();
+  }
+
+  setupEventListeners() {
+    // Dot navigation
+    this.dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        this.goToSlide(index);
+      });
+    });
+
+    // Touch navigation
+    this.track.addEventListener('touchstart', (e) => {
+      this.touchStartX = e.touches[0].clientX;
+      this.stopAutoplay();
+    });
+
+    this.track.addEventListener('touchend', (e) => {
+      this.touchEndX = e.changedTouches[0].clientX;
+      this.handleSwipe();
+      this.startAutoplay();
+    });
+
+    // Mouse navigation (for desktop testing)
+    this.track.addEventListener('mousedown', (e) => {
+      this.touchStartX = e.clientX;
+      this.stopAutoplay();
+    });
+
+    this.track.addEventListener('mouseup', (e) => {
+      this.touchEndX = e.clientX;
+      this.handleSwipe();
+      this.startAutoplay();
+    });
+
+    // Pause autoplay on hover
+    const carousel = document.querySelector('.mobile-services-carousel');
+    if (carousel) {
+      carousel.addEventListener('mouseenter', () => this.stopAutoplay());
+      carousel.addEventListener('mouseleave', () => this.startAutoplay());
+    }
+  }
+
+  handleSwipe() {
+    const swipeThreshold = 50;
+    const swipeDistance = this.touchEndX - this.touchStartX;
+
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+      if (swipeDistance > 0) {
+        this.previousSlide();
+      } else {
+        this.nextSlide();
+      }
+    }
+  }
+
+  goToSlide(index) {
+    this.currentSlide = index;
+    this.updateCarousel();
+  }
+
+  nextSlide() {
+    this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+    this.updateCarousel();
+  }
+
+  previousSlide() {
+    this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+    this.updateCarousel();
+  }
+
+  updateCarousel() {
+    if (!this.track) return;
+    
+    const cardWidth = 300; // Aproximadamente a largura do card + gap
+    const offset = -(this.currentSlide * cardWidth);
+    
+    this.track.style.transform = `translateX(${offset}px)`;
+    
+    // Update dots
+    this.dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === this.currentSlide);
+    });
+  }
+
+  startAutoplay() {
+    this.stopAutoplay();
+    this.autoplayInterval = setInterval(() => {
+      this.nextSlide();
+    }, 5000); // 5 segundos
+  }
+
+  stopAutoplay() {
+    if (this.autoplayInterval) {
+      clearInterval(this.autoplayInterval);
+      this.autoplayInterval = null;
+    }
+  }
+}
+
+// Initialize carousel when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  // Only initialize on mobile devices
+  if (window.innerWidth < 1024) {
+    new MobileServicesCarousel();
+  }
+});
+
+// Re-initialize on resize if switching to mobile
+window.addEventListener('resize', () => {
+  if (window.innerWidth < 1024) {
+    new MobileServicesCarousel();
+  }
+});

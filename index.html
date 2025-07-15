@@ -619,7 +619,7 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="cyber-services section py-32 relative overflow-hidden">
+    <section id="services" class="cyber-services section py-16 lg:py-32 relative overflow-hidden">
       <div class="cyber-grid absolute inset-0 z-0 opacity-10"></div>
       <div class="container mx-auto px-6 relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-16">
@@ -632,11 +632,78 @@
           </p>
         </div>
 
-        <!-- Carrossel Mobile (será criado dinamicamente) -->
-        <!-- Container vazio que será preenchido pelo JavaScript -->
+        <!-- Mobile Carousel -->
+        <div class="mobile-services-carousel block lg:hidden mb-12">
+          <div class="carousel-container">
+            <div class="carousel-track">
+              <!-- Mobile Card 1 -->
+              <div class="mobile-service-card">
+                <div class="mobile-service-badge">Mais Procurado</div>
+                <div class="mobile-service-icon blue">
+                  <i class="fas fa-bullseye"></i>
+                </div>
+                <h3>Gestão de Anúncios</h3>
+                <p>Campanhas inteligentes que maximizam seu ROI com precisão cirúrgica.</p>
+                <div class="mobile-service-highlight">
+                  <i class="fas fa-gift"></i>
+                  <span>Auditoria Gratuita</span>
+                </div>
+                <a href="#contact" class="mobile-service-btn">
+                  <span>Quero Auditoria</span>
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
 
-        <!-- Grid Desktop -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+              <!-- Mobile Card 2 -->
+              <div class="mobile-service-card">
+                <div class="mobile-service-badge popular">Completo</div>
+                <div class="mobile-service-icon purple">
+                  <i class="fas fa-laptop-code"></i>
+                </div>
+                <h3>Landing Pages</h3>
+                <p>Páginas profissionais que convertem visitantes em clientes.</p>
+                <div class="mobile-service-highlight">
+                  <i class="fas fa-star"></i>
+                  <span>Mockup Grátis</span>
+                </div>
+                <a href="#contact" class="mobile-service-btn">
+                  <span>Ver Mockup</span>
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+
+              <!-- Mobile Card 3 -->
+              <div class="mobile-service-card">
+                <div class="mobile-service-badge premium">Premium</div>
+                <div class="mobile-service-icon yellow">
+                  <i class="fas fa-brain"></i>
+                </div>
+                <h3>Consultoria Digital</h3>
+                <p>Estratégia personalizada para acelerar seu crescimento online.</p>
+                <div class="mobile-service-highlight">
+                  <i class="fas fa-chart-line"></i>
+                  <span>Diagnóstico Grátis</span>
+                </div>
+                <a href="#contact" class="mobile-service-btn">
+                  <span>Quero Diagnóstico</span>
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Carousel Navigation -->
+          <div class="carousel-navigation">
+            <div class="carousel-dots">
+              <span class="dot active" data-slide="0"></span>
+              <span class="dot" data-slide="1"></span>
+              <span class="dot" data-slide="2"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop Grid -->
+        <div class="hidden lg:grid grid-cols-3 gap-10">
           <!-- Service 1 - Gestão de Anúncios -->
           <div class="cyber-service-card enhanced" data-aos="fade-up" data-aos-delay="100">
             <div class="cyber-service-badge">Mais Procurado</div>
@@ -801,51 +868,82 @@
         </div>
       </div>
 
-      <!-- Startup Journey -->
-      <div class="mt-20 max-w-4xl mx-auto">
-        <div class="startup-journey-enhanced">
-          <div class="journey-card-enhanced">
-            <div class="journey-icon-enhanced">
+      <!-- Startup Journey - Mobile Optimized -->
+      <div class="mt-16 lg:mt-20 max-w-4xl mx-auto">
+        <div class="startup-journey-mobile">
+          <div class="text-center mb-8">
+            <div class="journey-icon-mobile">
               <i class="fas fa-seedling"></i>
             </div>
-            <div class="journey-content-enhanced">
-              <h3>Startup em Crescimento</h3>
-              <p>Começamos agora, mas com uma equipe experiente e fome de resultados. Nosso foco é entregar qualidade máxima para cada cliente, usando as melhores práticas do mercado digital.</p>
-              <div class="journey-highlights">
-                <div class="journey-highlight">
-                  <i class="fas fa-rocket"></i>
-                  <div class="highlight-content">
-                    <h5>Agilidade de Startup</h5>
-                    <span>Decisões rápidas, implementação imediata</span>
+            <h3 class="text-xl lg:text-2xl font-bold text-white mb-4">Startup em Crescimento</h3>
+            <p class="text-gray-300 text-sm lg:text-base px-4">
+              Equipe experiente, fome de resultados, qualidade máxima para cada cliente.
+            </p>
+          </div>
+          
+          <!-- Mobile Stats Grid -->
+          <div class="grid grid-cols-3 gap-4 lg:hidden">
+            <div class="journey-stat-mobile">
+              <div class="stat-number-mobile">100%</div>
+              <div class="stat-label-mobile">Dedicação</div>
+            </div>
+            <div class="journey-stat-mobile">
+              <div class="stat-number-mobile">Ágil</div>
+              <div class="stat-label-mobile">Atendimento</div>
+            </div>
+            <div class="journey-stat-mobile">
+              <div class="stat-number-mobile">Moderno</div>
+              <div class="stat-label-mobile">Approach</div>
+            </div>
+          </div>
+          
+          <!-- Desktop Version -->
+          <div class="hidden lg:block">
+            <div class="startup-journey-enhanced">
+              <div class="journey-card-enhanced">
+                <div class="journey-icon-enhanced">
+                  <i class="fas fa-seedling"></i>
+                </div>
+                <div class="journey-content-enhanced">
+                  <h3>Startup em Crescimento</h3>
+                  <p>Começamos agora, mas com uma equipe experiente e fome de resultados. Nosso foco é entregar qualidade máxima para cada cliente, usando as melhores práticas do mercado digital.</p>
+                  <div class="journey-highlights">
+                    <div class="journey-highlight">
+                      <i class="fas fa-rocket"></i>
+                      <div class="highlight-content">
+                        <h5>Agilidade de Startup</h5>
+                        <span>Decisões rápidas, implementação imediata</span>
+                      </div>
+                    </div>
+                    <div class="journey-highlight">
+                      <i class="fas fa-heart"></i>
+                      <div class="highlight-content">
+                        <h5>Atendimento Personalizado</h5>
+                        <span>Cada cliente é único e especial para nós</span>
+                      </div>
+                    </div>
+                    <div class="journey-highlight">
+                      <i class="fas fa-trophy"></i>
+                      <div class="highlight-content">
+                        <h5>Foco em Resultados</h5>
+                        <span>Seu sucesso é a nossa prioridade número 1</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="journey-highlight">
-                  <i class="fas fa-heart"></i>
-                  <div class="highlight-content">
-                    <h5>Atendimento Personalizado</h5>
-                    <span>Cada cliente é único e especial para nós</span>
+                  <div class="journey-stats-enhanced">
+                    <div class="journey-stat-enhanced">
+                      <span class="stat-number-enhanced">100%</span>
+                      <span class="stat-label-enhanced">Dedicação</span>
+                    </div>
+                    <div class="journey-stat-enhanced">
+                      <span class="stat-number-enhanced">Ágil</span>
+                      <span class="stat-label-enhanced">Atendimento</span>
+                    </div>
+                    <div class="journey-stat-enhanced">
+                      <span class="stat-number-enhanced">Moderno</span>
+                      <span class="stat-label-enhanced">Approach</span>
+                    </div>
                   </div>
-                </div>
-                <div class="journey-highlight">
-                  <i class="fas fa-trophy"></i>
-                  <div class="highlight-content">
-                    <h5>Foco em Resultados</h5>
-                    <span>Seu sucesso é a nossa prioridade número 1</span>
-                  </div>
-                </div>
-              </div>
-              <div class="journey-stats-enhanced">
-                <div class="journey-stat-enhanced">
-                  <span class="stat-number-enhanced">100%</span>
-                  <span class="stat-label-enhanced">Dedicação</span>
-                </div>
-                <div class="journey-stat-enhanced">
-                  <span class="stat-number-enhanced">Ágil</span>
-                  <span class="stat-label-enhanced">Atendimento</span>
-                </div>
-                <div class="journey-stat-enhanced">
-                  <span class="stat-number-enhanced">Moderno</span>
-                  <span class="stat-label-enhanced">Approach</span>
                 </div>
               </div>
             </div>
@@ -856,7 +954,7 @@
     </section>
 
     <!-- Case Studies Section -->
-    <section id="cases" class="py-20 relative overflow-hidden">
+    <section id="cases" class="py-12 lg:py-20 relative overflow-hidden">
       <div class="blob absolute -top-40 -left-40 opacity-20"></div>
       <div class="container mx-auto px-6 relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-16">
@@ -1017,7 +1115,7 @@
     </section>
 
     <!-- Team Section -->
-    <section id="team" class="py-20 bg-gray-900 relative overflow-hidden">
+    <section id="team" class="py-12 lg:py-20 bg-gray-900 relative overflow-hidden">
       <div class="cyber-grid absolute inset-0 z-0 opacity-5"></div>
       <div class="container mx-auto px-6 relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-16">
@@ -1353,7 +1451,7 @@
 
 
     <!-- Contact Section Enhanced -->
-    <section id="contact" class="py-20 bg-gray-900 relative overflow-hidden">
+    <section id="contact" class="py-12 lg:py-20 bg-gray-900 relative overflow-hidden">
       <div class="cyber-grid absolute inset-0 z-0 opacity-5"></div>
       <div class="blob absolute -top-40 -left-40 opacity-20"></div>
       <div class="container mx-auto px-6 relative z-10">
@@ -1582,7 +1680,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="cyber-cta py-20 text-white relative overflow-hidden">
+    <section class="cyber-cta py-12 lg:py-20 text-white relative overflow-hidden">
       <div class="cyber-cta-overlay absolute inset-0"></div>
       <div class="blob absolute top-0 left-0 transform -translate-x-1/2 -translate-y-1/2 opacity-30"></div>
       <div class="blob absolute bottom-0 right-0 transform translate-x-1/2 translate-y-1/2 opacity-30"></div>
