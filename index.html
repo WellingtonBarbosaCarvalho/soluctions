@@ -277,64 +277,69 @@
       <div id="particles-js" class="absolute inset-0 z-0"></div>
 
       <div class="container mx-auto px-6 relative z-10">
-        <div class="flex flex-col lg:flex-row items-center">
-          <div class="lg:w-1/2 mb-12 lg:mb-0">
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-              Transformando Presenças Físicas em
-              <span class="glitch-text inline-block relative" data-text="Digitais">Digitais</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-xl">
-              Sua empresa já conquistou o mercado físico. Agora é hora de
-              dominar o digital com soluções completas: desde anúncios
-              inteligentes até chatbots com IA.
-            </p>
-            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <a href="#contact" class="neon-button primary" data-action="smooth-scroll">
-                <span class="neon-button-text">Iniciar Jornada Digital</span>
-                <span class="neon-button-glow"></span>
-              </a>
-              <a href="#services" class="neon-button secondary" data-action="smooth-scroll">
-                <span class="neon-button-text">Nossos Serviços</span>
-                <span class="neon-button-glow"></span>
-              </a>
+        <!-- Hero Content Centered -->
+        <div class="text-center mb-16">
+          <h1 class="cyber-glitch-title relative inline-block text-4xl md:text-6xl font-extrabold mb-8 leading-tight" data-text="Sua Empresa Digital Começa Aqui">
+            Sua Empresa Digital 
+            <span class="glitch-text inline-block relative" data-text="Começa Aqui">Começa Aqui</span>
+          </h1>
+          <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
+            Transformamos negócios físicos em potências digitais. 
+            <span class="text-blue-400 font-semibold">Gestão de anúncios, landing pages e consultoria estratégica</span> 
+            para empresas que querem crescer online.
+          </p>
+          
+          <!-- Simplified CTA Buttons -->
+          <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
+            <a href="#services" class="hero-btn-simple primary" data-action="smooth-scroll">
+              <span>Ver Nossos Serviços</span>
+              <i class="fas fa-arrow-down"></i>
+            </a>
+            <div class="flex items-center text-gray-400 text-sm">
+              <i class="fas fa-shield-alt mr-2 text-green-400"></i>
+              <span>Consultoria gratuita • Resposta em 2h</span>
             </div>
-            <div class="mt-10 flex items-center space-x-4">
-              <div class="flex -space-x-2">
-                <picture>
-                  <source srcset="https://randomuser.me/api/portraits/women/32.jpg" type="image/jpeg">
-                  <img src="https://randomuser.me/api/portraits/women/32.jpg"
-                    class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" loading="eager"
-                    decoding="async" />
-                </picture>
-                <picture>
-                  <source srcset="https://randomuser.me/api/portraits/men/54.jpg" type="image/jpeg">
-                  <img src="https://randomuser.me/api/portraits/men/54.jpg"
-                    class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" loading="eager"
-                    decoding="async" />
-                </picture>
-                <picture>
-                  <source srcset="https://randomuser.me/api/portraits/women/68.jpg" type="image/jpeg">
-                  <img src="https://randomuser.me/api/portraits/women/68.jpg"
-                    class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" loading="eager"
-                    decoding="async" />
-                </picture>
-                <picture>
-                  <source srcset="https://randomuser.me/api/portraits/men/45.jpg" type="image/jpeg">
-                  <img src="https://randomuser.me/api/portraits/men/45.jpg"
-                    class="w-10 h-10 rounded-full border-2 border-blue-500" alt="Cliente" loading="eager"
-                    decoding="async" />
-                </picture>
-                <div
-                  class="w-10 h-10 rounded-full border-2 border-blue-500 bg-blue-600 flex items-center justify-center text-white text-xs font-bold">
-                  +200
+          </div>
+        </div>
+
+        <!-- Two Column Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <!-- Left: Quick Stats -->
+          <div class="space-y-6">
+            <h3 class="text-xl font-semibold text-white mb-6">Por que escolher a Soluctions?</h3>
+            <div class="space-y-4">
+              <div class="cyber-hero-stat-simple">
+                <div class="cyber-stat-icon-simple blue">
+                  <i class="fas fa-building"></i>
+                </div>
+                <div>
+                  <div class="cyber-stat-number-simple">+200</div>
+                  <div class="cyber-stat-label-simple">Empresas transformadas digitalmente</div>
                 </div>
               </div>
-              <div class="text-sm text-gray-400">
-                Empresas transformadas digitalmente
+              <div class="cyber-hero-stat-simple">
+                <div class="cyber-stat-icon-simple green">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <div>
+                  <div class="cyber-stat-number-simple">+150%</div>
+                  <div class="cyber-stat-label-simple">Crescimento médio dos clientes</div>
+                </div>
+              </div>
+              <div class="cyber-hero-stat-simple">
+                <div class="cyber-stat-icon-simple purple">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <div>
+                  <div class="cyber-stat-number-simple">24h</div>
+                  <div class="cyber-stat-label-simple">Tempo médio de resposta</div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="lg:w-1/2 relative">
+          
+          <!-- Right: Cyber Form (unchanged) -->
+          <div class="relative">
             <!-- Imagem hero com efeito cyberpunk -->
             <div class="cyber-card-container relative mx-auto">
               <div
@@ -731,123 +736,51 @@
         </div>
       </div>
 
-      <!-- Technology Stack -->
+      <!-- Startup Journey -->
       <div class="mt-20 max-w-4xl mx-auto">
-        <div class="text-center mb-10">
-          <h3 class="text-2xl font-bold mb-2">Stack Tecnológico</h3>
-          <p class="text-gray-400">
-            Ferramentas modernas que utilizamos para criar soluções digitais eficientes
-          </p>
-        </div>
-
-        <!-- Tech Grid -->
-        <div class="cyber-tech-grid-startup">
-          <div class="tech-category-startup">
-            <h4 class="tech-category-title-startup">
-              <i class="fas fa-bullhorn"></i>
-              Marketing Digital
-            </h4>
-            <div class="tech-items-startup">
-              <div class="tech-item-startup google">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google Ads" />
-                <span>Google Ads</span>
-              </div>
-              <div class="tech-item-startup meta">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Meta Ads" />
-                <span>Meta Ads</span>
-              </div>
-              <div class="tech-item-startup analytics">
-                <i class="fas fa-chart-bar"></i>
-                <span>Analytics</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="tech-category-startup">
-            <h4 class="tech-category-title-startup">
-              <i class="fas fa-code"></i>
-              Desenvolvimento
-            </h4>
-            <div class="tech-items-startup">
-              <div class="tech-item-startup react">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
-                <span>React</span>
-              </div>
-              <div class="tech-item-startup js">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
-                <span>JavaScript</span>
-              </div>
-              <div class="tech-item-startup wordpress">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg" alt="WordPress" />
-                <span>WordPress</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="tech-category-startup">
-            <h4 class="tech-category-title-startup">
-              <i class="fas fa-palette"></i>
-              Design & UX
-            </h4>
-            <div class="tech-items-startup">
-              <div class="tech-item-startup figma">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" />
-                <span>Figma</span>
-              </div>
-              <div class="tech-item-startup photoshop">
-                <i class="fab fa-adobe"></i>
-                <span>Adobe</span>
-              </div>
-              <div class="tech-item-startup canva">
-                <i class="fas fa-paint-brush"></i>
-                <span>Canva Pro</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="tech-category-startup">
-            <h4 class="tech-category-title-startup">
-              <i class="fas fa-comments"></i>
-              Comunicação
-            </h4>
-            <div class="tech-items-startup">
-              <div class="tech-item-startup whatsapp">
-                <i class="fab fa-whatsapp"></i>
-                <span>WhatsApp API</span>
-              </div>
-              <div class="tech-item-startup email">
-                <i class="fas fa-envelope"></i>
-                <span>Email Marketing</span>
-              </div>
-              <div class="tech-item-startup automation">
-                <i class="fas fa-robot"></i>
-                <span>Automação</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Startup Journey -->
-        <div class="startup-journey mt-12">
-          <div class="journey-card">
-            <div class="journey-icon">
+        <div class="startup-journey-enhanced">
+          <div class="journey-card-enhanced">
+            <div class="journey-icon-enhanced">
               <i class="fas fa-seedling"></i>
             </div>
-            <div class="journey-content">
-              <h4>Startup em Crescimento</h4>
-              <p>Começamos agora, mas com uma equipe experiente e fome de resultados. Nosso foco é entregar qualidade máxima para cada cliente, usando as melhores práticas do mercado.</p>
-              <div class="journey-stats">
-                <div class="journey-stat">
-                  <span class="stat-number">100%</span>
-                  <span class="stat-label">Dedicação</span>
+            <div class="journey-content-enhanced">
+              <h3>Startup em Crescimento</h3>
+              <p>Começamos agora, mas com uma equipe experiente e fome de resultados. Nosso foco é entregar qualidade máxima para cada cliente, usando as melhores práticas do mercado digital.</p>
+              <div class="journey-highlights">
+                <div class="journey-highlight">
+                  <i class="fas fa-rocket"></i>
+                  <div class="highlight-content">
+                    <h5>Agilidade de Startup</h5>
+                    <span>Decisões rápidas, implementação imediata</span>
+                  </div>
                 </div>
-                <div class="journey-stat">
-                  <span class="stat-number">Ágil</span>
-                  <span class="stat-label">Atendimento</span>
+                <div class="journey-highlight">
+                  <i class="fas fa-heart"></i>
+                  <div class="highlight-content">
+                    <h5>Atendimento Personalizado</h5>
+                    <span>Cada cliente é único e especial para nós</span>
+                  </div>
                 </div>
-                <div class="journey-stat">
-                  <span class="stat-number">Moderno</span>
-                  <span class="stat-label">Stack Tech</span>
+                <div class="journey-highlight">
+                  <i class="fas fa-trophy"></i>
+                  <div class="highlight-content">
+                    <h5>Foco em Resultados</h5>
+                    <span>Seu sucesso é a nossa prioridade número 1</span>
+                  </div>
+                </div>
+              </div>
+              <div class="journey-stats-enhanced">
+                <div class="journey-stat-enhanced">
+                  <span class="stat-number-enhanced">100%</span>
+                  <span class="stat-label-enhanced">Dedicação</span>
+                </div>
+                <div class="journey-stat-enhanced">
+                  <span class="stat-number-enhanced">Ágil</span>
+                  <span class="stat-label-enhanced">Atendimento</span>
+                </div>
+                <div class="journey-stat-enhanced">
+                  <span class="stat-number-enhanced">Moderno</span>
+                  <span class="stat-label-enhanced">Approach</span>
                 </div>
               </div>
             </div>
@@ -1349,462 +1282,10 @@
         </div>
 
         <!-- Tech Stack -->
-        <div class="mt-20 text-center" data-aos="fade-up">
-          <h3 class="text-2xl font-bold mb-6">Tecnologias que Dominamos</h3>
-          <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
-            Utilizamos as tecnologias mais modernas e confiáveis do mercado para desenvolver soluções robustas e escaláveis
-          </p>
-          <div class="modern-tech-stack">
-            <div class="tech-category">
-              <h4 class="tech-category-title">Frontend</h4>
-              <div class="tech-items">
-                <div class="modern-tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
-                  <span>React</span>
-                </div>
-                <div class="modern-tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
-                  <span>JavaScript</span>
-                </div>
-                <div class="modern-tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="TailwindCSS" />
-                  <span>Tailwind</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="tech-category">
-              <h4 class="tech-category-title">Backend</h4>
-              <div class="tech-items">
-                <div class="modern-tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" />
-                  <span>Node.js</span>
-                </div>
-                <div class="modern-tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
-                  <span>Python</span>
-                </div>
-                <div class="modern-tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" />
-                  <span>PostgreSQL</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="tech-category">
-              <h4 class="tech-category-title">Marketing & Analytics</h4>
-              <div class="tech-items">
-                <div class="modern-tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google Analytics" />
-                  <span>Analytics</span>
-                </div>
-                <div class="modern-tech-item">
-                  <i class="fab fa-meta" style="font-size: 2rem; color: #1877f2;"></i>
-                  <span>Meta Ads</span>
-                </div>
-                <div class="modern-tech-item">
-                  <i class="fab fa-wordpress" style="font-size: 2rem; color: #21759b;"></i>
-                  <span>WordPress</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="tech-category">
-              <h4 class="tech-category-title">Ferramentas</h4>
-              <div class="tech-items">
-                <div class="modern-tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" />
-                  <span>Figma</span>
-                </div>
-                <div class="modern-tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" />
-                  <span>Git</span>
-                </div>
-                <div class="modern-tech-item">
-                  <i class="fas fa-cloud" style="font-size: 2rem; color: #00d4ff;"></i>
-                  <span>Cloud</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+       
       </div>
     </section>
 
-    <!-- Pricing Section -->
-    <section id="pricing" class="py-20 relative overflow-hidden">
-      <div class="blob absolute -top-40 -right-40 opacity-30"></div>
-      <div class="container mx-auto px-6 relative z-10">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <h2 class="cyber-glitch-title relative inline-block text-3xl md:text-4xl font-bold mb-4" data-text="Soluções">
-            Soluções
-          </h2>
-          <p class="text-lg text-gray-400">
-            Escolha o caminho para transformar sua empresa digitalmente
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Solution Card 1 - Blue Theme -->
-          <div class="modern-pricing-card blue-theme" data-aos="zoom-in" data-aos-delay="100">
-            <div class="pricing-glow-effect blue"></div>
-            <div class="modern-pricing-header">
-              <div class="modern-pricing-icon blue">
-                <i class="fas fa-rocket"></i>
-              </div>
-              <div>
-                <h3 class="modern-pricing-title">Conquistar Presença Digital</h3>
-                <p class="modern-pricing-subtitle">Sua primeira impressão digital</p>
-              </div>
-            </div>
-            <div class="modern-pricing-value">
-              <div class="pricing-label">Investimento</div>
-              <div class="pricing-consultation blue">Sob Consulta</div>
-              <div class="pricing-custom">Planejamento personalizado</div>
-            </div>
-            <p class="modern-pricing-description">
-              Ideal para empresas que estão começando no digital e precisam criar uma presença profissional online.
-            </p>
-            <ul class="modern-pricing-features">
-              <li>
-                <div class="feature-check blue"><i class="fas fa-check"></i></div>
-                <span>Site profissional responsivo</span>
-              </li>
-              <li>
-                <div class="feature-check blue"><i class="fas fa-check"></i></div>
-                <span>Presença nas redes sociais</span>
-              </li>
-              <li>
-                <div class="feature-check blue"><i class="fas fa-check"></i></div>
-                <span>Campanhas iniciais de atração</span>
-              </li>
-              <li>
-                <div class="feature-check blue"><i class="fas fa-check"></i></div>
-                <span>Suporte mensal dedicado</span>
-              </li>
-            </ul>
-            <a href="#contact" class="modern-cta-button blue pulse-animation">
-              <span class="cta-text">🚀 Começar Agora</span>
-              <div class="cta-arrow">→</div>
-            </a>
-          </div>
-
-          <!-- Solution Card 2 (Popular) - Green Theme -->
-          <div class="modern-pricing-card green-theme popular" data-aos="zoom-in" data-aos-delay="200">
-            <div class="pricing-popular-badge">
-              <i class="fas fa-star"></i>
-              <span>Mais Escolhido</span>
-            </div>
-            <div class="pricing-glow-effect green"></div>
-            <div class="modern-pricing-header">
-              <div class="modern-pricing-icon green gradient">
-                <i class="fas fa-crown"></i>
-              </div>
-              <div>
-                <h3 class="modern-pricing-title">Dominar o Mercado Local</h3>
-                <p class="modern-pricing-subtitle">Seja a referência na sua região</p>
-              </div>
-            </div>
-            <div class="modern-pricing-value">
-              <div class="pricing-label">Investimento</div>
-              <div class="pricing-consultation green">Sob Consulta</div>
-              <div class="pricing-custom">Estratégia customizada</div>
-            </div>
-            <p class="modern-pricing-description">
-              Para negócios que querem se destacar da concorrência e multiplicar suas vendas regionalmente.
-            </p>
-            <ul class="modern-pricing-features">
-              <li>
-                <div class="feature-check green"><i class="fas fa-check"></i></div>
-                <span>Estratégia omnichannel completa</span>
-              </li>
-              <li>
-                <div class="feature-check green"><i class="fas fa-check"></i></div>
-                <span>Campanhas multicanal otimizadas</span>
-              </li>
-              <li>
-                <div class="feature-check green"><i class="fas fa-check"></i></div>
-                <span>Automação inteligente de vendas</span>
-              </li>
-              <li>
-                <div class="feature-check green"><i class="fas fa-check"></i></div>
-                <span>Consultoria estratégica semanal</span>
-              </li>
-              <li>
-                <div class="feature-check green"><i class="fas fa-check"></i></div>
-                <span>Relatórios avançados de performance</span>
-              </li>
-            </ul>
-            <a href="#contact" class="modern-cta-button green primary pulse-animation">
-              <span class="cta-text">👑 Dominar Mercado</span>
-              <div class="cta-arrow">→</div>
-            </a>
-          </div>
-
-          <!-- Solution Card 3 - Purple Theme -->
-          <div class="modern-pricing-card purple-theme" data-aos="zoom-in" data-aos-delay="300">
-            <div class="pricing-glow-effect purple"></div>
-            <div class="modern-pricing-header">
-              <div class="modern-pricing-icon purple">
-                <i class="fas fa-globe-americas"></i>
-              </div>
-              <div>
-                <h3 class="modern-pricing-title">Viralizar e Escalar</h3>
-                <p class="modern-pricing-subtitle">Crescimento exponencial nacional</p>
-              </div>
-            </div>
-            <div class="modern-pricing-value">
-              <div class="pricing-label">Investimento</div>
-              <div class="pricing-consultation purple">Sob Consulta</div>
-              <div class="pricing-custom">Ecossistema exclusivo</div>
-            </div>
-            <p class="modern-pricing-description">
-              Para empresas prontas para escalar nacionalmente e se tornar referência no mercado digital.
-            </p>
-            <ul class="modern-pricing-features">
-              <li>
-                <div class="feature-check purple"><i class="fas fa-check"></i></div>
-                <span>Ecossistema digital completo</span>
-              </li>
-              <li>
-                <div class="feature-check purple"><i class="fas fa-check"></i></div>
-                <span>Estratégias virais ilimitadas</span>
-              </li>
-              <li>
-                <div class="feature-check purple"><i class="fas fa-check"></i></div>
-                <span>IA para personalização em massa</span>
-              </li>
-              <li>
-                <div class="feature-check purple"><i class="fas fa-check"></i></div>
-                <span>Plataforma digital exclusiva</span>
-              </li>
-              <li>
-                <div class="feature-check purple"><i class="fas fa-check"></i></div>
-                <span>Time dedicado + gerente exclusivo</span>
-              </li>
-              <li>
-                <div class="feature-check purple"><i class="fas fa-check"></i></div>
-                <span>Acesso total à nossa tecnologia IA</span>
-              </li>
-            </ul>
-            <a href="#contact" class="modern-cta-button purple pulse-animation">
-              <span class="cta-text">🚀 Viralizar Agora</span>
-              <div class="cta-arrow">→</div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <!-- FAQ Section Enhanced -->
-      <div class="mt-20 max-w-5xl mx-auto cyber-faq-enhanced-container" data-aos="fade-up">
-        <div class="text-center mb-16">
-          <h3 class="cyber-glitch-title relative inline-block text-3xl md:text-4xl font-bold mb-4" data-text="Dúvidas Frequentes">
-            Dúvidas Frequentes
-          </h3>
-          <p class="text-lg text-gray-400 max-w-2xl mx-auto">
-            Esclarecemos as principais questões sobre nossos serviços de transformação digital
-          </p>
-        </div>
-
-        <div class="cyber-faq-enhanced-grid">
-          <!-- FAQ Item 1 -->
-          <div class="cyber-faq-enhanced-item" data-aos="fade-right" data-aos-delay="100">
-            <div class="cyber-faq-enhanced-header">
-              <div class="cyber-faq-icon blue">
-                <i class="fas fa-rocket"></i>
-              </div>
-              <button class="cyber-faq-enhanced-question" data-action="faq-toggle">
-                <h4>Quanto tempo para ver resultados concretos?</h4>
-                <div class="cyber-faq-arrow">
-                  <i class="fas fa-chevron-down"></i>
-                </div>
-              </button>
-            </div>
-            <div class="cyber-faq-enhanced-answer">
-              <div class="cyber-faq-content">
-                <p>
-                  <strong>Gestão de Anúncios:</strong> Primeiros resultados em 7-14 dias, com otimização completa em 30 dias.<br>
-                  <strong>Landing Pages:</strong> Conversões imediatas após o lançamento.<br>
-                  <strong>Consultoria Digital:</strong> Estratégia implementada em 15 dias com resultados mensuráveis em 45 dias.
-                </p>
-                <div class="cyber-faq-stats">
-                  <div class="cyber-stat-mini blue">
-                    <span class="stat-number">150%</span>
-                    <span class="stat-label">Aumento médio em conversões</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAQ Item 2 -->
-          <div class="cyber-faq-enhanced-item" data-aos="fade-left" data-aos-delay="200">
-            <div class="cyber-faq-enhanced-header">
-              <div class="cyber-faq-icon green">
-                <i class="fas fa-shield-alt"></i>
-              </div>
-              <button class="cyber-faq-enhanced-question" data-action="faq-toggle">
-                <h4>Garantia de resultados nos anúncios?</h4>
-                <div class="cyber-faq-arrow">
-                  <i class="fas fa-chevron-down"></i>
-                </div>
-              </button>
-            </div>
-            <div class="cyber-faq-enhanced-answer">
-              <div class="cyber-faq-content">
-                <p>
-                  Sim! Oferecemos <strong>garantia de performance</strong> nos primeiros 60 dias. Se não atingirmos as metas 
-                  acordadas de leads qualificados ou ROI, ajustamos a estratégia sem custo adicional ou devolvemos o investimento.
-                </p>
-                <div class="cyber-faq-highlight green">
-                  <i class="fas fa-award"></i>
-                  <span>Certificação Google Premier Partner e Meta Business Partner</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAQ Item 3 -->
-          <div class="cyber-faq-enhanced-item" data-aos="fade-right" data-aos-delay="300">
-            <div class="cyber-faq-enhanced-header">
-              <div class="cyber-faq-icon purple">
-                <i class="fas fa-cogs"></i>
-              </div>
-              <button class="cyber-faq-enhanced-question" data-action="faq-toggle">
-                <h4>O que está incluso na hospedagem das landing pages?</h4>
-                <div class="cyber-faq-arrow">
-                  <i class="fas fa-chevron-down"></i>
-                </div>
-              </button>
-            </div>
-            <div class="cyber-faq-enhanced-answer">
-              <div class="cyber-faq-content">
-                <p>
-                  Hospedagem premium com SSL, backups automáticos, CDN global, suporte técnico 24/7, 
-                  atualizações de segurança, monitoramento de uptime e garantia de 99.9% de disponibilidade.
-                </p>
-                <div class="cyber-faq-features">
-                  <div class="cyber-feature-mini purple"><i class="fas fa-lock"></i> SSL Gratuito</div>
-                  <div class="cyber-feature-mini purple"><i class="fas fa-tachometer-alt"></i> CDN Global</div>
-                  <div class="cyber-feature-mini purple"><i class="fas fa-headset"></i> Suporte 24/7</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAQ Item 4 -->
-          <div class="cyber-faq-enhanced-item" data-aos="fade-left" data-aos-delay="400">
-            <div class="cyber-faq-enhanced-header">
-              <div class="cyber-faq-icon orange">
-                <i class="fas fa-chart-line"></i>
-              </div>
-              <button class="cyber-faq-enhanced-question" data-action="faq-toggle">
-                <h4>Como acompanho o desempenho das campanhas?</h4>
-                <div class="cyber-faq-arrow">
-                  <i class="fas fa-chevron-down"></i>
-                </div>
-              </button>
-            </div>
-            <div class="cyber-faq-enhanced-answer">
-              <div class="cyber-faq-content">
-                <p>
-                  Dashboard exclusivo em tempo real com métricas de impressões, cliques, conversões, ROI e custo por lead. 
-                  Relatórios semanais detalhados e reuniões mensais de análise estratégica.
-                </p>
-                <div class="cyber-faq-demo orange">
-                  <i class="fas fa-tv"></i>
-                  <span>Demonstração gratuita do dashboard disponível</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAQ Item 5 -->
-          <div class="cyber-faq-enhanced-item" data-aos="fade-right" data-aos-delay="500">
-            <div class="cyber-faq-enhanced-header">
-              <div class="cyber-faq-icon blue">
-                <i class="fas fa-users"></i>
-              </div>
-              <button class="cyber-faq-enhanced-question" data-action="faq-toggle">
-                <h4>Vocês atendem empresas de todos os tamanhos?</h4>
-                <div class="cyber-faq-arrow">
-                  <i class="fas fa-chevron-down"></i>
-                </div>
-              </button>
-            </div>
-            <div class="cyber-faq-enhanced-answer">
-              <div class="cyber-faq-content">
-                <p>
-                  Sim! Desde startups até grandes corporações. Temos pacotes escaláveis que se adaptam ao seu orçamento 
-                  e objetivos. Nosso diferencial é o atendimento personalizado, independente do porte da empresa.
-                </p>
-                <div class="cyber-faq-clients">
-                  <div class="client-type blue">
-                    <i class="fas fa-seedling"></i>
-                    <span>Startups</span>
-                  </div>
-                  <div class="client-type green">
-                    <i class="fas fa-building"></i>
-                    <span>PMEs</span>
-                  </div>
-                  <div class="client-type purple">
-                    <i class="fas fa-industry"></i>
-                    <span>Grandes Empresas</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAQ Item 6 -->
-          <div class="cyber-faq-enhanced-item" data-aos="fade-left" data-aos-delay="600">
-            <div class="cyber-faq-enhanced-header">
-              <div class="cyber-faq-icon green">
-                <i class="fas fa-handshake"></i>
-              </div>
-              <button class="cyber-faq-enhanced-question" data-action="faq-toggle">
-                <h4>Existe contrato de fidelidade?</h4>
-                <div class="cyber-faq-arrow">
-                  <i class="fas fa-chevron-down"></i>
-                </div>
-              </button>
-            </div>
-            <div class="cyber-faq-enhanced-answer">
-              <div class="cyber-faq-content">
-                <p>
-                  Não exigimos fidelidade! Trabalhamos por resultados. Recomendamos 90 dias para consolidar estratégias, 
-                  mas você pode cancelar a qualquer momento com 30 dias de aviso.
-                </p>
-                <div class="cyber-faq-guarantee green">
-                  <i class="fas fa-heart"></i>
-                  <span>Flexibilidade total para o cliente</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CTA Final -->
-        <div class="cyber-faq-cta-container mt-16" data-aos="zoom-in">
-          <div class="cyber-faq-cta">
-            <div class="cyber-faq-cta-content">
-              <h4>Ainda tem dúvidas?</h4>
-              <p>Fale diretamente com nossos especialistas para uma consultoria personalizada</p>
-            </div>
-            <div class="cyber-faq-cta-actions">
-              <a href="#contact" class="cyber-faq-cta-button primary">
-                <i class="fab fa-whatsapp"></i>
-                <span>Falar no WhatsApp</span>
-              </a>
-              <a href="#contact" class="cyber-faq-cta-button secondary">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Agendar Reunião</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-    </section>
 
     <!-- Contact Section Enhanced -->
     <section id="contact" class="py-20 bg-gray-900 relative overflow-hidden">
