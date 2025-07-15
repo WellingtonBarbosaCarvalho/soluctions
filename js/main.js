@@ -2972,23 +2972,14 @@ class MobileServicesCarousel {
 
 // Initialize carousel when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  // Only initialize on mobile devices
-  if (window.innerWidth < 1024) {
-    new MobileServicesCarousel();
-  }
+  // Initialize on all devices
+  new MobileServicesCarousel();
 });
 
-// Re-initialize on resize if switching to mobile
+// Re-initialize on resize
 let carouselInstance = null;
 window.addEventListener('resize', () => {
-  if (window.innerWidth < 1024) {
-    if (!carouselInstance) {
-      carouselInstance = new MobileServicesCarousel();
-    }
-  } else {
-    if (carouselInstance) {
-      carouselInstance.stopAutoplay();
-      carouselInstance = null;
-    }
+  if (!carouselInstance) {
+    carouselInstance = new MobileServicesCarousel();
   }
 });
