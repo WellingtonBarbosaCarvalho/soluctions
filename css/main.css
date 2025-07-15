@@ -105,6 +105,26 @@
 .mobile-services-carousel {
   margin: 0 -1.5rem;
   padding: 0 1.5rem;
+  display: block;
+}
+
+/* Garantir que apenas uma versão seja exibida por vez */
+@media (min-width: 1024px) {
+  .mobile-services-carousel {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .desktop-services-grid {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .desktop-services-grid {
+    display: grid !important;
+  }
 }
 
 .carousel-container {

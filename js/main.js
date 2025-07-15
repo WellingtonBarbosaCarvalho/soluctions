@@ -2979,8 +2979,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Re-initialize on resize if switching to mobile
+let carouselInstance = null;
 window.addEventListener('resize', () => {
   if (window.innerWidth < 1024) {
-    new MobileServicesCarousel();
+    if (!carouselInstance) {
+      carouselInstance = new MobileServicesCarousel();
+    }
+  } else {
+    if (carouselInstance) {
+      carouselInstance.stopAutoplay();
+      carouselInstance = null;
+    }
   }
 });
